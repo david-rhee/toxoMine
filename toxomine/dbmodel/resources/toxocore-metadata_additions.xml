@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<classes>
+
+<!-- Extending Core.xml and genomic_addition.xml  -->
+<class name="BindingSite" is-interface="true">
+  <attribute name="qvalue" type="java.lang.Double" />
+  <attribute name="sourceFile" type="java.lang.String" />
+</class>
+
+<class name="Gene" extends="SequenceFeature" is-interface="true">
+  <collection name="antibodies" referenced-type="Antibody" reverse-reference="antibodyTarget"/>
+  <collection name="strains" referenced-type="Strain" reverse-reference="mutationTarget"/>
+</class>
+
+<class name="Organism" is-interface="true">
+  <collection name="strains" referenced-type="Strain" reverse-reference="organism"/>
+</class>
+
+<class name="SequenceFeature" extends="BioEntity" is-interface="true">
+  <collection name="submissions" referenced-type="Submission" reverse-reference="features"/>
+</class>
+
+<!-- CDNA isn't a SequenceFeature in SO, declare submissions collection separately -->
+<class name="CDNA" extends="BioEntity" is-interface="true">
+  <attribute name="length" type="java.lang.Integer"/>
+  <reference name="sequence" referenced-type="Sequence"/>
+  <collection name="submissions" referenced-type="Submission"/>
+</class>
+
+<!-- OTHER toxoCORE classes -->
+<class name="Antibody" extends="SubmissionProperty" is-interface="true">
+  <attribute name="hostOrganism" type="java.lang.String"/>
+  <attribute name="source" type="java.lang.String"/>
+  <attribute name="targetGene" type="java.lang.String"/>
+  <reference name="antibodyTarget" referenced-type="Gene" reverse-reference="antibodies"/>
+</class>
+
+<class name="AppliedProtocol" is-interface="true">
+
+  <attribute name="step" type="java.lang.Integer" />
+  <attribute name="stepVersion" type="java.lang.String" />
+  <reference name="protocol" referenced-type="Protocol" reverse-reference="appliedProtocols" />
+  <reference name="submission" referenced-type="Submission" reverse-reference="appliedProtocols" />
+  <collection name="inputs" referenced-type="SubmissionData" reverse-reference="previousAppliedProtocol" />
+  <collection name="outputs" referenced-type="SubmissionData" reverse-reference="nextAppliedProtocol" />
+</class>
+
+<class name="Array" extends="SubmissionProperty" is-interface="true">
+  <attribute name="platform" type="java.lang.String"/>
+  <attribute name="resolution" type="java.lang.String"/>
+  <attribute name="genome" type="java.lang.String"/>
+</class>
+
+<class name="Experiment" is-interface="true">
+  <attribute name="name" type="java.lang.String" />
+  <attribute name="category" type="java.lang.String" />
+  <attribute name="description" type="java.lang.String" />
+  <reference name="project" referenced-type="Project" reverse-reference="experiments" />
+  <collection name="strains" referenced-type="Strain" reverse-reference="experiments"/>
+  <collection name="submissions" referenced-type="Submission" reverse-reference="experiment" />
+</class>
+
+<class name="Lab" extends="DataSource" is-interface="true">
+  <attribute name="piFirstName" type="java.lang.String" />
+  <attribute name="piLastName" type="java.lang.String" />
+  <attribute name="affiliation" type="java.lang.String" />
+  <attribute name="address" type="java.lang.String" />
+  <attribute name="phone" type="java.lang.String" />
+  <collection name="strains" referenced-type="Strain" reverse-reference="labs"/>
+  <collection name="projects" referenced-type="Project" reverse-reference="labs" />
+  <collection name="submissions" referenced-type="Submission" reverse-reference="lab" />
+</class>
+
+<class name="Project" is-interface="true">
+  <attribute name="name" type="java.lang.String" />
+  <attribute name="description" type="java.lang.String" />
+  <attribute name="url" type="java.lang.String" />
+  <collection name="labs" referenced-type="Lab" reverse-reference="projects" />
+  <collection name="experiments" referenced-type="Experiment" reverse-reference="project" />
+  <collection name="strains" referenced-type="Strain" reverse-reference="projects"/>
+  <collection name="submissions" referenced-type="Submission" reverse-reference="project" />
+  <collection name="organisms" referenced-type="Organism" />
+</class>
+
+<class name="Protocol" is-interface="true">
+  <attribute name="name" type="java.lang.String" />
+  <attribute name="description" type="java.lang.String" />
+  <attribute name="type" type="java.lang.String" />
+  <attribute name="version" type="java.lang.String" />
+  <attribute name="url" type="java.lang.String" />
+  <collection name="submissions" referenced-type="Submission" reverse-reference="protocols" />
+  <collection name="appliedProtocols" referenced-type="AppliedProtocol" reverse-reference="protocol" />
+</class>
+  
+<class name="Strain" is-interface="true">
+  <attribute name="name" type="java.lang.String"/>
+  <attribute name="type" type="java.lang.String"/>
+  <attribute name="url" type="java.lang.String"/>
+  <attribute name="background" type="java.lang.String"/>
+  <attribute name="mutationGene" type="java.lang.String"/>
+  <attribute name="mutationType" type="java.lang.String"/>
+  <attribute name="source" type="java.lang.String"/>
+  <attribute name="strainName" type="java.lang.String"/>
+  <reference name="mutationTarget" referenced-type="Gene" reverse-reference="strains"/>
+  <reference name="organism" referenced-type="Organism" reverse-reference="strains"/>
+  <collection name="experiments" referenced-type="Experiment" reverse-reference="strains"/>
+  <collection name="labs" referenced-type="Lab" reverse-reference="strains"/>
+  <collection name="projects" referenced-type="Project" reverse-reference="strains"/>
+  <collection name="submissions" referenced-type="Submission" reverse-reference="strains"/>
+</class>
+
+<class name="Submission" extends="DataSet" is-interface="true">
+  <attribute name="design" type="java.lang.String" />
+  <attribute name="embargoDate" type="java.util.Date" />
+  <attribute name="experimentDate" type="java.util.Date" />
+  <attribute name="publicReleaseDate" type="java.util.Date" />
+  <attribute name="qualityControl" type="java.lang.String" />
+  <attribute name="replicate" type="java.lang.String" />
+  <attribute name="tcid" type="java.lang.String" />
+
+  <reference name="experiment" referenced-type="Experiment" reverse-reference="submissions" />
+  <reference name="lab" referenced-type="Lab" reverse-reference="submissions" />
+  <reference name="organism" referenced-type="Organism" />
+  <reference name="project" referenced-type="Project" reverse-reference="submissions" />
+  <reference name="publication" referenced-type="Publication"/>
+
+  <collection name="antibodies" referenced-type="Antibody"/>
+  <collection name="appliedProtocols" referenced-type="AppliedProtocol" reverse-reference="submission" />
+  <collection name="arrays" referenced-type="Array"/>
+  <collection name="features" referenced-type="SequenceFeature" reverse-reference="submissions"/>
+  <collection name="protocols" referenced-type="Protocol" reverse-reference="submissions" />
+  <collection name="properties" referenced-type="SubmissionProperty" reverse-reference="submissions"/>
+  <collection name="relatedSubmissions" referenced-type="Submission"/>
+  <collection name="strains" referenced-type="Strain" reverse-reference="submissions"/>
+  <collection name="submissionData" referenced-type="SubmissionData" reverse-reference="submission" />
+</class>
+
+<class name="SubmissionData" is-interface="true">
+  <attribute name="name" type="java.lang.String"/>
+  <attribute name="type" type="java.lang.String"/>
+  <attribute name="value" type="java.lang.String"/>
+
+  <reference name="previousAppliedProtocol" referenced-type="AppliedProtocol" reverse-reference="inputs"/>
+  <reference name="nextAppliedProtocol" referenced-type="AppliedProtocol" reverse-reference="outputs"/>
+  <reference name="submission" referenced-type="Submission" reverse-reference="submissionData" />
+  <collection name="submissionDataAttributes" referenced-type="SubmissionDataAttribute" reverse-reference="submissionData"/>
+</class>
+
+<class name="SubmissionDataAttribute" is-interface="true">
+  <attribute name="name" type="java.lang.String"/>
+  <attribute name="type" type="java.lang.String"/>
+  <attribute name="value" type="java.lang.String" />
+  <reference name="submissionData" referenced-type="SubmissionData" reverse-reference="submissionDataAttributes"/>
+</class>
+
+<class name="SubmissionProperty" is-interface="true">
+  <attribute name="name" type="java.lang.String"/>
+  <attribute name="type" type="java.lang.String"/>
+  <attribute name="url" type="java.lang.String"/>
+  <collection name="submissions" referenced-type="Submission" reverse-reference="properties"/>
+</class>
+</classes>

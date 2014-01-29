@@ -1,0 +1,54 @@
+<aspects>
+
+  <aspect name="Genomics">
+    <subtitle>Genome annotation</subtitle>
+    <icon-image>model/images/genomics.gif</icon-image>
+    <large-image>model/images/genomics.gif</large-image>
+    <intro-text>
+      The gene structure and other genome annotation in toxoMine are provided by
+      ToxoDB.org databases.  In most cases toxoMine includes all genome features that have chromosomal locations.
+    </intro-text>
+    <tile-name>model/genomics.jsp</tile-name>
+    <aspect-source name="ToxoDB" url="http://www.toxodb.org"/>
+  </aspect>
+
+  <aspect name="Functions">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Functions
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Literature">
+    <subtitle>PUBMED</subtitle>
+    <icon-image>model/images/book.png</icon-image>
+    <large-image>model/images/book.png</large-image>
+    <intro-text>Literature
+    </intro-text>
+    <tile-name>model/literature.jsp</tile-name>
+    <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov/"/>
+  </aspect>
+
+  <aspect name="Methods">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Methods
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+ 
+  <aspect name="Proteins">
+    <subtitle>Protein and proteomics&lt;br/&gt;data</subtitle>
+    <icon-image>model/images/proteins.png</icon-image>
+    <large-image>model/images/proteins.png</large-image>
+    <intro-text>
+      Protein annotation (including family and domain annotation) from UniProt.
+    </intro-text>
+    <tile-name>model/proteins.jsp</tile-name>
+    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
+  </aspect>
+
+</aspects>
