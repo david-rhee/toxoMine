@@ -1,0 +1,5 @@
+<project name="toxoCoreDB" default="default" basedir=".">
+  <description>build, test, package toxoCoreDB</description>
+  
+  <import file="../../../../imbuild/source.xml"/>
+</project>
