@@ -4,39 +4,65 @@
   <property name="common.os.prefix" value="common"/>
   <property name="intermine.properties.file" value="toxomine.properties"/>
   <property name="default.intermine.properties.file" location="../default.intermine.integrate.properties"/>
+
   <sources>
+
   	<source name="uniprot-toxoplasma" type="uniprot">
       <property name="uniprot.organisms" value="5811"/>
       <property name="createinterpro" value="true"/>
       <property name="creatego" value="true"/>
-      <property name="src.data.dir" location="/home/vmuser/toxoDatasources/uniprot/"/>
-    </source>
-  	<source name="interpro-toxoplasma" type="interpro">
-  	  <property name="src.data.dir" location="/home/vmuser/toxoDatasources/interpro"/>
+  	  <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/uniprot/current/"/>
+  	  <!-- hyperion & mimas & rhea -->
+  	  <!-- <property name="src.data.dir" location="/data1/toxomine/uniprot/current/"/> -->
   	</source>
+
+  	<source name="interpro-toxoplasma" type="interpro">
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/interpro/current/"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.dir" location="/data1/toxomine/interpro/current/"/> -->
+  	</source>
+
   	<source name="psi-intact" type="psi" dump="true">
-  	  <property name="src.data.dir" location="/home/vmuser/toxoDatasources/psi/intact"/>
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/psi/intact/current/"/>
+      <!-- hyperion & mimas & rhea -->
+  	  <!-- <property name="src.data.dir" location="/data1/toxomine/psi/intact/current/"/> -->
   	  <property name="intact.organisms" value="5811"/>
   	</source>
+
   	<source name="psi-mi-ontology" type="psi-mi-ontology">
-  	  <property name="src.data.file" location="/home/vmuser/toxoDatasources/psi/obo/psi-mi25.obo"/>
+      <!-- MBP -->
+      <property name="src.data.file" location="/Users/drhee1/Documents/tmp/psi/ontology/current/psi-mi.obo"/>
+      <!-- hyperion & mimas & rhea -->
+  	  <!-- <property name="src.data.file" location="/data1/toxomine/psi/ontology/current/psi-mi.obo"/> -->
   	</source>
+
     <source name="gff-toxoplasma" type="toxoDBGFF">
       <property name="gff3.taxonId" value="5811"/>
       <property name="gff3.seqDataSourceName" value="ToxoDB"/>
       <property name="gff3.dataSourceName" value="ToxoDB"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.dataSetTitle" value="ToxoDB T. Gondii ME49 strain Genome Annotation"/>
-      <property name="src.data.dir" location="/home/vmuser/toxoDatasources/genome/gff/"/>
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/toxodb/gff/current/"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/"/> -->
     </source>
+ 
   	<source name="fasta-toxoplasma" type="fasta" dump="true">
       <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
       <property name="fasta.dataSourceName" value="ToxoDB"/>
       <property name="fasta.dataSetTitle" value="ToxoDB T. Gondii ME49 Chromosome Sequence"/>
       <property name="fasta.taxonId" value="5811"/>
       <property name="fasta.includes" value="TGME49_chr*.fasta"/>
-      <property name="src.data.dir" location="/home/vmuser/toxoDatasources/genome/fasta/"/>
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/toxodb/fasta/current/"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/> -->
     </source>
+
     <!--
     <source name="toxocore-toxoplasma" type="toxoCoreDB">
         <property name="source.db.name" value="toxocore"/>
@@ -45,31 +71,51 @@
         <property name="converter.class" value="org.intermine.bio.dataconversion.ToxoCoreDBConverter"/>
     </source>
     -->
+
     <source name="toxocore-items-xml" type="toxoCoreItems">
-                <property name="src.data.file" location="/home/vmuser/toxoDatasources/toxocore/items/toxocore-items.xml"/>
+      <!-- MBP -->
+      <property name="src.data.file" location="/Users/drhee1/Documents/tmp/toxocore/items/toxocore-items.xml"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.file" location="/data1/toxomine/tmp/toxocore-items.xml"/> -->
     </source>
+
   	<source name="gff-toxoCore" type="toxoCoreGFF">
       <property name="gff3.taxonId" value="5811"/>
       <property name="gff3.seqDataSourceName" value="ToxoDB"/>
       <property name="gff3.dataSourceName" value="ToxoCore"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.dataSetTitle" value="ToxoDB T. Gondii ME49 strain Histone BindingSite"/>
-      <property name="src.data.dir" location="/home/vmuser/toxoDatasources/toxocore/gff/"/>
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/toxocore/gff/"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.dir" location="/data1/toxomine/tmp/gff/"/> -->
     </source>
  
     <source name="entrez-organism" type="entrez-organism">
       <property name="src.data.file" location="build/organisms.xml"/>
     </source>
+
   	<source name="go" type="go">
-      <property name="src.data.file" location="/home/vmuser/toxoDatasources/go/gene_ontology.obo"/>
-      <property name="createrelations" value="false"/>
-    </source>
-    <source name="pubmed-gene" type="pubmed-gene">
-  	  <property name="src.data.dir" location="/home/vmuser/toxoDatasources/pubmed" />
+      <!-- MBP -->
+  	  <property name="src.data.file" location="/Users/drhee1/Documents/tmp/go-annotation/current/gene_ontology.obo"/>
+      <!-- hyperion & mimas & rhea -->
+      <!-- <property name="src.data.file" location="/data1/toxomine/go-annotation/current/gene_ontology.obo"/> -->
+  	</source>
+  	
+  	<source name="pubmed-gene" type="pubmed-gene">
+      <!-- MBP -->
+      <property name="src.data.dir" location="/Users/drhee1/Documents/tmp/pubmed/current/"/>
+      <!-- hyperion & mimas & rhea -->
+  	  <!-- <property name="src.data.dir" location="/data1/toxomine/pubmed/current/" /> -->
+
   	  <property name="pubmed.organisms" value="5811"/>
   	  <property name="src.data.dir.includes" value="gene2pubmed"/>
-  	  <property name="infoFile" location="/home/vmuser/toxoDatasources/pubmed/gene_info"/>
+      <!-- MBP -->
+      <property name="src.data.file" location="/Users/drhee1/Documents/tmp/pubmed/current/gene_info"/>
+      <!-- hyperion & mimas & rhea -->
+  	  <!-- <property name="infoFile" location="/data1/toxomine/pubmed/current/gene_info"/> -->
     </source>
+
   	<source name="update-publications" type="update-publications" dump="true">
       <!-- this source finds the publication ids (pubmed ids) in the
                  objectstore, retrieves the details of the publication from Entrez
@@ -77,7 +123,7 @@
                  items DB, then into the final objectstore dump="true"-->
       <property name="src.data.file" location="build/publications.xml"/>
       <property name="cacheDirName" value="build/"/>
-      <property name="loadFullRecord" value="true"/>
+      <!-- <property name="loadFullRecord" value="true"/> -->
     </source>
   </sources>
 

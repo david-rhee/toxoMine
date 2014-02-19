@@ -1,0 +1,22 @@
+#######################################
+# MBP
+log_dir: "/Users/drhee1/Documents/tmp/logs"
+data_dir: "/Users/drhee1/Documents/tmp"
+# Hyperion & Mimas
+#
+#
+
+default_sources:
+  - "GOAnnotation"
+  - "IntAct"
+  - "IntActVocabulary"
+  - "InterPro"
+  - "InterProGO"
+  - "PubMed"
+  - "ToxoDBFasta"
+  - "ToxoDBGFF"
+  - "UniProt"
+
+UniProt:
+    organisms:
+        - 5811
