@@ -1,7 +1,7 @@
 package org.toxomine.web.displayer;
 
 /*
- * Copyright (C) 2013-2014 ToxoMine
+ * Copyright (C) 2013-2015 toxoMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
@@ -10,10 +10,8 @@ package org.toxomine.web.displayer;
  *
  */
 
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,23 +19,17 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.intermine.api.InterMineAPI;
-import org.intermine.api.profile.Profile;
-import org.intermine.api.query.WebResultsExecutor;
-import org.intermine.api.results.WebResults;
-import org.intermine.model.bio.Protocol;
-//import org.intermine.model.bio.ResultFile;
-import org.intermine.model.bio.Submission;
 import org.intermine.objectstore.ObjectStore;
 import org.intermine.objectstore.ObjectStoreException;
-import org.intermine.pathquery.Constraints;
-import org.intermine.pathquery.OrderDirection;
-import org.intermine.pathquery.OuterJoinStatus;
-import org.intermine.pathquery.PathQuery;
 import org.intermine.web.displayer.ReportDisplayer;
 import org.intermine.web.logic.config.ReportDisplayerConfig;
-import org.intermine.web.logic.results.PagedTable;
 import org.intermine.web.logic.results.ReportObject;
 import org.intermine.web.logic.session.SessionMethods;
+
+import org.intermine.model.bio.Submission;
+import org.intermine.model.bio.AppliedProtocol;
+import org.intermine.model.bio.Protocol;
+import org.intermine.model.bio.SubmissionData;
 
 /**
  * Controller for submissionProtocolsDisplayer.jsp
@@ -71,57 +63,87 @@ public class SubmissionProtocolsDisplayer extends ReportDisplayer
              */
             // submission object
             Submission o = (Submission) reportObject.getObject();
-            //LOG.info("SUBMISSION id: " + o.getId());
+            LOG.info("SUBMISSION id: " + o.getId());
 
-            // create the query
-            PathQuery q = new PathQuery(os.getModel());
-            q.addView("Submission.appliedProtocols.step");
-            q.addView("Submission.appliedProtocols.inputs.type");
-            q.addView("Submission.appliedProtocols.inputs.name");
-            q.addView("Submission.appliedProtocols.inputs.value");
-            q.addView("Submission.appliedProtocols.protocol.name");
-            q.addView("Submission.appliedProtocols.outputs.type");
-            q.addView("Submission.appliedProtocols.outputs.name");
-            q.addView("Submission.appliedProtocols.outputs.value");
-
-            q.addConstraint(Constraints.eq("Submission.id", o.getId().toString()));
-
-            q.setOuterJoinStatus("Submission.appliedProtocols.inputs", OuterJoinStatus.OUTER);
-            q.setOuterJoinStatus("Submission.appliedProtocols.outputs", OuterJoinStatus.OUTER);
-            q.addOrderBy("Submission.appliedProtocols.step", OrderDirection.ASC);
+            //Declare Set
+            Set<AppliedProtocol> appliedProtocolSet = new HashSet<AppliedProtocol>();
+            Set<SubmissionData> inputSubmissionDataSet = new HashSet<SubmissionData>();
+            Set<SubmissionData> outputSubmissionDataSet = new HashSet<SubmissionData>();
+            Set<Protocol> protocolSet = new HashSet<Protocol>();
             
-            boolean noResults = true;
-            if (q.isValid()) {
-            	Profile profile = SessionMethods.getProfile(session);
-                WebResultsExecutor executor = im.getWebResultsExecutor(profile);
-                WebResults results;
-                
-                Set<Protocol> pt = new HashSet<Protocol>();
-                //Set<ResultFile> rf = new HashSet<ResultFile>();
+            //Grab all the SubmissionData related to this submission
+            protocolSet = o.getProtocols();
 
-                pt = o.getProtocols();
-                //rf = o.getResultFiles();
+            //Grab all the AppliedProtocol related to this submission
+            appliedProtocolSet = o.getAppliedProtocols();
 
-                request.setAttribute("tcid", o.getTcid());
-                request.setAttribute("protocols", pt);
-                //request.setAttribute("files", rf);
-
-                results = executor.execute(q);
-
-                if (results.size() > 2000) {
-                    request.setAttribute("subId", o.getId());
-                    return;
-                }
-
-                PagedTable pagedTable = new PagedTable(results);
-                // NB: you need to set a maximum, default is 10!
-                pagedTable.setPageSize(2000);
-                request.setAttribute("pagedResults", pagedTable);
-            } 
-
+            //Grab all the SubmissionData related to this applied protocol
+            addToInputSubmissionDataSet(appliedProtocolSet, inputSubmissionDataSet);
+            addToOutputSubmissionDataSet(appliedProtocolSet, outputSubmissionDataSet);
+            
+            //Push sets to request
+            request.setAttribute("TCid", o.gettCid());
+            request.setAttribute("protocols", protocolSet);
+            request.setAttribute("appliedProtocols", appliedProtocolSet);
+            request.setAttribute("inputSubmissionData", inputSubmissionDataSet);
+            request.setAttribute("outputSubmissionData", outputSubmissionDataSet);
         } catch (Exception err) {
             err.printStackTrace();
         }
         return;
+    }
+    /**
+     * Go throughs appliedProtocolSet and adds to inputSubmissionDataSet
+     *
+     * @param appliedProtocolSet
+     * @param inputSubmissionDataSet
+     */
+    private static void addToInputSubmissionDataSet(Set appliedProtocolSet, Set inputSubmissionDataSet) {
+    	// create an iterator
+        Iterator appliedProtocolSetIterator = appliedProtocolSet.iterator();
+        
+        // add submission data
+        while (appliedProtocolSetIterator.hasNext()){
+        	AppliedProtocol ap = (AppliedProtocol) appliedProtocolSetIterator.next();
+        	
+        	// grab all submission data
+        	Set<SubmissionData> inputsSet = new HashSet<SubmissionData>();
+        	inputsSet = ap.getInputs();
+        	
+        	// create an iterator
+            Iterator inputsSetIterator = inputsSet.iterator();
+
+            // add submission data
+            while (inputsSetIterator.hasNext()){
+            	inputSubmissionDataSet.add(inputsSetIterator.next()); 
+            }
+        }
+    }
+    /**
+     * Go throughs appliedProtocolSet and adds to outputSubmissionDataSet
+     *
+     * @param appliedProtocolSet
+     * @param outputSubmissionDataSet
+     */
+    private static void addToOutputSubmissionDataSet(Set appliedProtocolSet, Set outputSubmissionDataSet) {
+    	// create an iterator
+        Iterator appliedProtocolSetIterator = appliedProtocolSet.iterator();
+        
+        // add submission data
+        while (appliedProtocolSetIterator.hasNext()){
+        	AppliedProtocol ap = (AppliedProtocol) appliedProtocolSetIterator.next();
+        	
+        	// grab all submission data
+        	Set<SubmissionData> outputsSet = new HashSet<SubmissionData>();
+        	outputsSet = ap.getOutputs();
+        	
+        	// create an iterator
+            Iterator outputsSetIterator = outputsSet.iterator();
+
+            // add submission data
+            while (outputsSetIterator.hasNext()){
+            	outputSubmissionDataSet.add(outputsSetIterator.next()); 
+            }
+        }
     }
 }

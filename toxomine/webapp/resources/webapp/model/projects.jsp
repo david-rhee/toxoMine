@@ -78,10 +78,10 @@
     					
     						<c:set var="submissionsCount" value="${fn:length(submissionsName)} Data submissions."/>
     						<im:querylink text="${submissionsCount}" skipBuilder="true">
-							<query name="" model="genomic" view="Submission.tcid Submission.name Submission.description Submission.experimentDate" sortOrder="Submission.tcid asc">
+							<query name="" model="genomic" view="Submission.TCid Submission.name Submission.description" sortOrder="Submission.TCid asc">
    							<node path="Submission" type="Submission"></node>
-  							<node path="Submission.experiment" type="Experiment"></node>
-  							<node path="Submission.experiment.name" type="String"><constraint op="=" value="${experimentsExperimentName}" description="" identifier="" code="A"></constraint></node>
+  							<node path="Submission.experiments" type="Experiment"></node>
+  							<node path="Submission.experiments.name" type="String"><constraint op="=" value="${experimentsExperimentName}" description="" identifier="" code="A"></constraint></node>
 							</query>
 							</im:querylink>
     						<br>

@@ -31,15 +31,6 @@
     <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov/"/>
   </aspect>
 
-  <aspect name="Methods">
-    <subtitle></subtitle>
-    <icon-image></icon-image>
-    <large-image></large-image>
-    <intro-text>Methods
-    </intro-text>
-    <tile-name></tile-name>
-  </aspect>
- 
   <aspect name="Proteins">
     <subtitle>Protein and proteomics&lt;br/&gt;data</subtitle>
     <icon-image>model/images/proteins.png</icon-image>
@@ -49,6 +40,33 @@
     </intro-text>
     <tile-name>model/proteins.jsp</tile-name>
     <aspect-source name="UniProt" url="http://www.uniprot.org"/>
+  </aspect>
+
+  <aspect name="Conditions">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Conditions
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Results">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Results
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Methods">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Methods
+    </intro-text>
+    <tile-name></tile-name>
   </aspect>
 
 </aspects>

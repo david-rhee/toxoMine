@@ -1,0 +1,4 @@
+<project name="toxodb-gff-tasks" default="default" basedir=".">
+  <description>build toxodb-gff tasks</description>
+  <import file="../../../../../imbuild/library.xml"/> 
+</project>

@@ -5,21 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="im"%>
 <%@ taglib uri="http://flymine.org/imutil" prefix="imutil"%>
-<%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1"
-  prefix="str"%>
+<%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str"%>
 
 <!-- submissionProtocolsDisplayer.jsp -->
 
 <tiles:importAttribute />
 
 <html:xhtml />
-
-<style type="text/css">
-div#submissionProtocols h3 {
-  color: black;
-  margin-bottom: 20px;
-}
-</style>
 
 <div class="body">
 
@@ -76,33 +68,47 @@ jQuery(document).ready(function () {
 
 </script>
 
-<div id="protocols" style="display: block">
+<style type="text/css">
+.odd-alt-p {
+  background-color: #FBF5EF;
+}
+.even-alt-p {
+  background-color: #F6E3CE;
+}
+.odd-alt-ap {
+  background-color: #F2F2F2;
+}
+.even-alt-ap {
+  background-color: #D8D8D8;
+}
+</style>
 
+<div id="protocols" style="display: block">
     <table width="100%" cellpadding="0" cellspacing="0" border="0" class="results">
         <tr>
-            <th>Type</th>
             <th>Protocol</th>
+            <th>Type</th>
             <th width="50%" >Description</th>
         </tr>
         <c:forEach items="${protocols}" var="prot" varStatus="p_status">
             <c:set var="pRowClass">
                 <c:choose>
                     <c:when test="${p_status.count % 2 == 1}">
-                        odd-alt
+                        odd-alt-p
                     </c:when>
                     <c:otherwise>
-                        even-alt
+                        even-alt-p
                     </c:otherwise>
                 </c:choose>
             </c:set>
 
           <tr class="<c:out value="${pRowClass}"/>">
-              <td>${prot.type}</td>
               <td>
                 <html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${prot.id}">
                     ${prot.name}
                 </html:link>
               </td>
+              <td>${prot.type}</td>
               <td class="description">
                   <div class="tbox">
                       <doopen>
@@ -118,7 +124,6 @@ jQuery(document).ready(function () {
           </tr>
         </c:forEach>
     </table>
-
 </div>
 
 <%---========= --%>
@@ -126,122 +131,195 @@ jQuery(document).ready(function () {
 <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function () {
         jQuery("#bro").click(function () {
-           if(jQuery("#submissionProtocols").is(":hidden")) {
+           if(jQuery("#appliedProtocols").is(":hidden")) {
              jQuery("#oc").attr("src", "images/disclosed.gif");
            } else {
              jQuery("#oc").attr("src", "images/undisclosed.gif");
            }
-           jQuery("#submissionProtocols").toggle("slow");
+           jQuery("#appliedProtocols").toggle("slow");
         });
     })
 </script>
 
-   <table width="100%" cellpadding="0">
-       <tr>
-           <TD colspan=2 align="left" style="padding-bottom:10px">
-               <c:set var="toxoCoreUrl" value="http://129.98.110.218/" />
+<html:link linkName="#" styleId="bro" style="cursor:pointer">
+    <h3>
+        Browse metadata for this submission (click to toggle)
+        <img src="images/undisclosed.gif" id="co">
+    </h3>
+</html:link>
 
-               <html:link linkName="#" styleId="bro" style="cursor:pointer">
-                   <h3>Browse metadata for this submission (click to toggle)<img src="images/undisclosed.gif" id="oc"></h3>
-               </html:link>
-
-               <div id="submissionProtocols" style="display: block">
-                   <table width="100%" cellpadding="0" cellspacing="0" border="0" class="results">
-                       <tr>
-                         <th>Step</th>
-                         <th colspan="2">Inputs</th>
-                         <th>Applied Protocol</th>
-                         <th colspan="2">Outputs</th>
-                       </tr>
-                       <c:set var="prevStep" value="0" />
-
-                       <tbody>
-                           <c:forEach var="row" items="${pagedResults.rows}" varStatus="status">
-                               <c:set var="rowClass">
-                                 <c:choose>
-                                   <c:when test="${status.count % 2 == 1}">odd</c:when>
-                                   <c:otherwise>even</c:otherwise>
-                                 </c:choose>
-                               </c:set>
-
-                               <c:forEach var="subRow" items="${row}" varStatus="multiRowStatus">
-                                   <im:instanceof instanceofObject="${subRow[0]}" instanceofClass="org.intermine.api.results.flatouterjoins.MultiRowFirstValue" instanceofVariable="isFirstValue"/>
-                                   <c:if test="${isFirstValue == 'true'}">
-                                       <c:set var="step" value="${subRow[0].value.field}" scope="request"/>
-                                   </c:if>
-                                   <c:set var="stepClass">
-                                       <c:choose>
-                                           <c:when test="${step % 2 == 1}">stepO</c:when>
-                                           <c:otherwise>stepE</c:otherwise>
-                                       </c:choose>
-                                   </c:set>
-
-                                   <tr class="<c:out value="${stepClass}${rowClass}"/>">
-                                       <c:set var="output" value="true"/>
-                                       <c:forEach var="column" items="${pagedResults.columns}" varStatus="status2">
-                                           <im:instanceof instanceofObject="${subRow[column.index]}" instanceofClass="org.intermine.api.results.flatouterjoins.MultiRowFirstValue" instanceofVariable="isFirstValue"/>
-                                           <c:if test="${isFirstValue == 'true'}">
-                                               <c:set var="resultElement" value="${subRow[column.index].value}" scope="request"/>
-                                               <c:choose>
-                                                   <c:when test="${column.index == 0}">
-                                                       <c:set var="output" value="true"/>
-                                                       <td rowspan="${subRow[column.index].rowspan}" >${resultElement.field}</td>
-                                                   </c:when>
-                                                   <c:when test="${column.index == 1 || column.index == 5}">
-                                                       <c:if test="${fn:startsWith(resultElement.field,'file')}">
-                                                           <c:set var="output" value="true"/>
-                                                           <c:set var="isFile" value="true" />
-                                                       </c:if>
-                                                   </c:when>
-                                                   <c:otherwise>
-                                                       <c:if test="${column.index == 4}">
-                                                           <c:set var="output" value="true"/>
-                                                       </c:if>
-                                                       <c:if test="${output}">
-                                                           <td id="cell,${status2.index},${status.index},${subRow[column.index].value.type}" rowspan="${subRow[column.index].rowspan}" class="<c:out value="${stepClass}${rowClass}"/>">
-                                                               <c:choose>
-                                                                   <c:when test="${isFile}">
-                                                                       <c:set var="isFile" value="false" />
-                                                                       <c:set var="doLink" value="true" />
-                                                                       ${resultElement.field}
-                                                                   </c:when>
-                                                                   <c:when test="${doLink}">
-                                                                       <a href="${toxoCoreUrl}${resultElement.field}" title="Download file ${resultElement.field}" class="value extlink">
-                                                                           <c:out value="${resultElement.field}" />
-                                                                       </a>
-                                                                       <c:set var="doLink" value="false" />
-                                                                   </c:when>
-                                                                   <c:otherwise>
-                                                                   		<c:choose>
-                                                                   			<c:when test="${column.index == 2 || column.index == 6}">
-                                                                   				<tiles:insert name="objectView.tile" />
-                                                                   			</c:when>
-                                                                   			<c:when test="${column.index == 7 || column.index == 8}">
-                                                                   				<tiles:insert name="objectView.tile" />
-                                                                   			</c:when>
-                                                                   			<c:otherwise>
-                                                                        		<tiles:insert name="objectView.tile" />
-                                                                        	</c:otherwise>
-                                                                        </c:choose>
-                                                                   </c:otherwise>
-                                                               </c:choose>
-                                                           </td>
-                                                       </c:if>
-                                                   </c:otherwise>
-                                               </c:choose>
-                                           </c:if>
-                                       </c:forEach>
-                                   </tr>
-                               </c:forEach>
-                           </c:forEach>
-                       </tbody>
-                   </table>
-                   <br/>
-               </div>
-           </TD>
-       </tr>
-   </table>
-
+<div id="appliedProtocols" style="display: block">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" class="results">
+        <tr>
+          <th>Step</th>
+          <th>Inputs</th>
+          <th>Applied Protocol</th>
+          <th>Outputs</th>
+        </tr>
+        <tbody>
+		<c:forEach items="${appliedProtocols}" var="appliedProtocol" varStatus="applied_protocol_status">
+            <c:set var="pRowClassAP">
+                <c:choose>
+                    <c:when test="${applied_protocol_status.count % 2 == 1}">
+                        odd-alt-ap
+                    </c:when>
+                    <c:otherwise>
+                        even-alt-ap
+                    </c:otherwise>
+                </c:choose>
+            </c:set>
+			<tr class="<c:out value="${pRowClassAP}"/>">
+			 	<td>${appliedProtocol.step}</td>
+			 	<!--  Inputs  -->
+			 	<td>
+			 		<c:set var="inputExist" value="no"/>
+			 		<c:forEach items="${inputSubmissionData}" var="inputSD" varStatus="input_submission_data_status">
+			 			<c:if test="${appliedProtocol.id == inputSD.inputAppliedProtocol.id}">
+			 				<c:set var="inputExist" value="yes"/>
+			 				<c:choose>
+			 					<c:when test="${inputSD.partOf eq 'DataAnalysis'}">
+                    				Data Analysis :
+			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.dataAnalysis.id}">
+                    					${inputSD.dataAnalysis.name}
+                					</html:link></br>
+                				</c:when>
+                				<c:when test="${inputSD.partOf eq 'DataAttribute'}">
+                					${inputSD.dataAttribute.name} :
+			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.dataAttribute.id}">
+                    					${inputSD.dataAttribute.value}
+                					</html:link></br>
+                				</c:when>
+               					<c:when test="${inputSD.partOf eq 'ExperimentalFactor'}">
+               						${inputSD.experimentalFactor.name} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.experimentalFactor.id}">
+                   						${inputSD.experimentalFactor.value}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'MicroArray'}">
+									MicroArray :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.microArray.id}">
+                   						${inputSD.microArray.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'Sequencing'}">
+               						Sequencing :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.sequencing.id}">
+                   						${inputSD.sequencing.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'Antibody'}">
+               						Antibody :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.antibody.id}">
+                   						${inputSD.antibody.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'ToxoplasmaMutant'}">
+									Mutant :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.toxoplasmaMutant.id}">
+                   						${inputSD.toxoplasmaMutant.mutantName}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'PersistentDataFile'}">
+               						${inputSD.persistentDataFile.type} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.persistentDataFile.id}">
+                   						${inputSD.persistentDataFile.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${inputSD.partOf eq 'SubmissionDataFile'}">
+               						${inputSD.submissionDataFile.type} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.submissionDataFile.id}">
+                   						${inputSD.submissionDataFile.name}
+               						</html:link></br>
+               					</c:when>
+                			</c:choose>     				
+			 			</c:if>
+			 		</c:forEach>
+			 		<c:if test="${inputExist eq 'no'}">
+			 			<i><c:out value="--> previous Step"/></i>
+			 		</c:if>
+			 	</td>
+			 	<!--  Protocol  -->
+			 	<td>
+ 					<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${appliedProtocol.protocol.id}">
+     					${appliedProtocol.protocol.name}
+     				</html:link>
+     			</td>
+     			<!--  Outputs  -->
+			 	<td>
+			 		<c:set var="outputExist" value="no"/>
+			 		<c:forEach items="${outputSubmissionData}" var="outputSD" varStatus="output_submission_data_status">
+			 			<c:if test="${appliedProtocol.id == outputSD.outputAppliedProtocol.id}">
+			 				<c:set var="outputExist" value="yes"/>
+			 				<c:choose>
+			 					<c:when test="${outputSD.partOf eq 'DataAnalysis'}">
+                    				Data Analysis :
+			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.dataAnalysis.id}">
+                    					${outputSD.dataAnalysis.name}
+                					</html:link></br>
+                				</c:when>
+                				<c:when test="${outputSD.partOf eq 'DataAttribute'}">
+                					${outputSD.dataAttribute.name} :
+			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.dataAttribute.id}">
+                    					${outputSD.dataAttribute.value}
+                					</html:link></br>
+                				</c:when>
+               					<c:when test="${outputSD.partOf eq 'ExperimentalFactor'}">
+               						${outputSD.experimentalFactor.name} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.experimentalFactor.id}">
+                   						${outputSD.experimentalFactor.value}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'MicroArray'}">
+									MicroArray :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.microArray.id}">
+                   						${outputSD.microArray.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'Sequencing'}">
+               						Sequencing :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.sequencing.id}">
+                   						${outputSD.sequencing.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'Antibody'}">
+               						Antibody :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.antibody.id}">
+                   						${outputSD.antibody.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'ToxoplasmaMutant'}">
+									Mutant :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.toxoplasmaMutant.id}">
+                   						${outputSD.toxoplasmaMutant.mutantName}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'PersistentDataFile'}">
+               						${outputSD.persistentDataFile.type} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.persistentDataFile.id}">
+                   						${outputSD.persistentDataFile.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:when test="${outputSD.partOf eq 'SubmissionDataFile'}">
+               						${outputSD.submissionDataFile.type} :
+		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.submissionDataFile.id}">
+                   						${outputSD.submissionDataFile.name}
+               						</html:link></br>
+               					</c:when>
+               					<c:otherwise>
+               						<i><c:out value="--> next Step"/></i>
+               					</c:otherwise>	
+                			</c:choose>   
+			 			</c:if>
+			 		</c:forEach>
+			 		<c:if test="${outputExist eq 'no'}">
+			 			<i><c:out value="--> next Step"/></i>
+			 		</c:if>
+			   	</td>
+			</tr>
+		</c:forEach>
+        </tbody>
+    </table>
 </div>
+
 
 <!-- /submissionProtocolsDisplayer.jsp -->

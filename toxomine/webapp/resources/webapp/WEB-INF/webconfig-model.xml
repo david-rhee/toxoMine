@@ -1,34 +1,5 @@
 <webconfig>
 
-  <class className="org.intermine.model.bio.Antibody">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="hostOrganism"/>
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.AppliedProtocol">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="protocol.name"/>
-      <fieldconfig fieldExpr="protocol.type"/>
-      <fieldconfig fieldExpr="submission.name"/>
-      <fieldconfig fieldExpr="protocol.description" sectionOnRight="true" sectionTitle="Description" openByDefault="true"
-                   showInSummary="false" showInResults="false" showInInlineCollection="false" doNotTruncate="true"/>
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.Array">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="platform"/>
-      <fieldconfig fieldExpr="resolution"/>
-      <fieldconfig fieldExpr="genome"/>
-    </fields>
-  </class>
-
   <class className="org.intermine.model.bio.Author">
     <fields>
       <fieldconfig fieldExpr="name"/>
@@ -112,14 +83,7 @@
     </bagdisplayers>
   </class>
 
-  <class className="org.intermine.model.bio.Experiment">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="category"/>
-    </fields>
-  </class>
-
+  <!-- Modified for toxoMine -->
   <class className="org.intermine.model.bio.Gene">
     <inlinelist>
       <table path="synonyms.value" showInHeader="true" lineLength="100" />
@@ -174,7 +138,7 @@
     </fields>
   </class>
 
-   <class className="org.intermine.model.bio.Interaction">
+  <class className="org.intermine.model.bio.Interaction">
    <fields>
      <fieldconfig fieldExpr="gene1.symbol"/>
      <fieldconfig fieldExpr="gene2.symbol"/>
@@ -185,14 +149,6 @@
     <fields>
       <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="description"/>
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.Lab">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="affiliation"/>
     </fields>
   </class>
 
@@ -298,26 +254,6 @@
     </fields>
   </class>
 
-  <class className="org.intermine.model.bio.Project">
-  <!-- toxoMine -->
-    <headerconfig>
-        <titles>
-            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
-        </titles>
-    </headerconfig>
-    <!--  
-    <customlinks>
-        <customlink
-            url="http://129.98.110.218:8080/toxomine/reports/{name}.html"
-        />
-    </customlinks>
-    -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-    </fields>
-  </class>
-
-
   <class className="org.intermine.model.bio.Protein">
     <inlinelist>
       <table path="synonyms.value" showLinksToObjects="true" />
@@ -336,20 +272,6 @@
       <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="shortName"/>
 <!--       <fieldconfig fieldExpr="type"/> -->
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.Protocol">
-    <headerconfig>
-        <titles>
-            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
-        </titles>
-    </headerconfig>
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="description" sectionOnRight="true" sectionTitle="Description" openByDefault="true"
-                   showInSummary="false" showInResults="false" showInInlineCollection="false" doNotTruncate="true"/>
-      <fieldconfig fieldExpr="type"/>
     </fields>
   </class>
 
@@ -392,71 +314,7 @@
     </fields>
     <tabledisplayer src="/model/sequenceShortDisplayer.jsp"/>
   </class>
-
-  <class className="org.intermine.model.bio.Strain">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="strainName"/>
-      <fieldconfig fieldExpr="type"/>
-      <fieldconfig fieldExpr="url"/>
-      <fieldconfig fieldExpr="background"/>
-      <fieldconfig fieldExpr="mutationGene"/>
-      <fieldconfig fieldExpr="mutationType"/>
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.Submission">
-  <!-- toxoMine -->
-    <headerconfig>
-      <titles>
-        <title mainTitles="name|tcid" numberOfMainTitlesToShow="1" subTitles="" />
-      </titles>
-    </headerconfig>
-    <fields>
-      <fieldconfig fieldExpr="tcid" label="TC id" />
-      <fieldconfig fieldExpr="name" label="Name" />
-      <fieldconfig fieldExpr="design" />
-      <fieldconfig fieldExpr="experimentDate" displayer="model/dateDisplayer.jsp" showInResults="false" showInInlineCollection="false" />
-      <fieldconfig fieldExpr="publicReleaseDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
-      <fieldconfig fieldExpr="embargoDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
-    </fields>
-<!--     <bagdisplayers> -->
-<!--       <displayer src="subListDetailsDisplayer.tile" showOnLeft="true" /> -->
-<!--     </bagdisplayers> -->
-  </class>
-
-  <class className="org.intermine.model.bio.SubmissionData">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="type"/>
-      <fieldconfig fieldExpr="value"/>
-    </fields>
-  </class>
-
-  <class className="org.intermine.model.bio.SubmissionDataAttribute">
-  <!-- toxoMine -->
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="value"/>
-      <fieldconfig fieldExpr="type"/>
-    </fields>
-  </class>
   
-  <class className="org.intermine.model.bio.SubmissionProperty">
-  <!-- modMine -->
-    <headerconfig>
-        <titles>
-            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
-        </titles>
-    </headerconfig>
-    <fields>
-      <fieldconfig fieldExpr="type"/>
-      <fieldconfig fieldExpr="name"/>
-    </fields>
-  </class>
-
   <class className="org.intermine.model.bio.Synonym">
     <fields>
       <fieldconfig fieldExpr="value"/>
@@ -492,13 +350,214 @@
     </fields>
   </class>
 
+  <!-- toxoMine -->
+  <class className="org.intermine.model.bio.Lab">
+    <headerconfig>
+        <titles>
+            <title mainTitles="name|piFirstName|piLastName" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="piFirstName" label="PI First Name" />
+      <fieldconfig fieldExpr="piLastName" label="PI Last Name" />
+      <fieldconfig fieldExpr="affiliation"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Project">
+    <headerconfig>
+        <titles>
+            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
+    <!--  
+    <customlinks>
+        <customlink
+            url="http://129.98.110.218:8080/toxomine/reports/{name}.html"
+        />
+    </customlinks>
+    -->
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Experiment">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="category"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Submission">
+    <headerconfig>
+      <titles>
+        <title mainTitles="name|TCid" numberOfMainTitlesToShow="1" subTitles="" />
+      </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="TCid" label="TC id" />
+      <fieldconfig fieldExpr="name" label="Name" />
+      <fieldconfig fieldExpr="technique" />
+      <fieldconfig fieldExpr="design" />
+      <fieldconfig fieldExpr="qualityControl" />
+      <fieldconfig fieldExpr="replicate" />
+      <fieldconfig fieldExpr="publicReleaseDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
+      <fieldconfig fieldExpr="embargoDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Protocol">
+    <headerconfig>
+        <titles>
+            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="description" sectionOnRight="true" sectionTitle="Description" openByDefault="true"
+                   showInSummary="false" showInResults="false" showInInlineCollection="false" doNotTruncate="true"/>
+      <fieldconfig fieldExpr="type"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.AppliedProtocol">
+    <fields>
+      <fieldconfig fieldExpr="step"/>
+      <fieldconfig fieldExpr="submission.name"/>
+      <fieldconfig fieldExpr="protocol.name"/>
+      <fieldconfig fieldExpr="protocol.type"/>
+      <fieldconfig fieldExpr="protocol.description" sectionOnRight="true" sectionTitle="Description" openByDefault="true"
+                   showInSummary="false" showInResults="false" showInInlineCollection="false" doNotTruncate="true"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.SubmissionProperty">
+    <headerconfig>
+        <titles>
+            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="name"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.DataAnalysis">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="version"/>
+      <fieldconfig fieldExpr="module"/>
+      <fieldconfig fieldExpr="platform"/>
+      <fieldconfig fieldExpr="parameter"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.DataAttribute">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="value"/>
+      <fieldconfig fieldExpr="type"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.ExperimentalFactor">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="value"/>
+      <fieldconfig fieldExpr="type"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.MicroArray">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="platform"/>
+      <fieldconfig fieldExpr="format"/>
+      <fieldconfig fieldExpr="version"/>
+      <fieldconfig fieldExpr="genomeName"/>
+      <fieldconfig fieldExpr="genomeVersion"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Sequencing">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="platform"/>
+      <fieldconfig fieldExpr="instrument"/>
+      <fieldconfig fieldExpr="version"/>
+      <fieldconfig fieldExpr="readLength"/>
+      <fieldconfig fieldExpr="readType"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.Antibody">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="type"/>      
+      <fieldconfig fieldExpr="hostOrganism"/>
+      <fieldconfig fieldExpr="source"/>
+      <fieldconfig fieldExpr="targetGene.primaryIdentifier" label="Gene identifier"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.ToxoplasmaMutant">
+    <headerconfig>
+        <titles>
+            <title mainTitles="type|strain|background|mutantName" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="strain"/>
+      <fieldconfig fieldExpr="background"/>
+      <fieldconfig fieldExpr="mutantName" label="Name"/>
+      <fieldconfig fieldExpr="mutantSelection" label="Selection"/>
+      <fieldconfig fieldExpr="mutantType" label="Type"/>
+      <fieldconfig fieldExpr="targetGene.primaryIdentifier" label="Target Gene"/>
+      <fieldconfig fieldExpr="organism.name" label="Target Organism"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.PersistentDataFile">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="type"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.SubmissionDataFile">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="type"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.SubmissionData">
+    <fields>
+      <fieldconfig fieldExpr="partOf"/>
+      <fieldconfig fieldExpr="series"/>
+      <fieldconfig fieldExpr="dataAnalysis.name"/>
+      <fieldconfig fieldExpr="dataAttribute.name"/>
+      <fieldconfig fieldExpr="experimentalFactor.name"/>
+      <fieldconfig fieldExpr="microArray.name"/>
+      <fieldconfig fieldExpr="sequencing.name"/>
+      <fieldconfig fieldExpr="antibody.name"/>
+      <fieldconfig fieldExpr="toxoplasmaMutant.name"/>
+      <fieldconfig fieldExpr="persistentDataFile.name"/>
+      <fieldconfig fieldExpr="submissionDataFile.name"/>
+    </fields>
+  </class>
+
 <!-- exporters -->
   <tableExportConfig id="sequence" className="org.intermine.bio.web.export.SequenceHttpExporter"/>
   <tableExportConfig id="gff3" className="org.intermine.bio.web.export.GFF3HttpExporter"/>
   <tableExportConfig id="bed" className="org.intermine.bio.web.export.BEDHttpExporter"/>
 
   <reportdisplayers>
-
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.GeneOntologyDisplayer"
                      jspName="model/geneOntologyDisplayer.jsp"
                      replacesFields="goAnnotation,ontologyAnnotations"
@@ -536,12 +595,6 @@
                      placement="summary"
                      types="SequenceFeature"/>
 
-    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionProtocolsDisplayer"
-                     jspName="model/submissionProtocolsDisplayer.jsp"
-                     replacesFields="protocols,appliedProtocols"
-                     placement="Methods"
-                     types="Submission"/>
-
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.UniProtCommentsDisplayer"
                      jspName="model/uniProtCommentsDisplayer.jsp"
                      replacesFields="comments"
@@ -554,5 +607,24 @@
                      placement="summary"
                      types="Protein"/>
 
+	<!-- toxoMine -->
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionDetailsDisplayer"
+                     jspName="model/submissionDetailsDisplayer.jsp"
+                     replacesFields="name,TCid,technique,design,publicReleaseDate,embargoDate,qualityControl,replicate,description,labs,projects,experiments,dataSource"
+                     placement="top"
+                     types="Submission"/>
+
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionPropertiesDisplayer"
+                     jspName="model/submissionPropertiesDisplayer.jsp"
+                     replacesFields="organism,dataAnalyses,dataAttributes,experimentalFactors,microArrays,sequencing,antibodies,toxoplasmaMutants"
+                     placement="Conditions"
+                     types="Submission"/>
+                     
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionProtocolsDisplayer"
+                     jspName="model/submissionProtocolsDisplayer.jsp"
+                     replacesFields="protocols,appliedProtocols"
+                     placement="Methods"
+                     types="Submission"/>
   </reportdisplayers>
 </webconfig>
+

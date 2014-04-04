@@ -1,0 +1,5 @@
+<project name="toxocore-gff" default="default" basedir=".">
+  <description>build, test, package toxocore-gff</description>
+  
+  <import file="../../../../imbuild/source.xml"/>
+</project>

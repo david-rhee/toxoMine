@@ -17,9 +17,18 @@ outfile.write('##gff-version	3\n')
 outfile.write('##feature-ontology      so.obo\n')
 outfile.write('##attribute-ontology    gff3_attributes.obo\n')
 for row in range(0,len(raw)):
-	m = re.match(r"TGME49_chr", string.strip(raw[row]))
-	if m :
-            outfile.write(raw[row])
+	p = re.search(r"ToxoDB	chromosome", string.strip(raw[row]))
+	if not p :
+		m = re.match(r"TGME49_chr", string.strip(raw[row]))
+		if m :
+		    n =  re.search(r"taxon:508771", string.strip(raw[row]))
+		    if n :
+			outstr = re.sub("taxon:508771", r'taxon:5811', string.strip(raw[row]))
+			outstr=outstr+'\n'
+			outfile.write(outstr)
+		    else :
+			outfile.write(raw[row])
+
 outfile.close()
 
 programCall = 'mv ' + inputFile + ' ' + inputFile + '.old'

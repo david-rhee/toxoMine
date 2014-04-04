@@ -38,11 +38,6 @@
 
 <action path="/experiment" forward="experiment.page" />
 
-<!-- Beginning of Submission configuration -->
-
-<action path="/initSubmissionProtocolsDisplayer"
-  type="org.toxomine.web.SubmissionProtocolsController" />
-
 <!-- Beginning of Genomic Region Search configuration -->
 
 <action path="/initGenomicRegionSearchOptions"
