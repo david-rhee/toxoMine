@@ -13,6 +13,10 @@ executeLog*
 productionLog
 *~
 
+.DS_Store
+.classpath
+.project
+
 # /intermine/objectstore/main/
 /intermine/objectstore/main/src.png
 /intermine/objectstore/main/src.dot
