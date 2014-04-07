@@ -15,7 +15,7 @@ productionLog
 
 .DS_Store
 .classpath
-.project
+#.project
 
 # /intermine/objectstore/main/
 /intermine/objectstore/main/src.png
