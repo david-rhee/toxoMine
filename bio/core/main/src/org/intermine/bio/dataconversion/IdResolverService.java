@@ -35,6 +35,7 @@ import org.apache.log4j.Logger;
  *             wrapped methods are tested.
  *
  * @author Fengyuan Hu
+ * @author David Rhee
  */
 public class IdResolverService
 {
@@ -330,5 +331,32 @@ public class IdResolverService
      */
     public static IdResolver getMockIdResolver(String clsName) {
         return new MockIdResolverFactory(clsName).getIdResolver();
+    }
+    
+    // Added by David Rhee for toxoMine
+    /**
+     * Create a Toxoplasma id resolver
+     * @return an IdResolver
+     */
+    public static IdResolver getToxoIdResolver() {
+        return new ToxoIdentifiersResolverFactory().getIdResolver(false);
+    }
+
+    /**
+     * Create a Toxoplasma id resolver
+     * @param clsName SO term
+     * @return an IdResolver
+     */
+    public static IdResolver getToxoIdResolver(String clsName) {
+        return new ToxoIdentifiersResolverFactory(clsName).getIdResolver(false);
+    }
+    
+    /**
+     * Create a Toxoplasma resolver
+     * @param failOnError if false swallow any exceptions and return null
+     * @return an IdResolver
+     */
+    public static IdResolver getToxoIdResolver(boolean failOnError) {
+        return new ToxoIdentifiersResolverFactory().getIdResolver(failOnError);
     }
 }

@@ -1,0 +1,5 @@
+<project name="toxodb-gff" default="default" basedir=".">
+  <description>build, test, package toxodb-gff</description>
+  
+  <import file="../../../../imbuild/source.xml"/>
+</project>

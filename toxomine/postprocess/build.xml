@@ -1,0 +1,7 @@
+<project name="toxomine-postprocess" default="default" basedir=".">
+
+  <description>perform post processing for toxomine</description>
+
+  <import file="../../imbuild/postprocess.xml"/>
+
+</project>

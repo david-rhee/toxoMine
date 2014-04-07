@@ -1,0 +1,19 @@
+#######################################
+log_dir: "/data1/toxomine/logs"
+data_dir: "/data1/toxomine"
+
+default_sources:
+  - "GOAnnotation"
+  - "IntAct"
+  - "IntActVocabulary"
+  - "InterPro"
+  - "InterProGO"
+  - "PubMed"
+  - "ToxoDBAlias"
+  - "ToxoDBFasta"
+  - "ToxoDBGFF"
+  - "UniProt"
+
+UniProt:
+    organisms:
+        - 5811

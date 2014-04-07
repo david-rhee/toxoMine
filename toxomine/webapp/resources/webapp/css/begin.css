@@ -1,0 +1,41 @@
+
+/* span class */
+div.span-42{float:center;margin-right:8px;}
+div.span-21{float:left;margin-right:8px;}
+div.last{margin-right:0;}
+.span-21{width:454px;}
+.span-42,div.span-42{width:916px;margin:0;}
+
+/* webapp.css fix */
+li { margin-left:auto; }
+#ctxHelpDiv.welcome { margin-top:10px; }
+
+/* welcome-bochs */
+#welcome-bochs { position:relative; background:#F0F0F0; border:1px solid #BEDCE4; padding:0 5px 0 5px; margin: 10px auto 0 auto; }
+
+/* welcome-content */
+#welcome-content { padding: 15px 20px 15px 20px; }
+  #welcome-content h2 { color:#535353; }
+  .welcome-content-p { padding: 0 10px 0 0;}
+
+/* bochs */
+#other-bochs { margin: 0 auto 0 auto; }
+#search-bochs, #genomic-bochs, #upload-bochs, #lists-bochs, #templates-bochs { line-height:19px; margin-top:20px; position:relative; }
+#search-bochs h3, #genomic-bochs h3, #upload-bochs h3, #lists-bochs h3, #templates-bochs h3 { padding:10px 0 10px 10px; }
+#search-bochs .text, #lists-bochs .text, #genomic-bochs .text, #upload-bochs .text, #templates-bochs .text { padding:10px; font-size:14px; }
+#search-bochs h3 a, #lists-bochs h3 a, #genomic-bochs h3 a, #upload-bochs h3 a, #templates-bochs h3 a { color:#000; text-decoration:none; }
+
+/* search bochs */
+#search-bochs { border:1px solid #FBC9B2; background:#FBF4F1; height:240px; margin-left:35px; }
+  #search-bochs h3 { background:#FBC9B2; padding-left:85px; }
+  #search-bochs input#dataSearch { width:300px; }
+  #search-bochs input#dataSearch.eg { color:#666; }
+  #search-bochs input#exptSearch { width:200px; }
+  #search-bochs input#exptSearch.eg { color:#666; }
+  #search-bochs img.title { position:absolute; top:10px; left:10px; }
+
+/* genomic region bochs */
+#genomic-bochs { border:1px solid #192F39; height:240px; margin-left:10px; }
+  #genomic-bochs h3 { background:#192F39; padding-left:85px; }
+    #genomic-bochs h3 a { color:#FFF; }
+  #genomic-bochs img.title { position:absolute; top:10px; left:10px; }

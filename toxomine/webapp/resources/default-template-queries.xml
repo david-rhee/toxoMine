@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<userprofile>
+  <items/>
+  <bags/>
+  <queries>
+  </queries>
+<template-queries>
+<template name="Organism_Protein" title="Organism --&gt; All proteins." longDescription="Show all the proteins from a particular organism." comment="">
+  <query name="Organism_Protein" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession" longDescription="Show all the proteins from a particular organism." sortOrder="Protein.primaryIdentifier asc">
+    <constraint path="Protein.organism.name" editable="true" description="Show all the proteins from the organism:" op="=" value="Toxoplasma gondii"/>
+  </query>
+</template>
+<template name="Gene_Protein" title="Gene --&gt; Proteins." longDescription="Show the proteins for a particular gene." comment="06.06.07 updated to work from gene class - Philip">
+  <query name="Gene_Protein" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.proteins.primaryIdentifier Gene.proteins.primaryAccession" longDescription="Show the proteins for a particular gene." sortOrder="Gene.primaryIdentifier asc">
+    <pathDescription pathString="Gene.proteins" description="Protein"/>
+    <constraint path="Gene" editable="true" op="LOOKUP" value="ABRA"/>
+  </query>
+</template>
+<template name="All_Proteins_In_Organism_To_Publications" title="All proteins in organism --&gt; Publications." longDescription="Show the publications for each gene in one organism. References are loaded from FlyBase for all Drosophila species, and from NCBI for D. melanogaster, C. elegans and S. cerevisiae." comment="">
+  <query name="All_Proteins_In_Organism_To_Publications" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.publications.firstAuthor Protein.publications.title Protein.publications.year Protein.publications.journal Protein.publications.volume Protein.publications.pages Protein.publications.pubMedId" sortOrder="Protein.primaryIdentifier asc">
+    <constraint path="Protein.organism.name" editable="true" description="Organism.name" op="=" value="Toxoplasma gondii"/>
+  </query>
+</template>
+
+<template name="Project_Submission" title="Project --&gt; Submissions." longDescription="Show all submissions in given project." comment="">
+  <query name="Project_Submission" model="genomic" view="Project.name Project.submissions.name Project.submissions.tcid Project.submissions.description Project.submissions.experimentDate" longDescription="Show all submissions in given project." sortOrder="Project.name asc">
+    <pathDescription pathString="Project.submissions" description="Submission"/>
+    <constraint path="Project.submissions.tcid" editable="true" description="Submission.tcid" op="CONTAINS" value="TC"/>
+  </query>
+</template>
+<template name="Gene_BindingSites" title="Gene --&gt; Binding Sites." longDescription="Show all protein binding sites overlapping given gene." comment="">
+  <query name="" model="genomic" view="Gene.primaryIdentifier Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.submissions.name Gene.overlappingFeatures.submissions.antibodies.name Gene.overlappingFeatures.submissions.tcid" longDescription="Show all protein binding sites overlapping given gene." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B">
+    <pathDescription pathString="Gene.overlappingFeatures" description="Binding site"/>
+    <pathDescription pathString="Gene.overlappingFeatures.submissions" description="Submission"/>
+    <pathDescription pathString="Gene.overlappingFeatures.submissions.antibodies" description="Antibody"/>
+    <constraint path="Gene" code="A" editable="true" op="LOOKUP" value="TGME49_215990" extraValue="T. gondii"/>
+    <constraint path="Gene.overlappingFeatures" type="BindingSite"/>
+    <constraint path="Gene.overlappingFeatures.submissions.antibodies.name" code="B" editable="true" description="Show binding sites only for the following factor (factor being a chIP target such as a transcription factor or histone modification.):" switchable="off" op="=" value="H2A.Z_Sergio_Angel"/>
+  </query>
+</template>
+<template name="SubmissionSubmission_overlappingBindingSites" title="Submission(s) + submission(s) --&gt; overlapping binding sites" longDescription="For two submissions or lists of submissions show overlapping binding sites.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." comment="">
+  <query name="" model="genomic" view="Submission.name Submission.tcid Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name Submission.features.overlappingFeatures.submissions.tcid" longDescription="For two submissions or lists of submissions show overlapping binding sites.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="Submission.name asc" constraintLogic="A and B">
+    <join path="Submission.features.chromosome" style="OUTER"/>
+    <join path="Submission.features.chromosomeLocation" style="OUTER"/>
+    <join path="Submission.features.overlappingFeatures.chromosome" style="OUTER"/>
+    <join path="Submission.features.overlappingFeatures.chromosomeLocation" style="OUTER"/>
+    <constraint path="Submission" code="A" editable="true" description="Show binding sites from submission(s):" op="LOOKUP" value="TC1" extraValue="T. gondii"/>
+    <constraint path="Submission.features.overlappingFeatures.submissions" code="B" editable="true" description="that overlap binding sites from submission(s):" op="LOOKUP" value="TC2" extraValue="T. gondii"/>
+  </query>
+</template>
+<template name="Gene_SubmissionSubmission_overlappingBindingSites" title="Gene(s) + Submission(s) + submission(s) --&gt; overlapping binding sites" longDescription="For two submissions or lists of submissions show overlapping binding sites including any genes.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." comment="">
+  <query name="" model="genomic" view="GeneFlankingRegion.chromosome.primaryIdentifier GeneFlankingRegion.chromosomeLocation.end GeneFlankingRegion.chromosomeLocation.start GeneFlankingRegion.overlappingFeatures.submissions.tcid GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions.tcid GeneFlankingRegion.gene.primaryIdentifier" longDescription="For two submissions or lists of submissions show overlapping binding sites including any genes.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="GeneFlankingRegion.chromosome.primaryIdentifier asc" constraintLogic="C and D and A and B and E">
+	<constraint path="GeneFlankingRegion.overlappingFeatures.submissions" code="C" editable="true" op="LOOKUP" value="TC2" extraValue="T. gondii"/>
+    <constraint path="GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions" editable="true" code="D" op="LOOKUP" value="TC1" extraValue="T. gondii"/>
+    <constraint path="GeneFlankingRegion.direction" code="A" editable="true" op="=" value="upstream"/>
+    <constraint path="GeneFlankingRegion.distance" code="B" editable="true" op="=" value="0.5kb"/>
+	<constraint path="GeneFlankingRegion.gene.primaryIdentifier" code="E" editable="true" switchable="off" op="=" value="TGME49_215990"/>
+  </query>
+</template>
+
+</template-queries>
+<tags>
+  <tag name="im:public" objectIdentifier="Gene_SubmissionSubmission_overlappingBindingSites" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="SubmissionSubmission_overlappingBindingSites" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_BindingSites" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Project_Submission" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_Protein" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Organism_Protein" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template">
+  </tag>
+    <tag name="im:frontpage" objectIdentifier="Gene_Protein" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="Organism_Protein" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="GOtermidentifier_name" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_GO" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_Identifiers" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_allGOTerms" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Gene_particularGoannotation" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Organism_GoTerm_Gene" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Organism_GoTerm_GeneWithannotation" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Protein_GOterms" type="template">
+  </tag>
+  <tag name="im:public" objectIdentifier="Protein_GOtermsSpecificOntology" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="Protein_GOterms" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="Gene_allGOTerms" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="Organism_GoTerm_GeneWithannotation" type="template">
+  </tag>
+  <tag name="im:frontpage" objectIdentifier="Gene_GO" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_Protein" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="GO_name_Gene" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Organism_GoTerm_Gene" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_particularGoannotation" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_allGOTerms" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_GO" type="template">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.overlappingFeatures" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome.genes" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.chromosome" type="reference">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Transcript" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene.transcripts" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene.UTRs" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.chromosomeLocation" type="reference">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome.transcripts" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.GOTerm" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Gene" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.NcRNA" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.sequence" type="reference">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="CDS.MRNA" type="reference">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.UTR" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Transcript.gene" type="reference">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.ChromosomeBand" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Protein.genes" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Chromosome" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="MRNA.UTRs" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.SnoRNA" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.MRNA" type="class">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Transcript.introns" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome.features" type="collection">
+  </tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.TFBindingSite" type="class">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Gene_Protein" type="template">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein_GOtermsSpecificOntology" type="template">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.Protein" type="class">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Gene.proteins" type="collection">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein.sequence" type="reference">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinDomain" type="class">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="CDS.polypeptides" type="collection">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinInteraction" type="class">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="CDS.protein" type="reference">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="ProteinInteraction.protein" type="reference">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein.proteinDomains" type="collection">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein.features" type="collection">
+  </tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein.keywords" type="collection">
+  </tag>
+  <tag name="im:converter" objectIdentifier="Protein_To_Gene_Type_Converter" type="template">
+  </tag>
+  <tag name="im:converter" objectIdentifier="Gene_To_Protein_Type_Converter" type="template">
+  </tag>
+  <tag name="im:hidden" objectIdentifier="BioEntity.objects" type="collection">
+  </tag>
+  <tag name="im:hidden" objectIdentifier="BioEntity.subjects" type="collection">
+  </tag>
+  <tag name="im:hidden" objectIdentifier="BioEntity.relations" type="collection">
+  </tag>
+  <tag name="im:hidden" objectIdentifier="Evidence.relations" type="collection">
+  </tag>
+  <tag name="im:preferredBagType" objectIdentifier="org.intermine.model.bio.Gene" type="class">
+  </tag>
+  <tag name="im:preferredBagType" objectIdentifier="org.intermine.model.bio.Protein" type="class">
+  </tag>
+  <tag name="im:summary" objectIdentifier="Protein.comments" type="collection">
+  </tag>
+  <tag name="im:summary" objectIdentifier="RegulatoryRegion.gene" type="reference">
+  </tag>
+  <tag name="im:summary" objectIdentifier="BioEntity.synonyms" type="collection">
+  </tag>
+  <tag name="im:summary" objectIdentifier="Gene.proteins" type="collection">
+  </tag>
+  <tag name="im:summary" objectIdentifier="MicroarrayOligo.transcript" type="reference">
+  </tag>
+  <tag name="im:summary" objectIdentifier="BioEntity.organism" type="reference">
+  </tag>
+  <tag name="im:summary" objectIdentifier="Protein.genes" type="collection">
+  </tag>
+  <tag name="im:summary" objectIdentifier="BindingSite.factor" type="reference">
+  </tag>
+  <tag name="im:summary" objectIdentifier="Gene.publications" type="collection">
+  </tag>
+  <tag name="im:summary" objectIdentifier="Protein.publications" type="collection">
+  </tag>
+</tags>
+</userprofile>

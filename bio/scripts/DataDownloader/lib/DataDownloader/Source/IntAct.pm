@@ -18,7 +18,7 @@ use constant {
     REF_FILE => "all.zip",
 };
 
-use constant ORGANISMS => qw(mouse human caeel drome yeast ecoli bacillus arath);
+use constant ORGANISMS => qw(toxgo);
 
 sub BUILD {
     my $self = shift;
@@ -30,7 +30,9 @@ sub BUILD {
         # check if we are interested in it
             
 	    my ($start) = split(/_/, $file);
+	    my ($start) = split(/.xml/, $file);
         if ($start eq any(ORGANISMS)) {
+        	print $start;
             push @resources, {
                 SUBTITLE => "PSI - " . $start,
                 HOST => "ftp.ebi.ac.uk",
