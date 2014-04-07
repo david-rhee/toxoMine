@@ -1,4 +1,0 @@
-<project name="toxoCoreDB-tasks" default="default" basedir=".">
-  <description>build toxoCoreDB tasks</description>
-  <import file="../../../../../imbuild/library.xml"/> 
-</project>

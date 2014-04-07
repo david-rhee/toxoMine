@@ -60,7 +60,7 @@ public class ToxocoreGFF3RecordHandler extends GFF3RecordHandler
 		    		String submission = submissionIter.next();
 		    		submissionItems.add(getSubmission(submission).getIdentifier());
 		    	}
-	    
+		    	// set sequenceFeatures
 		    	feature.setCollection("submissions", submissionItems);
 		    }
 		}
@@ -72,7 +72,6 @@ public class ToxocoreGFF3RecordHandler extends GFF3RecordHandler
         }
         Item submissionItem = converter.createItem("Submission");
         submissionItem.setAttribute("TCid", TCid);
-        //submissionItem.addToCollection("features", feature);
         addItem(submissionItem);
         TCidMap.put(TCid, submissionItem);
         return submissionItem;

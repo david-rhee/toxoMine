@@ -59,7 +59,7 @@ public class ToxoDBGFF3RecordHandler extends GFF3RecordHandler
                 feature.setAttribute("description", description);   
             }
             // set alias
-/*            if (record.getAttributes().get("Alias") != null) {
+            if (record.getAttributes().get("Alias") != null) {
                 List<String> aliases = record.getAttributes().get("Alias");
                 if (aliases != null) {
                     Iterator<String> aliasIter = aliases.iterator();
@@ -77,7 +77,7 @@ public class ToxoDBGFF3RecordHandler extends GFF3RecordHandler
                         feature.addToCollection("synonyms", synonym);
                     }
                 }
-            }*/
+            }
         }        
 		//delete symbol/name
         if ("TRNA".equals(clsName)) {

@@ -4,7 +4,7 @@ use Moose;
 extends 'DataDownloader::Source::ABC';
 
 use constant {
-    TITLE  => 'ToxoDBFasta',
+    TITLE  => 'ToxoDBGFF',
     DESCRIPTION => "Toxoplasma gondii genome annotation from ToxoDB",
     SOURCE_LINK => "http://toxodb.org",
     SOURCE_DIR => 'toxodb/gff',

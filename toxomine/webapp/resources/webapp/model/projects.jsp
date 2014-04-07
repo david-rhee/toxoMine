@@ -38,13 +38,12 @@
 
 <div align="center">
 
-<table cellpadding="0" cellspacing="0" border="0" class="sortable-onload-2 rowstyle-alt no-arrow submission_table">
-
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="sortable-onload-2 rowstyle-alt no-arrow submission_table">
   <tr>
-    <th width="250" class="sortable">PROJECTS</th>
-    <th width="150" class="sortable">LABS</th>
-    <th width="600" class="sortable" >EXPERIMENTS</th>
-    <th width="300" class="sortable" >FEATURES</th>
+    <th width="30%" class="sortable">PROJECTS</th>
+    <th width="10%" class="sortable">LABS</th>
+    <th width="50%" class="sortable" >EXPERIMENTS</th>
+    <th width="10%" class="sortable" >FEATURES</th>
   </tr>
 
   <c:forEach items="${projectLabs}" var="proj" varStatus="proj_status">
@@ -76,7 +75,7 @@
 						<c:set var="submissionsName" value="${subs.value}"/>
     					<c:if test = "${experimentName == experimentsExperimentName}">
     					
-    						<c:set var="submissionsCount" value="${fn:length(submissionsName)} Data submissions."/>
+    						<c:set var="submissionsCount" value="${fn:length(submissionsName)} Data submissions.="/>
     						<im:querylink text="${submissionsCount}" skipBuilder="true">
 							<query name="" model="genomic" view="Submission.TCid Submission.name Submission.description" sortOrder="Submission.TCid asc">
    							<node path="Submission" type="Submission"></node>
@@ -101,7 +100,7 @@
       			<c:set var="projectFeatureName" value="${projectFeatures.key}"/>
       			<c:set var="featuresCount" value="${projectFeatures.value}"/>
       			<c:if test = "${projectFeatureName == projectName}">
-      				<c:set var="featuresCount" value="${featuresCount} Features."/>
+      				<c:set var="featuresCount" value="${featuresCount} Features"/>
       				<im:querylink text="${featuresCount}" skipBuilder="true">
       				<query name="" model="genomic" view="Project.submissions.features.primaryIdentifier Project.submissions.features.score" sortOrder="Project.submissions.features.primaryIdentifier asc">
    					<node path="Project" type="Project"></node>
@@ -119,32 +118,3 @@
   
 </table>
 </div>
-
-<!-- <table cellpadding="0" cellspacing="0" border="0" class="sortable-onload-2 rowstyle-alt no-arrow submission_table"> -->
-
-<!--   <tr> -->
-<!--     <th width="200" class="sortable">PROJECTS</th> -->
-<!--     <th width="200" class="sortable">LABS</th> -->
-<!--     <th width="600" class="sortable" >EXPERIMENTS</th> -->
-<!--   </tr> -->
-
-
-<%--   <c:forEach items="${projectLabs}" var="exp" varStatus="exp_status"> --%>
-<%--     <c:set var="projectLabsName" value="${exp.key}"/> --%>
-<%--     <c:set var="labsName" value="${exp.value}"/> --%>
-  
-<!--   <tr> -->
-<!--     <td class="sorting"> -->
-<%--       <html:link href="/${WEB_PROPERTIES['webapp.path']}/portal.do?externalid=${projectName}&class=Project">${projectName}</html:link> --%>
-<!--     </td> -->
-<!--     <td class="sorting"> -->
-<%--       <html:link href="/${WEB_PROPERTIES['webapp.path']}/portal.do?externalid=${labsName}&class=Project">${labsName}</html:link> --%>
-<!--     </td> -->
-<!--     <td> &nbsp; </td> -->
-<!--     <td> &nbsp; </td> -->
-<!--   </tr> -->
-<%--   </c:forEach> --%>
-  
-<!-- </table> -->
-<!-- </div> -->
-

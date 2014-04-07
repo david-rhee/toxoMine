@@ -1,4 +1,0 @@
-<project name="toxoCoreGFF-tasks" default="default" basedir=".">
-  <description>build toxoCoreGFF tasks</description>
-  <import file="../../../../../imbuild/library.xml"/> 
-</project>

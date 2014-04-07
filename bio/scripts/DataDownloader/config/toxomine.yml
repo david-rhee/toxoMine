@@ -1,10 +1,6 @@
 #######################################
-# MBP
-log_dir: "/Users/drhee1/Documents/tmp/logs"
-data_dir: "/Users/drhee1/Documents/tmp"
-# Hyperion & Mimas
-#
-#
+log_dir: "/data1/toxomine/logs"
+data_dir: "/data1/toxomine"
 
 default_sources:
   - "GOAnnotation"
@@ -13,6 +9,7 @@ default_sources:
   - "InterPro"
   - "InterProGO"
   - "PubMed"
+  - "ToxoDBAlias"
   - "ToxoDBFasta"
   - "ToxoDBGFF"
   - "UniProt"

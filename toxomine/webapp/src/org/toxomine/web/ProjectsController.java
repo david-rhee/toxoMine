@@ -1,7 +1,7 @@
 package org.toxomine.web;
 
 /*
- * Copyright (C) 2013-2014 toxoMine
+ * Copyright (C) 2013-2015 toxoMine
  *
  * This code may be freely distributed and modified under the
  * terms of the GNU Lesser General Public Licence.  This should
