@@ -23,41 +23,41 @@
 </template>
 
 <template name="Project_Submission" title="Project --&gt; Submissions." longDescription="Show all submissions in given project." comment="">
-  <query name="Project_Submission" model="genomic" view="Project.name Project.submissions.name Project.submissions.tcid Project.submissions.description Project.submissions.experimentDate" longDescription="Show all submissions in given project." sortOrder="Project.name asc">
+  <query name="Project_Submission" model="genomic" view="Project.name Project.submissions.name Project.submissions.TCid Project.submissions.design Project.submissions.publicReleaseDate" longDescription="Show all submissions in given project." sortOrder="Project.name asc">
     <pathDescription pathString="Project.submissions" description="Submission"/>
-    <constraint path="Project.submissions.tcid" editable="true" description="Submission.tcid" op="CONTAINS" value="TC"/>
+    <constraint path="Project.submissions.TCid" editable="true" description="Submission.TCid" op="CONTAINS" value="TC"/>
   </query>
 </template>
 <template name="Gene_BindingSites" title="Gene --&gt; Binding Sites." longDescription="Show all protein binding sites overlapping given gene." comment="">
-  <query name="" model="genomic" view="Gene.primaryIdentifier Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.submissions.name Gene.overlappingFeatures.submissions.antibodies.name Gene.overlappingFeatures.submissions.tcid" longDescription="Show all protein binding sites overlapping given gene." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B">
+  <query name="" model="genomic" view="Gene.primaryIdentifier Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.submissions.name Gene.overlappingFeatures.submissions.antibodies.name Gene.overlappingFeatures.submissions.TCid" longDescription="Show all protein binding sites overlapping given gene." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B">
     <pathDescription pathString="Gene.overlappingFeatures" description="Binding site"/>
     <pathDescription pathString="Gene.overlappingFeatures.submissions" description="Submission"/>
     <pathDescription pathString="Gene.overlappingFeatures.submissions.antibodies" description="Antibody"/>
-    <constraint path="Gene" code="A" editable="true" op="LOOKUP" value="TGME49_215990" extraValue="T. gondii"/>
+    <constraint path="Gene" code="A" editable="true" op="LOOKUP" value="TGME49_222410" extraValue="T. gondii"/>
     <constraint path="Gene.overlappingFeatures" type="BindingSite"/>
     <constraint path="Gene.overlappingFeatures.submissions.antibodies.name" code="B" editable="true" description="Show binding sites only for the following factor (factor being a chIP target such as a transcription factor or histone modification.):" switchable="off" op="=" value="H2A.Z_Sergio_Angel"/>
   </query>
 </template>
+
 <template name="SubmissionSubmission_overlappingBindingSites" title="Submission(s) + submission(s) --&gt; overlapping binding sites" longDescription="For two submissions or lists of submissions show overlapping binding sites.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." comment="">
-  <query name="" model="genomic" view="Submission.name Submission.tcid Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name Submission.features.overlappingFeatures.submissions.tcid" longDescription="For two submissions or lists of submissions show overlapping binding sites.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="Submission.name asc" constraintLogic="A and B">
+  <query name="" model="genomic" view="Submission.name Submission.TCid Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name Submission.features.overlappingFeatures.submissions.TCid" longDescription="For two submissions or lists of submissions show overlapping binding sites.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="Submission.name asc" constraintLogic="A and B">
     <join path="Submission.features.chromosome" style="OUTER"/>
     <join path="Submission.features.chromosomeLocation" style="OUTER"/>
     <join path="Submission.features.overlappingFeatures.chromosome" style="OUTER"/>
     <join path="Submission.features.overlappingFeatures.chromosomeLocation" style="OUTER"/>
-    <constraint path="Submission" code="A" editable="true" description="Show binding sites from submission(s):" op="LOOKUP" value="TC1" extraValue="T. gondii"/>
-    <constraint path="Submission.features.overlappingFeatures.submissions" code="B" editable="true" description="that overlap binding sites from submission(s):" op="LOOKUP" value="TC2" extraValue="T. gondii"/>
+    <constraint path="Submission" code="A" editable="true" description="Show binding sites from submission(s):" op="LOOKUP" value="TC1_CS" extraValue="T. gondii"/>
+    <constraint path="Submission.features.overlappingFeatures.submissions" code="B" editable="true" description="that overlap binding sites from submission(s):" op="LOOKUP" value="TC2_CC" extraValue="T. gondii"/>
   </query>
 </template>
 <template name="Gene_SubmissionSubmission_overlappingBindingSites" title="Gene(s) + Submission(s) + submission(s) --&gt; overlapping binding sites" longDescription="For two submissions or lists of submissions show overlapping binding sites including any genes.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." comment="">
-  <query name="" model="genomic" view="GeneFlankingRegion.chromosome.primaryIdentifier GeneFlankingRegion.chromosomeLocation.end GeneFlankingRegion.chromosomeLocation.start GeneFlankingRegion.overlappingFeatures.submissions.tcid GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions.tcid GeneFlankingRegion.gene.primaryIdentifier" longDescription="For two submissions or lists of submissions show overlapping binding sites including any genes.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="GeneFlankingRegion.chromosome.primaryIdentifier asc" constraintLogic="C and D and A and B and E">
-	<constraint path="GeneFlankingRegion.overlappingFeatures.submissions" code="C" editable="true" op="LOOKUP" value="TC2" extraValue="T. gondii"/>
-    <constraint path="GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions" editable="true" code="D" op="LOOKUP" value="TC1" extraValue="T. gondii"/>
+  <query name="" model="genomic" view="GeneFlankingRegion.chromosome.primaryIdentifier GeneFlankingRegion.chromosomeLocation.end GeneFlankingRegion.chromosomeLocation.start GeneFlankingRegion.overlappingFeatures.submissions.TCid GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions.TCid GeneFlankingRegion.gene.primaryIdentifier" longDescription="For two submissions or lists of submissions show overlapping binding sites including any genes.  Note:  overlapping does not mean a 100% overlap, the overlap can be complete or partial at either end." sortOrder="GeneFlankingRegion.chromosome.primaryIdentifier asc" constraintLogic="C and D and A and B and E">
+	<constraint path="GeneFlankingRegion.overlappingFeatures.submissions" code="C" editable="true" op="LOOKUP" value="TC2_CC" extraValue="T. gondii"/>
+    <constraint path="GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions" editable="true" code="D" op="LOOKUP" value="TC1_CS" extraValue="T. gondii"/>
     <constraint path="GeneFlankingRegion.direction" code="A" editable="true" op="=" value="upstream"/>
     <constraint path="GeneFlankingRegion.distance" code="B" editable="true" op="=" value="0.5kb"/>
 	<constraint path="GeneFlankingRegion.gene.primaryIdentifier" code="E" editable="true" switchable="off" op="=" value="TGME49_215990"/>
   </query>
 </template>
-
 </template-queries>
 <tags>
   <tag name="im:public" objectIdentifier="Gene_SubmissionSubmission_overlappingBindingSites" type="template">
