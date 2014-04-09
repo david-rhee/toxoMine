@@ -34,8 +34,6 @@ import org.intermine.model.bio.MicroArray;
 import org.intermine.model.bio.Sequencing;
 import org.intermine.model.bio.Antibody;
 import org.intermine.model.bio.ToxoplasmaMutant;
-/*import org.intermine.model.bio.PersistentDataFile;
-import org.intermine.model.bio.SubmissionDataFile;*/
 
 /**
  * Controller for SubmissionPropertiesDisplayer.jsp
@@ -79,8 +77,6 @@ public class SubmissionPropertiesDisplayer extends ReportDisplayer
             Set<Sequencing> sequencingSet = new HashSet<Sequencing>();
             Set<Antibody> antibodySet = new HashSet<Antibody>();
             Set<ToxoplasmaMutant> toxoplasmaMutantSet = new HashSet<ToxoplasmaMutant>();
-/*            Set<PersistentDataFile> persistentDataFileSet = new HashSet<PersistentDataFile>();
-            Set<SubmissionDataFile> submissionDataFileSet = new HashSet<SubmissionDataFile>();*/
  
             //Grab all the SubmissionProperties related to this submission
             dataAnalysisSet = o.getDataAnalyses();
@@ -90,8 +86,6 @@ public class SubmissionPropertiesDisplayer extends ReportDisplayer
             sequencingSet = o.getSequencing();
             antibodySet = o.getAntibodies();
             toxoplasmaMutantSet = o.getToxoplasmaMutants();
-/*            persistentDataFileSet = o.getPersistentDataFiles();
-            submissionDataFileSet = o.getSubmissionDataFiles();*/
             
             //Push sets to request
             request.setAttribute("TCid", o.gettCid());
@@ -103,8 +97,7 @@ public class SubmissionPropertiesDisplayer extends ReportDisplayer
             request.setAttribute("sequencings", sequencingSet);
             request.setAttribute("antibodies", antibodySet);
             request.setAttribute("toxoplasmaMutants", toxoplasmaMutantSet);
-/*            request.setAttribute("persistentDataFiles", persistentDataFileSet);
-            request.setAttribute("submissionDataFiles", submissionDataFileSet);*/
+
         } catch (Exception err) {
             err.printStackTrace();
         }

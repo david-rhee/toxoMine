@@ -77,7 +77,8 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
 
         try {
             boolean isCachedIdResolverRestored = restoreFromFile();
-            if (!isCachedIdResolverRestored || (isCachedIdResolverRestored && !resolver.hasTaxonAndClassName(taxonId, this.clsCol.iterator().next()))) {
+        	if (!isCachedIdResolverRestored || (isCachedIdResolverRestored && !resolver.hasTaxonAndClassName(taxonId, this.clsCol.iterator().next()))) {
+            	
                 String resolverFileRoot = PropertiesUtil.getProperties().getProperty(propKey);
 
                 if (StringUtils.isBlank(resolverFileRoot)) {
@@ -113,11 +114,11 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
             }
 
             String toxoId = line[0];
-            String[] synonyms = new String[line.length];
+            String[] synonyms = new String[(line.length - 1)];
             for (int x = 1; x < line.length; x++) {
             	synonyms[x-1] = line[x];
             }
-
+            
             resolver.addMainIds(taxonId, toxoId, Collections.singleton(toxoId));
             resolver.addSynonyms(taxonId, toxoId, new HashSet<String>(Arrays.asList(synonyms)));
         }

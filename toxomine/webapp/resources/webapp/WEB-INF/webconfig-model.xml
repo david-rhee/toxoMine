@@ -552,6 +552,15 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.GeneList">
+    <fields>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="readCount"/>
+      <fieldconfig fieldExpr="gene.primaryIdentifier" label="Gene"/>
+      <fieldconfig fieldExpr="submission.name" label="Submission"/>
+    </fields>
+  </class>
+
 <!-- exporters -->
   <tableExportConfig id="sequence" className="org.intermine.bio.web.export.SequenceHttpExporter"/>
   <tableExportConfig id="gff3" className="org.intermine.bio.web.export.GFF3HttpExporter"/>
@@ -612,6 +621,24 @@
                      jspName="model/submissionDetailsDisplayer.jsp"
                      replacesFields="name,TCid,technique,design,publicReleaseDate,embargoDate,qualityControl,replicate,description,labs,projects,experiments,dataSource"
                      placement="top"
+                     types="Submission"/>
+
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionGeneratedFeaturesDisplayer"
+                     jspName="model/submissionGeneratedFeaturesDisplayer.jsp"
+                     replacesFields="features"
+                     placement="Results"
+                     types="Submission"/>
+
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionGeneListsDisplayer"
+                     jspName="model/submissionGeneListsDisplayer.jsp"
+                     replacesFields="geneLists"
+                     placement="Results"
+                     types="Submission"/>
+
+    <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionExternalLinksDisplayer"
+                     jspName="model/submissionExternalLinksDisplayer.jsp"
+                     replacesFields="persistentDataFiles,submissionDataFiles"
+                     placement="Results"
                      types="Submission"/>
 
     <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionPropertiesDisplayer"

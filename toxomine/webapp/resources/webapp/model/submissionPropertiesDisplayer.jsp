@@ -17,7 +17,7 @@
 
 <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function () {
-        jQuery("#sis").click(function () {
+        jQuery("#pro").click(function () {
            if(jQuery("#submission-properties").is(":hidden")) {
              jQuery("#co").attr("src", "images/disclosed.gif");
            } else {
@@ -28,7 +28,7 @@
     })
 </script>
 
-<html:link linkName="#" styleId="sis" style="cursor:pointer">
+<html:link linkName="#" styleId="pro" style="cursor:pointer">
     <h3>
         Submission Properties used for this submission (click to toggle)
         <img src="images/undisclosed.gif" id="co">

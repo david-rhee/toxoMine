@@ -49,6 +49,9 @@
       <property name="gff3.dataSetTitle" value="ToxoCORE data set"/>
       <property name="src.data.dir" location="/data1/toxomine/toxocore/gff/"/>
     </source>
+  	<source name="gene-list-toxocore" type="toxocore-gene-list">
+  	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gene-list/"/>
+  	</source>
     <source name="entrez-organism" type="entrez-organism">
       <property name="src.data.file" location="build/organisms.xml"/>
     </source>

@@ -1,0 +1,5 @@
+<project name="toxocore-gene-list" default="default" basedir=".">
+  <description>build, test, package toxocore-gene-list</description>
+  
+  <import file="../../../../imbuild/source.xml"/>
+</project>

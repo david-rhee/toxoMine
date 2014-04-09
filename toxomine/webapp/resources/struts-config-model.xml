@@ -38,6 +38,20 @@
 
 <action path="/experiment" forward="experiment.page" />
 
+<!-- Beginning of Experiment configuration -->
+
+<action path="/features"
+        type="org.toxomine.web.FeaturesAction">
+      <forward name="waiting" redirect="true" path="/pollQuery.do"/>
+      <forward name="bagDetails" redirect="true" path="/bagDetails.do"/>
+</action>
+
+<action path="/genelists"
+        type="org.toxomine.web.GeneListsAction">
+      <forward name="waiting" redirect="true" path="/pollQuery.do"/>
+      <forward name="bagDetails" redirect="true" path="/bagDetails.do"/>
+</action>
+
 <!-- Beginning of Genomic Region Search configuration -->
 
 <action path="/initGenomicRegionSearchOptions"

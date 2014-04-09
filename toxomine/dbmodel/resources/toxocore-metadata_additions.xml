@@ -4,12 +4,14 @@
 <!-- Extending Core.xml and genomic_addition.xml  -->
 <class name="BindingSite" is-interface="true">
   <attribute name="qvalue" type="java.lang.Double" />
-  <attribute name="sourceFile" type="java.lang.String" />
+  <attribute name="submissionDataFile" type="java.lang.String" />
 </class>
 
 <class name="Gene" extends="SequenceFeature" is-interface="true">
   <collection name="antibodies" referenced-type="Antibody" reverse-reference="targetGene"/>
   <collection name="toxoplasmaMutants" referenced-type="ToxoplasmaMutant" reverse-reference="targetGene"/>
+
+  <collection name="geneLists" referenced-type="GeneList" reverse-reference="gene"/>
 </class>
 
 <class name="Organism" is-interface="true">
@@ -94,6 +96,8 @@
   <collection name="toxoplasmaMutants" referenced-type="ToxoplasmaMutant" reverse-reference="submissions"/>
   <!-- core & so -->
   <collection name="features" referenced-type="SequenceFeature" reverse-reference="submissions"/>
+  <!-- Gene List -->
+  <collection name="geneLists" referenced-type="GeneList" reverse-reference="submission"/>
 </class>
 
 <class name="Protocol" is-interface="true">
@@ -224,6 +228,15 @@
 
 <class name="SubmissionDataFile" extends="SubmissionProperty" is-interface="true">
   <collection name="submissions" referenced-type="Submission" reverse-reference="submissionDataFiles"/>
+</class>
+
+<!-- Gene list -->
+<class name="GeneList" is-interface="true">
+  <attribute name="name" type="java.lang.String"/>
+  <attribute name="readCount" type="java.lang.Double" />
+
+  <reference name="gene" referenced-type="Gene" reverse-reference="geneLists"/>
+  <reference name="submission" referenced-type="Submission" reverse-reference="geneLists"/>
 </class>
 
 </classes>

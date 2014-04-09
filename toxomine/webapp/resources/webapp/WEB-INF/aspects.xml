@@ -51,20 +51,20 @@
     <tile-name></tile-name>
   </aspect>
 
-  <aspect name="Results">
-    <subtitle></subtitle>
-    <icon-image></icon-image>
-    <large-image></large-image>
-    <intro-text>Results
-    </intro-text>
-    <tile-name></tile-name>
-  </aspect>
-
   <aspect name="Methods">
     <subtitle></subtitle>
     <icon-image></icon-image>
     <large-image></large-image>
     <intro-text>Methods
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Results">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Results
     </intro-text>
     <tile-name></tile-name>
   </aspect>

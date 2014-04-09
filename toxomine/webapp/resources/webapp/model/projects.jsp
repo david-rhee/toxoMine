@@ -75,7 +75,7 @@
 						<c:set var="submissionsName" value="${subs.value}"/>
     					<c:if test = "${experimentName == experimentsExperimentName}">
     					
-    						<c:set var="submissionsCount" value="${fn:length(submissionsName)} Data submissions.="/>
+    						<c:set var="submissionsCount" value="${fn:length(submissionsName)} Data submissions"/>
     						<im:querylink text="${submissionsCount}" skipBuilder="true">
 							<query name="" model="genomic" view="Submission.TCid Submission.name Submission.description" sortOrder="Submission.TCid asc">
    							<node path="Submission" type="Submission"></node>

@@ -1,0 +1,4 @@
+<project name="toxocore-gene-list-tasks" default="default" basedir=".">
+  <description>build toxocore-gene-list tasks</description>
+  <import file="../../../../../imbuild/library.xml"/> 
+</project>
