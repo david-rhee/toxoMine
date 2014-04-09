@@ -57,6 +57,13 @@ productionLog
 /intermine/perl/InterMine-TypeLibrary/_build
 /intermine/perl/InterMine-TypeLibrary/blib
 /intermine/perl/InterMine-TypeLibrary/*.bak
+/intermine/perl/InterMine-TypeLibrary/MYMETA.json
+
+# /intermine/perl/InterMine-Util/
+/intermine/perl/InterMine-Util/Build
+/intermine/perl/InterMine-Util/MYMETA.json
+/intermine/perl/InterMine-Util/MYMETA.yml
+/intermine/perl/InterMine-Util/_build/
 
 # /intermine/perl/MineViewer/
 /intermine/perl/MineViewer/blib
