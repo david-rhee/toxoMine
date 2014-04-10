@@ -55,7 +55,7 @@
     <constraint path="GeneFlankingRegion.overlappingFeatures.overlappingFeatures.submissions" editable="true" code="D" op="LOOKUP" value="TC1_CS" extraValue="T. gondii"/>
     <constraint path="GeneFlankingRegion.direction" code="A" editable="true" op="=" value="upstream"/>
     <constraint path="GeneFlankingRegion.distance" code="B" editable="true" op="=" value="0.5kb"/>
-	<constraint path="GeneFlankingRegion.gene.primaryIdentifier" code="E" editable="true" switchable="off" op="=" value="TGME49_215990"/>
+	<constraint path="GeneFlankingRegion.gene.primaryIdentifier" code="E" editable="true" op="=" value="TGME49_215990"/>
   </query>
 </template>
 </template-queries>
@@ -74,7 +74,7 @@
   </tag>
   <tag name="im:public" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template">
   </tag>
-    <tag name="im:frontpage" objectIdentifier="Gene_Protein" type="template">
+  <tag name="im:frontpage" objectIdentifier="Gene_Protein" type="template">
   </tag>
   <tag name="im:frontpage" objectIdentifier="Organism_Protein" type="template">
   </tag>
