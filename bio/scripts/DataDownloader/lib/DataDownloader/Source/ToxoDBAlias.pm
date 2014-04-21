@@ -9,8 +9,8 @@ use constant {
     SOURCE_LINK => "http://toxodb.org",
     SOURCE_DIR => 'toxodb/alias',
     SOURCES => [{
-        FILE   => 'ToxoDB-9.0_TgondiiME49_GeneAliases.txt',
-        SERVER => 'http://toxodb.org/common/downloads/release-9.0/TgondiiME49/txt/',
+        FILE   => 'ToxoDB-10.0_TgondiiME49_GeneAliases.txt',
+        SERVER => 'http://toxodb.org/common/downloads/release-10.0/TgondiiME49/txt/',
     }],
 };
 
