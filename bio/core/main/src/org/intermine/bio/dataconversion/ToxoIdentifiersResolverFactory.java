@@ -108,7 +108,7 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
         // data is in format:
         // TGME49ID	IDs...
         Iterator<?> lineIter = FormattedTextParser.parseTabDelimitedReader(new BufferedReader(new FileReader(f)));
-        while (lineIter.hasNext()) {
+        while (lineIter.hasNext()) {	
             String[] line = (String[]) lineIter.next();
 
             if (line.length < 2 || !line[0].startsWith(GENE_PATTERN_ME49) || !line[0].startsWith(GENE_PATTERN_GT1) || !line[0].startsWith(GENE_PATTERN_VEG)) {
@@ -120,7 +120,6 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
             for (int x = 1; x < line.length; x++) {
             	synonyms[x-1] = line[x];
             }
-            
             resolver.addMainIds(taxonId, toxoId, Collections.singleton(toxoId));
             resolver.addSynonyms(taxonId, toxoId, new HashSet<String>(Arrays.asList(synonyms)));
         }
