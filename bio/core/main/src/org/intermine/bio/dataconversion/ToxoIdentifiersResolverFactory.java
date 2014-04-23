@@ -36,11 +36,13 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
 
     // data file path set in ~/.intermine/MINE.properties
     private final String propKey = "resolver.file.rootpath";
-    private final String resolverFileSymbo = "tgme49";
+    private final String resolverFileSymbo = "toxoplasmagondii";
     private final String taxonId = "5811";
 
-    private static final String GENE_PATTERN = "TGME49";
-
+    private static final String GENE_PATTERN_ME49 = "TGME49";
+    private static final String GENE_PATTERN_GT1 = "TGGT1";
+    private static final String GENE_PATTERN_VEG = "TGVEG";
+    
     /**
      * Construct without SO term of the feature type.
      * @param soTerm the feature type to resolve
@@ -58,7 +60,7 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
     }
 
     /**
-     * Build an IdResolver from Toxoplasma Gene tgme49 file
+     * Build an IdResolver from Toxoplasma Gene toxoplasmagondii file
      * @return an IdResolver for Toxoplasma Gene
      */
     @Override
@@ -109,7 +111,7 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
         while (lineIter.hasNext()) {
             String[] line = (String[]) lineIter.next();
 
-            if (line.length < 2 || !line[0].startsWith(GENE_PATTERN)) {
+            if (line.length < 2 || !line[0].startsWith(GENE_PATTERN_ME49) || !line[0].startsWith(GENE_PATTERN_GT1) || !line[0].startsWith(GENE_PATTERN_VEG)) {
                 continue;
             }
 
