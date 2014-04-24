@@ -39,9 +39,7 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
     private final String resolverFileSymbo = "toxoplasmagondii";
     private final String taxonId = "5811";
 
-    private static final String GENE_PATTERN_ME49 = "TGME49";
-    private static final String GENE_PATTERN_GT1 = "TGGT1";
-    private static final String GENE_PATTERN_VEG = "TGVEG";
+    private static final String GENE_PATTERN_TG = "TG";
     
     /**
      * Construct without SO term of the feature type.
@@ -106,13 +104,12 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
 
     protected void createFromFile(File f) throws IOException {
         // data is in format:
-        // TGME49ID	IDs...
+        // TG**	IDs...
         Iterator<?> lineIter = FormattedTextParser.parseTabDelimitedReader(new BufferedReader(new FileReader(f)));
         while (lineIter.hasNext()) {	
             String[] line = (String[]) lineIter.next();
 
-            LOG.info("ToxoIdentifiersResolver: resolving " + line);
-            if (line.length < 2 || !line[0].startsWith(GENE_PATTERN_ME49) || !line[0].startsWith(GENE_PATTERN_GT1) || !line[0].startsWith(GENE_PATTERN_VEG)) {
+            if (line.length < 2 || !line[0].startsWith(GENE_PATTERN_TG)) {
                 continue;
             }
 
