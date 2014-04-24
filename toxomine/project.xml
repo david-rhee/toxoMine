@@ -79,9 +79,7 @@
   	<source name="uniprot-keywords" type="uniprot-keywords" dump="false">
   	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current"/>
   	  <property name="src.data.dir.includes" value="keywlist.xml"/>
-  	</source>  	
-  	
-  	
+  	</source>
   	<source name="interpro-toxoplasma" type="interpro">
       <property name="src.data.dir" location="/data1/toxomine/interpro/current/"/>
   	</source>
@@ -95,14 +93,16 @@
     <source name="items-toxocore" type="toxocore-items">
       <property name="src.data.file" location="/data1/toxomine/toxocore/items/toxocore-items.xml"/>
     </source>
-  	<source name="gff-toxocore" type="toxocore-gff">
-      <property name="gff3.taxonId" value="5811"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
-      <property name="gff3.dataSourceName" value="ToxoCore"/>
+  	  	
+  	<source name="gff-toxocore-me49" type="toxocore-gff">
+      <property name="gff3.taxonId" value="508771"/>
+      <property name="gff3.seqDataSourceName" value="toxoCore"/>
+      <property name="gff3.dataSourceName" value="toxoCore"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.dataSetTitle" value="ToxoCORE data set"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxocore/gff/"/>
+      <property name="gff3.dataSetTitle" value="toxoCORE data set"/>
+      <property name="src.data.dir" location="/data1/toxomine/toxocore/gff/tgme49/"/>
     </source>
+
   	<source name="gene-list-toxocore" type="toxocore-gene-list">
   	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gene-list/"/>
   	</source>
