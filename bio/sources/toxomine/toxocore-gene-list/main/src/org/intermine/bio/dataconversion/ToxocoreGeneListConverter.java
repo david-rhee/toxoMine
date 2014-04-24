@@ -128,9 +128,14 @@ public class ToxocoreGeneListConverter extends BioFileConverter
     
     private String resolveGene(String taxonId, String identifier) {
     	LOG.info("resolveGene " + identifier);
-        if (rslv == null || !rslv.hasTaxon(taxonId)) {
+        if (rslv == null) {
             // no id resolver available, so return the original identifier
         	LOG.info("RESOLVER: no id resolver available");
+            return identifier;
+        }
+        if (!rslv.hasTaxon(taxonId)) {
+            // no id resolver available, so return the original identifier
+        	LOG.info("RESOLVER: no id resolver with " + taxonId + " available.");
             return identifier;
         }
         int resCount = rslv.countResolutions(taxonId, "gene", identifier);

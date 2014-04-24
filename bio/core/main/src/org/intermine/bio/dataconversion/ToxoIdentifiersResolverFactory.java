@@ -111,6 +111,7 @@ public class ToxoIdentifiersResolverFactory extends IdResolverFactory
         while (lineIter.hasNext()) {	
             String[] line = (String[]) lineIter.next();
 
+            LOG.info("ToxoIdentifiersResolver: resolving " + line);
             if (line.length < 2 || !line[0].startsWith(GENE_PATTERN_ME49) || !line[0].startsWith(GENE_PATTERN_GT1) || !line[0].startsWith(GENE_PATTERN_VEG)) {
                 continue;
             }
