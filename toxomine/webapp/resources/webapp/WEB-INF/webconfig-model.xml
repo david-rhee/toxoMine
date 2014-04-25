@@ -567,6 +567,12 @@
   <tableExportConfig id="bed" className="org.intermine.bio.web.export.BEDHttpExporter"/>
 
   <reportdisplayers>
+  	<reportdisplayer javaClass="org.intermine.bio.web.displayer.GBrowseDisplayer"
+    				 jspName="model/gbrowseDisplayer.jsp"
+    				 replacesFields=""
+    				 placement="Genes"
+    				 types="SequenceFeature"/>
+    
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.GeneOntologyDisplayer"
                      jspName="model/geneOntologyDisplayer.jsp"
                      replacesFields="goAnnotation,ontologyAnnotations"

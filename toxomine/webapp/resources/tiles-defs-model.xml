@@ -9,6 +9,7 @@
 <definition name="bedExportOptions.tile" path="/model/bedExportOptions.jsp"
   controllerUrl="/initSequenceFeatureExportOptions.do" />
 
+<!-- Beginning of Galaxy configuration -->
 <definition name="galaxyExportOptions.page" extends="layout.template">
     <put name="body" value="galaxyExportOptions.tile"/>
     <put name="pageName" value="galaxyExportOptions"/>
@@ -16,9 +17,9 @@
 
 <definition name="galaxyExportOptions.tile" path="/model/galaxyExportOptions.jsp"
   controllerUrl="/initGalaxyExportOptions.do" />
+<!-- End of Galaxy configuration -->
 
 <!-- Beginning of Project configuration -->
-
 <definition name="projects.tile" path="/model/projects.jsp"
         controllerUrl="/initProjects.do"/>
 
@@ -26,6 +27,7 @@
     <put name="body" value="projects.tile"/>
     <put name="pageName" value="projects"/>
 </definition>
+<!-- End of Project configuration -->
 
 <!-- Beginning of Experiment configuration -->
 <definition name="experiment.tile" path="/model/experiment.jsp"
@@ -35,13 +37,14 @@
   <put name="body" value="experiment.tile"/>
   <put name="pageName" value="experiment"/>
 </definition>
+<!-- End of Experiment configuration -->
 
 <!-- Beginning of Submission configuration -->
 <definition name="submissionProtocolsDisplayer.tile" path="/model/submissionProtocolsDisplayer.jsp"
           controllerUrl="/initSubmissionProtocolsDisplayer.do"/>
+<!-- End of Submission configuration -->
 
 <!-- Beginning of Genomic Region Search configuration -->
-
 <definition name="genomicRegionSearchOptions.page" extends="layout.template">
   <put name="body" value="genomicRegionSearchOptions.tile" />
   <put name="pageName" value="genomicRegionSearch" />
@@ -54,7 +57,9 @@
   <put name="body" value="/model/genomicRegionSearchResultsBase.jsp" />
   <put name="pageName" value="genomicRegionSearchResults" />
 </definition>
-
 <!-- End of Genomic Region Search configuration -->
 
+<!-- Beginning of Friendly Mine Link configuration -->
 <definition name="friendlyMineLinkDisplayer.tile" path="/model/friendlyMineLinkDisplayer.jsp" controllerUrl="/initFriendlyMineLinkDisplayer.do"/>
+<!-- Beginning of Friendly Mine Link configuration -->
+

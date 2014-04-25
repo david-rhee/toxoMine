@@ -16,6 +16,7 @@
 <action path="/bedExportAction" name="bedExportForm"
         type="org.intermine.web.struts.TableExportAction" parameter="method"/>
 
+<!-- Beginning of Galaxy configuration -->
 <action path="/galaxyExportOptions" forward="galaxyExportOptions.page"/>
 
 <action path="/initGalaxyExportOptions"
@@ -23,37 +24,39 @@
 
 <action path="/galaxyExportAction" name="galaxyExportForm"
         type="org.intermine.bio.web.struts.GalaxyExportAction" parameter="method"/>
+<!-- End of Galaxy configuration -->
 
 <!-- Beginning of Project configuration -->
-
 <action path="/initProjects"
         type="org.toxomine.web.ProjectsController" />
 
 <action path="/projects" forward="projects.page" />
+<!-- End of Project configuration -->
 
 <!-- Beginning of Experiment configuration -->
-
 <action path="/initExperiment"
   type="org.toxomine.web.ExperimentController" />
 
 <action path="/experiment" forward="experiment.page" />
+<!-- End of Experiment configuration -->
 
-<!-- Beginning of Experiment configuration -->
-
+<!-- Beginning of  configuration -->
 <action path="/features"
         type="org.toxomine.web.FeaturesAction">
       <forward name="waiting" redirect="true" path="/pollQuery.do"/>
       <forward name="bagDetails" redirect="true" path="/bagDetails.do"/>
 </action>
+<!-- End of  configuration -->
 
+<!-- Beginning of Gene List configuration -->
 <action path="/genelists"
         type="org.toxomine.web.GeneListsAction">
       <forward name="waiting" redirect="true" path="/pollQuery.do"/>
       <forward name="bagDetails" redirect="true" path="/bagDetails.do"/>
 </action>
+<!-- End of Gene List configuration -->
 
 <!-- Beginning of Genomic Region Search configuration -->
-
 <action path="/initGenomicRegionSearchOptions"
         type="org.intermine.bio.web.struts.GenomicRegionSearchOptionsController"/>
 
@@ -68,8 +71,8 @@
 </action>
 
 <action path="/genomicRegionSearchAjax" type="org.intermine.bio.web.struts.GenomicRegionSearchAjaxAction"/>
-
 <!-- End of Genomic Region Search configuration -->
 
+<!-- Beginning of Friendly Mine Link configuration -->
 <action path="/initFriendlyMineLinkDisplayer" type="org.intermine.bio.web.FriendlyMineLinkController"/>
-
+<!-- Beginning of Friendly Mine Link configuration -->
