@@ -14,7 +14,7 @@
 	<c:set var="chromosomeIstart" value="${chromosomeStart-chromosomeOffset}"/>
 	<c:set var="chromosomeIend" value="${chromosomeEnd+chromosomeOffset}"/>
 
-	<c:set var="linkPrecursor" value="?name=${chromosomePrimaryIdentifier}:${chromosomeIstart}-${chromosomeIend}"></c:set>
+	<c:set var="linkPrecursor" value="${chromosomePrimaryIdentifier}:${chromosomeIstart}-${chromosomeIend}"></c:set>
 
 	<c:set var="sequenceFeatureType" value="${className.unqualifiedName}"/>
 	<c:choose>
@@ -35,7 +35,7 @@
   		<h3>toxoMine GBrowser via toxoDB.org</h3>
 		<html:link href="http://www.toxodb.org/cgi-bin/gbrowse/toxodb/?name=${link}" target="_blank">
       		<div>
-        		<html:img style="border: 1px solid black" src="http://www.toxodb.org/cgi-bin/gbrowse_img/toxodb/name=${link}" title="GBrowse"/>
+        		<html:img style="border: 1px solid black" src="http://www.toxodb.org/cgi-bin/gbrowse_img/toxodb/?name=${link}" title="GBrowse"/>
       		</div>
 		</html:link>
 	</div>
