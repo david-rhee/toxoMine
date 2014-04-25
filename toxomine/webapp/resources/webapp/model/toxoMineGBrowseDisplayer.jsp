@@ -29,7 +29,7 @@
 	<c:set var="linkPrecursor" value="${chromosomePrimaryIdentifier}:${chromosomeIstart}-${chromosomeIend}"></c:set>
 
 	<!-- If object is gene or has link to gene, create h_feat -->
-	<c:set var="sequenceFeatureType" value="${className.unqualifiedName}"/>
+	<c:set var="sequenceFeatureType" value="${classUnqualifiedName}"/>
 	<c:choose>
 		<c:when test="${sequenceFeatureType == 'Gene'}">
 			<c:set var="label" value="h_feat=${object.primaryIdentifier}@yellow"/>
@@ -45,7 +45,7 @@
 	<c:set var="link" value="${linkPrecursor};${label}"></c:set>
 
 	<div id="gBrowse">
-  		<h3>toxoMine GBrowser via toxoDB.org</h3>
+  		<h3>toxoDB.org GBrowser</h3>
 		<html:link href="http://www.toxodb.org/cgi-bin/gbrowse/toxodb/?name=${link}" target="_blank">
       		<div>
         		<html:img style="border: 1px solid black" src="http://www.toxodb.org/cgi-bin/gbrowse_img/toxodb/?name=${link}" title="GBrowse"/>
