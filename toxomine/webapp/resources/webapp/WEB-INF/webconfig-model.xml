@@ -566,13 +566,7 @@
   <tableExportConfig id="gff3" className="org.intermine.bio.web.export.GFF3HttpExporter"/>
   <tableExportConfig id="bed" className="org.intermine.bio.web.export.BEDHttpExporter"/>
 
-  <reportdisplayers>
-  	<reportdisplayer javaClass="org.intermine.bio.web.displayer.GBrowseDisplayer"
-    				 jspName="model/gbrowseDisplayer.jsp"
-    				 replacesFields=""
-    				 placement="Genomics"
-    				 types="SequenceFeature"/>
-    
+  <reportdisplayers>    
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.GeneOntologyDisplayer"
                      jspName="model/geneOntologyDisplayer.jsp"
                      replacesFields="goAnnotation,ontologyAnnotations"
@@ -623,6 +617,12 @@
                      types="Protein"/>
 
 	<!-- toxoMine -->
+  	<reportdisplayer javaClass="org.toxomine.web.displayer.ToxoMineGBrowseDisplayer"
+    				 jspName="model/toxoMineGBrowseDisplayer.jsp"
+    				 replacesFields=""
+    				 placement="Genomics"
+    				 types="SequenceFeature"/>
+
     <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionDetailsDisplayer"
                      jspName="model/submissionDetailsDisplayer.jsp"
                      replacesFields="name,TCid,technique,design,publicReleaseDate,embargoDate,qualityControl,replicate,description,labs,projects,experiments,dataSource"
