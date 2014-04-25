@@ -5,17 +5,30 @@
 <!-- toxoMineGBrowseDisplayer.jsp -->
 <!-- modified from original - David Rhee -->
 
-<c:if test="${(!empty object.chromosomeLocation && !empty object.chromosome) || className.unqualifiedName == 'Chromosome'}">
+<c:if test="${(!empty object.chromosomeLocation && !empty object.chromosome) || classUnqualifiedName == 'Chromosome'}">
 
+	<!-- Check if object is a chromosome or other sequence feature type -->
+	<c:choose>
+		<c:when test="${classUnqualifiedName == 'Chromosome'}">
+			<c:set var="chromosomePrimaryIdentifier" value="${object.primaryIdentifier}"/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="chromosomePrimaryIdentifier" value="${object.chromosome.primaryIdentifier}"/>
+      	</c:otherwise>
+	</c:choose>
+
+	<!-- Grab location and set offsets -->
 	<c:set var="chromosomeStart" value="${object.chromosomeLocation.start}"/>
 	<c:set var="chromosomeEnd" value="${object.chromosomeLocation.end}"/>
-	<c:set var="chromosomePrimaryIdentifier" value="${object.chromosome.primaryIdentifier}"/>
+		
 	<c:set var="chromosomeOffset" value="${(chromosomeEnd-chromosomeStart)/10}"/>
 	<c:set var="chromosomeIstart" value="${chromosomeStart-chromosomeOffset}"/>
 	<c:set var="chromosomeIend" value="${chromosomeEnd+chromosomeOffset}"/>
 
+	<!-- Create link with given locations -->
 	<c:set var="linkPrecursor" value="${chromosomePrimaryIdentifier}:${chromosomeIstart}-${chromosomeIend}"></c:set>
 
+	<!-- If object is gene or has link to gene, create h_feat -->
 	<c:set var="sequenceFeatureType" value="${className.unqualifiedName}"/>
 	<c:choose>
 		<c:when test="${sequenceFeatureType == 'Gene'}">

@@ -36,8 +36,8 @@ public class ToxoMineGBrowseDisplayer extends ReportDisplayer
 
     @Override
     public void display(HttpServletRequest request, ReportObject reportObject) {
-        String className = reportObject.getClassDescriptor().getUnqualifiedName();
-        request.setAttribute("className", className);
+        String classUnqualifiedName = reportObject.getClassDescriptor().getUnqualifiedName();
+        request.setAttribute("classUnqualifiedName", classUnqualifiedName);
         request.setAttribute("object", reportObject.getObject());
     }
 }
