@@ -13,6 +13,7 @@ executeLog*
 productionLog
 *~
 
+*.zip
 .DS_Store
 .classpath
 #.project

@@ -6,18 +6,24 @@ use BioMart::Initializer;
 use BioMart::Query;
 use BioMart::QueryRunner;
 
-my $confFile = '/Users/drhee1/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
+my $confFile;
+
+# vars from the command line
+my ( $system, $option ) = @ARGV;
+
+if ($system eq 'MBP') {
+    $confFile = '/Users/drhee1/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
+} elsif ($system eq 'HPC') {
+    $confFile = '/home/toxouser/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
+}
+
 #
 # NB: change action to 'clean' if you wish to start a fresh configuration  
 # and to 'cached' if you want to skip configuration step on subsequent runs from the same registry
 #
-
 my $action='cached';
 my $initializer = BioMart::Initializer->new('registryFile'=>$confFile, 'action'=>$action);
 my $registry = $initializer->getRegistry;
-
-# vars from the command line
-my ( $option ) = @ARGV;
 
 if ($option eq 'FlyBase') {
     fly_base();
