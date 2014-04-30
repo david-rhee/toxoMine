@@ -138,6 +138,15 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.Homologue">
+    <fields>
+      <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="gene.primaryIdentifier" showInResults="false" showInInlineCollection="false" />
+      <fieldconfig fieldExpr="homologue.primaryIdentifier"/>
+      <fieldconfig fieldExpr="homologue.organism.shortName"/>
+    </fields>
+  </class>
+  
   <class className="org.intermine.model.bio.Interaction">
    <fields>
      <fieldconfig fieldExpr="gene1.symbol"/>
@@ -579,6 +588,8 @@
                      placement="Genomics"
                      types="Gene,Transcript,Exon,Intron,UTR,CDS"/>
 
+
+                     
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.OverlappingFeaturesDisplayer"
                      jspName="model/overlappingFeaturesDisplayer.jsp"
                      replacesFields="overlappingFeatures"
@@ -617,6 +628,13 @@
                      types="Protein"/>
 
 	<!-- toxoMine -->
+	<reportdisplayer javaClass="org.toxomine.web.displayer.HomologueDisplayer"
+                     jspName="model/homologueDisplayer.jsp"
+                     replacesFields="homologues"
+                     placement="Homology"
+                     parameters="{'dataSets': ['OrthoMCLDB data set']}"
+                     types="Gene"/>
+
   	<reportdisplayer javaClass="org.toxomine.web.displayer.ToxoMineGBrowseDisplayer"
     				 jspName="model/toxoMineGBrowseDisplayer.jsp"
     				 replacesFields=""

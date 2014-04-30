@@ -1,0 +1,5 @@
+<project name="orthomcldb" default="default" basedir=".">
+  <description>build orthomcldb</description>
+	
+  <import file="../../../../imbuild/library.xml"/> 
+</project>

@@ -10,7 +10,7 @@
   	<source name="fasta-toxoplasma-me49" type="fasta" dump="false">
       <property name="fasta.taxonId" value="508771"/>
   	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB.org"/>
+      <property name="fasta.dataSourceName" value="ToxoDB"/>
       <property name="fasta.dataSetTitle" value="T. gondii ME49 strain Chromosome Sequence"/>
       <property name="fasta.includes" value="TGME49_chr*.fasta"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
@@ -18,7 +18,7 @@
   	<source name="fasta-toxoplasma-gt1" type="fasta" dump="false">
       <property name="fasta.taxonId" value="507601"/>
   	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB.org"/>
+      <property name="fasta.dataSourceName" value="ToxoDB"/>
       <property name="fasta.dataSetTitle" value="T. gondii GT1 strain Chromosome Sequence"/>
       <property name="fasta.includes" value="TGGT1_chr*.fasta"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
@@ -26,7 +26,7 @@
   	<source name="fasta-toxoplasma-veg" type="fasta" dump="false">
       <property name="fasta.taxonId" value="432359"/>
   	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB.org"/>
+      <property name="fasta.dataSourceName" value="ToxoDB"/>
       <property name="fasta.dataSetTitle" value="T. gondii VEG strain Chromosome Sequence"/>
       <property name="fasta.includes" value="TGVEG_chr*.fasta"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
@@ -34,24 +34,24 @@
   	<!-- Genome annotation -->
     <source name="gff-toxoplasma-me49" type="toxodb-gff" dump="false">
       <property name="gff3.taxonId" value="508771"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB.org"/>
-      <property name="gff3.dataSourceName" value="ToxoDB.org"/>
+      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+      <property name="gff3.dataSourceName" value="ToxoDB"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.dataSetTitle" value="T. gondii ME49 strain Genome Annotation"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/ME49"/>
     </source>
     <source name="gff-toxoplasma-gt1" type="toxodb-gff" dump="false">
       <property name="gff3.taxonId" value="507601"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB.org"/>
-      <property name="gff3.dataSourceName" value="ToxoDB.org"/>
+      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+      <property name="gff3.dataSourceName" value="ToxoDB"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.dataSetTitle" value="T. gondii GT1 strain Genome Annotation"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/GT1"/>
     </source>
     <source name="gff-toxoplasma-veg" type="toxodb-gff" dump="false">
       <property name="gff3.taxonId" value="432359"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB.org"/>
-      <property name="gff3.dataSourceName" value="ToxoDB.org"/>
+      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+      <property name="gff3.dataSourceName" value="ToxoDB"/>
       <property name="gff3.seqClsName" value="Chromosome"/>
       <property name="gff3.dataSetTitle" value="T. gondii VEG strain Genome Annotation"/>
       <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/VEG"/>
@@ -90,6 +90,12 @@
   	<source name="psi-mi-ontology" type="psi-mi-ontology">
   	  <property name="src.data.file" location="/data1/toxomine/psi/ontology/current/psi-mi.obo"/>
   	</source>
+  	<!-- Homologue -->
+    <source name="orthomcldb-toxoplasma" type="orthomcldb">
+      <property name="src.data.dir" location="/data1/toxomine/orthomcldb/current/"/>
+    </source>
+    	
+    	
     <source name="items-toxocore" type="toxocore-items">
       <property name="src.data.file" location="/data1/toxomine/toxocore/items/toxocore-items.xml"/>
     </source>
@@ -106,9 +112,6 @@
   	<source name="gene-list-toxocore" type="toxocore-gene-list">
   	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gene-list/"/>
   	</source>
-    <source name="entrez-organism" type="entrez-organism">
-      <property name="src.data.file" location="build/organisms.xml"/>
-    </source>
   	<source name="go" type="go">
       <property name="src.data.file" location="/data1/toxomine/go-annotation/current/gene_ontology.obo"/>
   	</source>
@@ -126,6 +129,10 @@
       <property name="src.data.file" location="build/publications.xml"/>
       <property name="cacheDirName" value="build/"/>
       <!-- <property name="loadFullRecord" value="true"/> -->
+    </source>
+  	<!-- Organism -->
+    <source name="entrez-organism" type="entrez-organism">
+      <property name="src.data.file" location="build/organisms.xml"/>
     </source>
   </sources>
 

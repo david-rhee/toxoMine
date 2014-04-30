@@ -359,4 +359,30 @@ public class IdResolverService
     public static IdResolver getToxoIdResolver(boolean failOnError) {
         return new ToxoIdentifiersResolverFactory().getIdResolver(failOnError);
     }
+    
+    /**
+     * Create a BioMartCustom id resolver
+     * @return an IdResolver
+     */
+    public static IdResolver getBioMartCustomIdResolver() {
+        return new BioMartCustomIdentifiersResolverFactory().getIdResolver(false);
+    }
+
+    /**
+     * Create a BioMartCustom id resolver
+     * @param clsName SO term
+     * @return an IdResolver
+     */
+    public static IdResolver getBioMartCustomIdResolver(String clsName) {
+        return new BioMartCustomIdentifiersResolverFactory(clsName).getIdResolver(false);
+    }
+    
+    /**
+     * Create a BioMartCustom resolver
+     * @param failOnError if false swallow any exceptions and return null
+     * @return an IdResolver
+     */
+    public static IdResolver getBioMartCustomIdResolver(boolean failOnError) {
+        return new BioMartCustomIdentifiersResolverFactory().getIdResolver(failOnError);
+    }
 }

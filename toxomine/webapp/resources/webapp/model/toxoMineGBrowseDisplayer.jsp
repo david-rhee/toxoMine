@@ -45,7 +45,7 @@
 	<c:set var="link" value="${linkPrecursor};${label}"></c:set>
 
 	<div id="gBrowse">
-  		<h3>toxoDB.org GBrowser</h3>
+  		<h3>toxoDB.org GBrowse</h3>
 		<html:link href="http://www.toxodb.org/cgi-bin/gbrowse/toxodb/?name=${link}" target="_blank">
       		<div>
         		<html:img style="border: 1px solid black" src="http://www.toxodb.org/cgi-bin/gbrowse_img/toxodb/?name=${link}" title="GBrowse"/>

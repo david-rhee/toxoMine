@@ -41,7 +41,7 @@
 			<h3><a href="/${WEB_PROPERTIES['webapp.path']}/keywordSearchResults.do?searchBag=">Search</a></h3>
 		    <div class="text">
 		    	<span style="width:76px; float:left;">&nbsp;</span>
-		        <p>Enter names, identifiers or keywords for genes, proteins, pathways, ontology terms, etc. (e.g.<strong>TGME49215990</strong>, <strong>Kim Lab</strong>, <strong>ChIP-chip</strong>).
+		        <p>Enter names, identifiers or keywords for genes, proteins, pathways, ontology terms, etc. (e.g.<strong>TGME49_215990</strong>, <strong>Kim Lab</strong>, <strong>ChIP-chip</strong>).
 		        <form action="<c:url value="/keywordSearchResults.do" />" name="search" method="get">
 		          <input id="dataSearch" class="input" type="text" name="searchTerm" value="e.g. TGME49_215990, Kim Lab, ChIP-chip" />
 		          <input type="submit" value="Search" />
