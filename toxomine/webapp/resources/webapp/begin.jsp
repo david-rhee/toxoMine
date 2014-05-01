@@ -24,7 +24,7 @@
 				from the <a href="http://www.toxoDB.org/">toxoDB.org</a></strong> database for genome annotation and other data sets.</p>
 				<br />
 				<p><strong>toxoMine</strong> release <strong>${WEB_PROPERTIES['project.releaseVersion']}</strong>
-				uses genome annotations <strong>${WEB_PROPERTIES['genomeVersion.me49']}</strong> for ME49.</p>
+				uses genome annotations <strong>${WEB_PROPERTIES['genomeVersion.me49']}</strong>.</p>
 				<br />
 			</div>
 			<div class="welcome-content-p">
