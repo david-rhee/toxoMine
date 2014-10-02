@@ -24,19 +24,15 @@
 	            <td>TCid:</td>
 	            <td><strong>${TCid}<strong></td>
 	        </tr>
-	    	<tr>
-	    		<td style="padding-right: 130px;">Design:</td>
-	            <td><strong>${design}<strong></td>
-	        </tr>
 	        <c:if test="${not empty qualityControl}">
 		        <tr>
 		        	<td>Quality Control:</td>
 		            <td><strong>${qualityControl}<strong></td>
 		        </tr>
 	        </c:if>
-	        <c:if test="${not empty replicate}">
+	        <c:if test="${not empty replicateDate}">
 		        <tr>
-		        	<td>Replicate:</td>
+		        	<td>Replicate Date:</td>
 		            <td><strong>${replicate}<strong></td>
 		        </tr>
 	        </c:if>

@@ -15,6 +15,8 @@ if ($system eq 'MBP') {
     $confFile = '/Users/drhee1/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
 } elsif ($system eq 'HPC') {
     $confFile = '/home/toxouser/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
+} elsif ($system eq 'Rhea') {
+    $confFile = '/home/david/perl5/biomart-perl/conf/biomart_ensembl_mart_75_registry.xml';
 }
 
 #

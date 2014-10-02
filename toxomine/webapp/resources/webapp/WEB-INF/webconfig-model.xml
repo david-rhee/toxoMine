@@ -409,11 +409,10 @@
       <fieldconfig fieldExpr="TCid" label="TC id" />
       <fieldconfig fieldExpr="name" label="Name" />
       <fieldconfig fieldExpr="technique" />
-      <fieldconfig fieldExpr="design" />
       <fieldconfig fieldExpr="qualityControl" />
-      <fieldconfig fieldExpr="replicate" />
       <fieldconfig fieldExpr="publicReleaseDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
       <fieldconfig fieldExpr="embargoDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
+      <fieldconfig fieldExpr="replicateDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
     </fields>
   </class>
 
@@ -465,14 +464,6 @@
     </fields>
   </class>
 
-  <class className="org.intermine.model.bio.DataAttribute">
-    <fields>
-      <fieldconfig fieldExpr="name"/>
-      <fieldconfig fieldExpr="value"/>
-      <fieldconfig fieldExpr="type"/>
-    </fields>
-  </class>
-
   <class className="org.intermine.model.bio.ExperimentalFactor">
     <fields>
       <fieldconfig fieldExpr="name"/>
@@ -506,6 +497,7 @@
   <class className="org.intermine.model.bio.Antibody">
     <fields>
       <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="targetName"/>
       <fieldconfig fieldExpr="type"/>      
       <fieldconfig fieldExpr="hostOrganism"/>
       <fieldconfig fieldExpr="source"/>
@@ -516,16 +508,16 @@
   <class className="org.intermine.model.bio.ToxoplasmaMutant">
     <headerconfig>
         <titles>
-            <title mainTitles="type|strain|background|mutantName" numberOfMainTitlesToShow="1" subTitles="" />
+            <title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="" />
         </titles>
     </headerconfig>
     <fields>
-      <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="name"/>
+      <fieldconfig fieldExpr="targetName" label="Target Name"/>
       <fieldconfig fieldExpr="strain"/>
       <fieldconfig fieldExpr="background"/>
-      <fieldconfig fieldExpr="mutantName" label="Name"/>
-      <fieldconfig fieldExpr="mutantSelection" label="Selection"/>
-      <fieldconfig fieldExpr="mutantType" label="Type"/>
+      <fieldconfig fieldExpr="mutantSelection" label="Mutant Selection"/>
+      <fieldconfig fieldExpr="mutantType" label="Mutant Type"/>
       <fieldconfig fieldExpr="targetGene.primaryIdentifier" label="Target Gene"/>
       <fieldconfig fieldExpr="organism.name" label="Target Organism"/>
     </fields>
@@ -550,7 +542,6 @@
       <fieldconfig fieldExpr="partOf"/>
       <fieldconfig fieldExpr="series"/>
       <fieldconfig fieldExpr="dataAnalysis.name"/>
-      <fieldconfig fieldExpr="dataAttribute.name"/>
       <fieldconfig fieldExpr="experimentalFactor.name"/>
       <fieldconfig fieldExpr="microArray.name"/>
       <fieldconfig fieldExpr="sequencing.name"/>

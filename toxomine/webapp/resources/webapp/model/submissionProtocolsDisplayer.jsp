@@ -177,55 +177,49 @@ jQuery(document).ready(function () {
 			 			<c:if test="${appliedProtocol.id == inputSD.inputAppliedProtocol.id}">
 			 				<c:set var="inputExist" value="yes"/>
 			 				<c:choose>
-			 					<c:when test="${inputSD.partOf eq 'DataAnalysis'}">
+			 					<c:when test="${inputSD.partOf eq 'dataAnalysis'}">
                     				Data Analysis :
 			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.dataAnalysis.id}">
                     					${inputSD.dataAnalysis.name}
                 					</html:link></br>
                 				</c:when>
-                				<c:when test="${inputSD.partOf eq 'DataAttribute'}">
-                					${inputSD.dataAttribute.name} :
-			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.dataAttribute.id}">
-                    					${inputSD.dataAttribute.value}
-                					</html:link></br>
-                				</c:when>
-               					<c:when test="${inputSD.partOf eq 'ExperimentalFactor'}">
-               						${inputSD.experimentalFactor.name} :
+               					<c:when test="${inputSD.partOf eq 'experimentalFactor'}">
+               						Experimental Factor :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.experimentalFactor.id}">
                    						${inputSD.experimentalFactor.value}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'MicroArray'}">
+               					<c:when test="${inputSD.partOf eq 'microarray'}">
 									MicroArray :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.microArray.id}">
                    						${inputSD.microArray.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'Sequencing'}">
+               					<c:when test="${inputSD.partOf eq 'sequencing'}">
                						Sequencing :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.sequencing.id}">
                    						${inputSD.sequencing.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'Antibody'}">
+               					<c:when test="${inputSD.partOf eq 'antibody'}">
                						Antibody :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.antibody.id}">
                    						${inputSD.antibody.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'ToxoplasmaMutant'}">
+               					<c:when test="${inputSD.partOf eq 'toxoplasmaMutant'}">
 									Mutant :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.toxoplasmaMutant.id}">
-                   						${inputSD.toxoplasmaMutant.mutantName}
+                   						${inputSD.toxoplasmaMutant.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'PersistentDataFile'}">
+               					<c:when test="${inputSD.partOf eq 'persistentDataFile'}">
                						${inputSD.persistentDataFile.type} :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.persistentDataFile.id}">
                    						${inputSD.persistentDataFile.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${inputSD.partOf eq 'SubmissionDataFile'}">
+               					<c:when test="${inputSD.partOf eq 'submissionDataFile'}">
                						${inputSD.submissionDataFile.type} :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${inputSD.submissionDataFile.id}">
                    						${inputSD.submissionDataFile.name}
@@ -251,55 +245,49 @@ jQuery(document).ready(function () {
 			 			<c:if test="${appliedProtocol.id == outputSD.outputAppliedProtocol.id}">
 			 				<c:set var="outputExist" value="yes"/>
 			 				<c:choose>
-			 					<c:when test="${outputSD.partOf eq 'DataAnalysis'}">
+			 					<c:when test="${outputSD.partOf eq 'dataAnalysis'}">
                     				Data Analysis :
 			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.dataAnalysis.id}">
                     					${outputSD.dataAnalysis.name}
                 					</html:link></br>
                 				</c:when>
-                				<c:when test="${outputSD.partOf eq 'DataAttribute'}">
-                					${outputSD.dataAttribute.name} :
-			 						<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.dataAttribute.id}">
-                    					${outputSD.dataAttribute.value}
-                					</html:link></br>
-                				</c:when>
-               					<c:when test="${outputSD.partOf eq 'ExperimentalFactor'}">
-               						${outputSD.experimentalFactor.name} :
+               					<c:when test="${outputSD.partOf eq 'experimentalFactor'}">
+               						ExperimentalFactor :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.experimentalFactor.id}">
                    						${outputSD.experimentalFactor.value}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'MicroArray'}">
+               					<c:when test="${outputSD.partOf eq 'microarray'}">
 									MicroArray :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.microArray.id}">
                    						${outputSD.microArray.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'Sequencing'}">
+               					<c:when test="${outputSD.partOf eq 'sequencing'}">
                						Sequencing :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.sequencing.id}">
                    						${outputSD.sequencing.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'Antibody'}">
+               					<c:when test="${outputSD.partOf eq 'antibody'}">
                						Antibody :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.antibody.id}">
                    						${outputSD.antibody.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'ToxoplasmaMutant'}">
+               					<c:when test="${outputSD.partOf eq 'toxoplasmaMutant'}">
 									Mutant :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.toxoplasmaMutant.id}">
-                   						${outputSD.toxoplasmaMutant.mutantName}
+                   						${outputSD.toxoplasmaMutant.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'PersistentDataFile'}">
+               					<c:when test="${outputSD.partOf eq 'persistentDataFile'}">
                						${outputSD.persistentDataFile.type} :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.persistentDataFile.id}">
                    						${outputSD.persistentDataFile.name}
                						</html:link></br>
                					</c:when>
-               					<c:when test="${outputSD.partOf eq 'SubmissionDataFile'}">
+               					<c:when test="${outputSD.partOf eq 'submissionDataFile'}">
                						${outputSD.submissionDataFile.type} :
 		 							<html:link href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${outputSD.submissionDataFile.id}">
                    						${outputSD.submissionDataFile.name}

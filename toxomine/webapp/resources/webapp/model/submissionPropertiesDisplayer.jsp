@@ -54,7 +54,7 @@
 					<c:choose>
 	       				<c:when test="${not empty toxoplasmaMutants}">
 							<c:forEach var="toxoplasmaMutant" items="${toxoplasmaMutants}" varStatus="toxoplasma_mutant_status">
-								<a href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${toxoplasmaMutant.id}" style="text-decoration: none;"><strong>${toxoplasmaMutant.mutantName}</strong></a></br>
+								<a href="/${WEB_PROPERTIES['webapp.path']}/report.do?id=${toxoplasmaMutant.id}" style="text-decoration: none;"><strong>${toxoplasmaMutant.name}</strong></a></br>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>

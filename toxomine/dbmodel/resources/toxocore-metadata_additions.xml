@@ -29,6 +29,12 @@
   <collection name="submissions" referenced-type="Submission"/>
 </class>
 
+<class name="Publication" is-interface="true">
+  <collection name="projects" referenced-type="Project" reverse-reference="publications" />
+  <collection name="experiments" referenced-type="Experiment" reverse-reference="publications" />
+  <collection name="submissions" referenced-type="Submission" reverse-reference="publications" />
+</class>
+
 <!-- -->
 <!-- -->
 <!-- dataCORE/toxoCORE classes  -->
@@ -44,13 +50,15 @@
   <collection name="submissions" referenced-type="Submission" reverse-reference="labs" />
 </class>
 
-<class name="Project" extends="DataSource" is-interface="true">
+<class name="Project" extends="DataSet" is-interface="true">
 
   <collection name="labs" referenced-type="Lab" reverse-reference="projects" />
   <collection name="experiments" referenced-type="Experiment" reverse-reference="projects" />
   <collection name="submissions" referenced-type="Submission" reverse-reference="projects" />
   <collection name="organisms" referenced-type="Organism" />
+  <collection name="publications" referenced-type="Publication" reverse-reference="projects"/>
   <collection name="toxoplasmaMutants" referenced-type="ToxoplasmaMutant" reverse-reference="projects"/>
+  <collection name="antibodies" referenced-type="Antibody" reverse-reference="projects"/>
 </class>
 
 <class name="Experiment" extends="DataSet" is-interface="true">
@@ -60,31 +68,32 @@
   <collection name="projects" referenced-type="Project" reverse-reference="experiments" />
   <collection name="submissions" referenced-type="Submission" reverse-reference="experiments" />
   <collection name="organisms" referenced-type="Organism" />
+  <collection name="publications" referenced-type="Publication" reverse-reference="experiments"/>
   <collection name="toxoplasmaMutants" referenced-type="ToxoplasmaMutant" reverse-reference="experiments"/>
+  <collection name="antibodies" referenced-type="Antibody" reverse-reference="experiments"/>
 </class>
 
 <class name="Submission" extends="DataSet" is-interface="true">
   <attribute name="TCid" type="java.lang.String" />
   <attribute name="technique" type="java.lang.String" />
-  <attribute name="design" type="java.lang.String" />
   <attribute name="qualityControl" type="java.lang.String" />
-  <attribute name="replicate" type="java.lang.String" />  
   <attribute name="embargoDate" type="java.util.Date" />
   <attribute name="publicReleaseDate" type="java.util.Date" />
-
-  <reference name="organism" referenced-type="Organism" />
+  <attribute name="replicateDate" type="java.util.Date" />  
+  
+  <collection name="organisms" referenced-type="Organism" />
 
   <!-- dataCORE -->
   <collection name="labs" referenced-type="Lab" reverse-reference="submissions" />
   <collection name="projects" referenced-type="Project" reverse-reference="submissions" />
   <collection name="experiments" referenced-type="Experiment" reverse-reference="submissions" />
+  <collection name="publications" referenced-type="Publication" reverse-reference="submissions"/>
   <collection name="appliedProtocols" referenced-type="AppliedProtocol" reverse-reference="submission" />
   <collection name="protocols" referenced-type="Protocol" reverse-reference="submissions" />
   <!-- Submission Properties -->
   <!-- dataCORE -->
   <!-- <collection name="submissionProperties" referenced-type="SubmissionProperty" reverse-reference="submissions"/> -->
   <collection name="dataAnalyses" referenced-type="DataAnalysis" reverse-reference="submissions"/>
-  <collection name="dataAttributes" referenced-type="DataAttribute" reverse-reference="submissions"/>
   <collection name="experimentalFactors" referenced-type="ExperimentalFactor" reverse-reference="submissions"/>
   <collection name="microArrays" referenced-type="MicroArray" reverse-reference="submissions"/>
   <collection name="sequencing" referenced-type="Sequencing" reverse-reference="submissions"/>
@@ -132,7 +141,6 @@
   <!-- Submission Properties -->
   <reference name="submissionProperty" referenced-type="SubmissionProperty"/>
   <reference name="dataAnalysis" referenced-type="DataAnalysis"/>
-  <reference name="dataAttribute" referenced-type="DataAttribute"/>
   <reference name="experimentalFactor" referenced-type="ExperimentalFactor"/>
   <reference name="microArray" referenced-type="MicroArray"/>
   <reference name="sequencing" referenced-type="Sequencing"/>
@@ -159,12 +167,6 @@
   <attribute name="parameter" type="java.lang.String"/>
    
   <collection name="submissions" referenced-type="Submission" reverse-reference="dataAnalyses" />
-</class>
-
-<class name="DataAttribute" extends="SubmissionProperty" is-interface="true">
-  <attribute name="value" type="java.lang.String"/>
-
-  <collection name="submissions" referenced-type="Submission" reverse-reference="dataAttributes" />
 </class>
 
 <class name="ExperimentalFactor" extends="SubmissionProperty" is-interface="true">
@@ -195,21 +197,25 @@
 
 <!-- toxoCORE -->
 <class name="Antibody" extends="SubmissionProperty" is-interface="true">
+  <attribute name="targetName" type="java.lang.String"/>
   <attribute name="hostOrganism" type="java.lang.String"/>
   <attribute name="source" type="java.lang.String"/>
   <attribute name="epitope" type="java.lang.String"/>
 
   <reference name="targetGene" referenced-type="Gene" reverse-reference="antibodies"/>
- 
+
+  <collection name="projects" referenced-type="Project" reverse-reference="antibodies" />
+  <collection name="experiments" referenced-type="Experiment" reverse-reference="antibodies" /> 
   <collection name="submissions" referenced-type="Submission" reverse-reference="antibodies" />
 </class>
 
 <class name="ToxoplasmaMutant" extends="SubmissionProperty" is-interface="true">
+  <attribute name="targetName" type="java.lang.String"/>
   <!-- name & type for organism -->
   <attribute name="strain" type="java.lang.String"/>
   <attribute name="background" type="java.lang.String"/>
 
-  <attribute name="mutantName" type="java.lang.String"/>
+  <attribute name="mutantBackground" type="java.lang.String"/>
   <attribute name="mutantSelection" type="java.lang.String"/>
   <attribute name="mutantType" type="java.lang.String"/>
 

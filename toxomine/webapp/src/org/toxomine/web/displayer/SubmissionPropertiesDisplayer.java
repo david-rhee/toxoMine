@@ -28,12 +28,12 @@ import org.intermine.web.logic.session.SessionMethods;
 
 import org.intermine.model.bio.Submission;
 import org.intermine.model.bio.DataAnalysis;
-import org.intermine.model.bio.DataAttribute;
 import org.intermine.model.bio.ExperimentalFactor;
 import org.intermine.model.bio.MicroArray;
 import org.intermine.model.bio.Sequencing;
 import org.intermine.model.bio.Antibody;
 import org.intermine.model.bio.ToxoplasmaMutant;
+import org.intermine.model.bio.Organism;
 
 /**
  * Controller for SubmissionPropertiesDisplayer.jsp
@@ -71,27 +71,26 @@ public class SubmissionPropertiesDisplayer extends ReportDisplayer
 
             //Declare Set
             Set<DataAnalysis> dataAnalysisSet = new HashSet<DataAnalysis>();
-            Set<DataAttribute> dataAttributeSet = new HashSet<DataAttribute>();
             Set<ExperimentalFactor> experimentalFactorSet = new HashSet<ExperimentalFactor>();
             Set<MicroArray> microArraySet = new HashSet<MicroArray>();
             Set<Sequencing> sequencingSet = new HashSet<Sequencing>();
             Set<Antibody> antibodySet = new HashSet<Antibody>();
+            Set<Organism> organismSet = new HashSet<Organism>();
             Set<ToxoplasmaMutant> toxoplasmaMutantSet = new HashSet<ToxoplasmaMutant>();
  
             //Grab all the SubmissionProperties related to this submission
             dataAnalysisSet = o.getDataAnalyses();
-            dataAttributeSet = o.getDataAttributes();
             experimentalFactorSet = o.getExperimentalFactors();
             microArraySet = o.getMicroArrays();
             sequencingSet = o.getSequencing();
             antibodySet = o.getAntibodies();
             toxoplasmaMutantSet = o.getToxoplasmaMutants();
+            organismSet = o.getOrganisms();
             
             //Push sets to request
             request.setAttribute("TCid", o.gettCid());
-            request.setAttribute("organism", o.getOrganism());
+            request.setAttribute("organisms", organismSet);
             request.setAttribute("dataAnalyses", dataAnalysisSet);
-            request.setAttribute("dataAttributes", dataAttributeSet);
             request.setAttribute("experimentalFactors", experimentalFactorSet);
             request.setAttribute("microArrays", microArraySet);
             request.setAttribute("sequencings", sequencingSet);

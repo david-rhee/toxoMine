@@ -93,10 +93,8 @@ public class SubmissionDetailsDisplayer extends ReportDisplayer
             
             request.setAttribute("TCid", o.gettCid());
             request.setAttribute("description", o.getDescription());
-            request.setAttribute("design", o.getDesign());
             request.setAttribute("technique", o.getTechnique());
             request.setAttribute("qualityControl", o.getQualityControl());
-            request.setAttribute("replicate", o.getReplicate());
             request.setAttribute("publicReleaseDate", publicReleaseDate);
             request.setAttribute("labs", labSet);
             request.setAttribute("projects", projectSet);
