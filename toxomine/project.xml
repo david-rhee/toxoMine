@@ -6,158 +6,164 @@
   <property name="default.intermine.properties.file" location="../default.intermine.integrate.properties"/>
 
   <sources>
-  	<!-- FASTA sequences -->
-  	<source name="fasta-toxoplasma-me49" type="fasta" dump="false">
-      <property name="fasta.taxonId" value="508771"/>
-  	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB"/>
-      <property name="fasta.dataSetTitle" value="T. gondii ME49 strain Chromosome Sequence"/>
-      <property name="fasta.includes" value="TGME49_chr*.fasta"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
-    </source>
-  	<source name="fasta-toxoplasma-gt1" type="fasta" dump="false">
-      <property name="fasta.taxonId" value="507601"/>
-  	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB"/>
-      <property name="fasta.dataSetTitle" value="T. gondii GT1 strain Chromosome Sequence"/>
-      <property name="fasta.includes" value="TGGT1_chr*.fasta"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
-    </source>  	
-  	<source name="fasta-toxoplasma-veg" type="fasta" dump="false">
-      <property name="fasta.taxonId" value="432359"/>
-  	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
-      <property name="fasta.dataSourceName" value="ToxoDB"/>
-      <property name="fasta.dataSetTitle" value="T. gondii VEG strain Chromosome Sequence"/>
-      <property name="fasta.includes" value="TGVEG_chr*.fasta"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
-    </source>
-  	<!-- Genome annotation -->
-    <source name="gff-toxoplasma-me49" type="toxodb-gff" dump="false">
-      <property name="gff3.taxonId" value="508771"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
-      <property name="gff3.dataSourceName" value="ToxoDB"/>
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.dataSetTitle" value="T. gondii ME49 strain Genome Annotation"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/ME49"/>
-    </source>
-    <source name="gff-toxoplasma-gt1" type="toxodb-gff" dump="false">
-      <property name="gff3.taxonId" value="507601"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
-      <property name="gff3.dataSourceName" value="ToxoDB"/>
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.dataSetTitle" value="T. gondii GT1 strain Genome Annotation"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/GT1"/>
-    </source>
-    <source name="gff-toxoplasma-veg" type="toxodb-gff" dump="false">
-      <property name="gff3.taxonId" value="432359"/>
-      <property name="gff3.seqDataSourceName" value="ToxoDB"/>
-      <property name="gff3.dataSourceName" value="ToxoDB"/>
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.dataSetTitle" value="T. gondii VEG strain Genome Annotation"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/VEG"/>
-    </source>
-    <!-- Protein -->
-  	<source name="uniprot-toxoplasma" type="uniprot" dump="false">
-      <property name="uniprot.organisms" value="5811"/>
-      <property name="createinterpro" value="true"/>
-      <property name="creatego" value="true"/>
-  	  <property name="allowduplicates" value="false"/>
-  	  <property name="loadtrembl" value="true"/>
-  	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current/"/>
-  	</source>
-  	<source name="uniprot-fasta-toxoplasma" type="fasta" dump="false">
-  	  <property name="fasta.taxonId" value="5811"/>
-  	  <property name="fasta.className" value="org.intermine.model.bio.Protein"/>
-  	  <property name="fasta.classAttribute" value="primaryAccession"/>
-  	  <property name="fasta.dataSetTitle" value="UniProt data set"/>
-  	  <property name="fasta.dataSourceName" value="UniProt"/>
-  	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current"/>
-  	  <property name="fasta.includes" value="uniprot_sprot_varsplic.fasta"/>
-  	  <property name="fasta.sequenceType" value="protein" />
-  	  <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.UniProtFastaLoaderTask"/>
-  	</source>
-  	<source name="uniprot-keywords" type="uniprot-keywords" dump="false">
-  	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current"/>
-  	  <property name="src.data.dir.includes" value="keywlist.xml"/>
-  	</source>
-  	<source name="interpro-toxoplasma" type="interpro">
-      <property name="src.data.dir" location="/data1/toxomine/interpro/current/"/>
-  	</source>
-  	<source name="psi-intact" type="psi" dump="false">
-  	  <property name="src.data.dir" location="/data1/toxomine/psi/intact/current/"/>
-  	  <property name="intact.organisms" value="5811"/>
-  	</source>
-  	<source name="psi-mi-ontology" type="psi-mi-ontology">
-  	  <property name="src.data.file" location="/data1/toxomine/psi/ontology/current/psi-mi.obo"/>
-  	</source>
-  	<!-- Homologue -->
-    <source name="orthomcldb-toxoplasma" type="orthomcldb">
-      <property name="src.data.dir" location="/data1/toxomine/orthomcldb/current/"/>
-    </source>
-    	
-    	
-    <source name="items-toxocore" type="toxocore-items">
-      <property name="src.data.file" location="/data1/toxomine/toxocore/items/toxocore-items.xml"/>
-    </source>
-  	  	
-  	<source name="gff-toxocore-me49" type="toxocore-gff">
-      <property name="gff3.taxonId" value="508771"/>
-      <property name="gff3.seqDataSourceName" value="toxoCore"/>
-      <property name="gff3.dataSourceName" value="toxoCore"/>
-      <property name="gff3.seqClsName" value="Chromosome"/>
-      <property name="gff3.dataSetTitle" value="toxoCORE data set"/>
-      <property name="src.data.dir" location="/data1/toxomine/toxocore/gff/tgme49/"/>
-    </source>
-
-  	<source name="gene-list-toxocore" type="toxocore-gene-list">
-  	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gene-list/"/>
-  	</source>
-  	
-  	<source name="go" type="go">
-      <property name="src.data.file" location="/data1/toxomine/go-annotation/current/gene_ontology.obo"/>
-  	</source>
-  	<source name="pubmed-gene" type="pubmed-gene">
-  	  <property name="src.data.dir" location="/data1/toxomine/pubmed/current/" />
-  	  <property name="pubmed.organisms" value="5811"/>
-  	  <property name="src.data.dir.includes" value="gene2pubmed"/>
-  	  <property name="infoFile" location="/data1/toxomine/pubmed/current/gene_info"/>
-    </source>
-  	<source name="update-publications" type="update-publications" dump="true">
-      <!-- this source finds the publication ids (pubmed ids) in the
-                 objectstore, retrieves the details of the publication from Entrez
-                 into an InterMine format XML file, loads that file into a target
-                 items DB, then into the final objectstore dump="true"-->
-      <property name="src.data.file" location="build/publications.xml"/>
-      <property name="cacheDirName" value="build/"/>
-      <!-- <property name="loadFullRecord" value="true"/> -->
-    </source>
-  	<!-- Organism -->
-    <source name="entrez-organism" type="entrez-organism">
-      <property name="src.data.file" location="build/organisms.xml"/>
-    </source>
+	<!-- FASTA sequences -->
+	<source name="fasta-toxoplasma-me49" type="fasta" dump="false">
+	  <property name="fasta.taxonId" value="508771"/>
+	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
+	  <property name="fasta.dataSourceName" value="ToxoDB"/>
+	  <property name="fasta.dataSetTitle" value="T. gondii ME49 strain Chromosome Sequence"/>
+	  <property name="fasta.includes" value="TGME49_chr*.fasta"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
+	</source>
+	<source name="fasta-toxoplasma-gt1" type="fasta" dump="false">
+	  <property name="fasta.taxonId" value="507601"/>
+	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
+	  <property name="fasta.dataSourceName" value="ToxoDB"/>
+	  <property name="fasta.dataSetTitle" value="T. gondii GT1 strain Chromosome Sequence"/>
+	  <property name="fasta.includes" value="TGGT1_chr*.fasta"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
+	</source>  	
+	<source name="fasta-toxoplasma-veg" type="fasta" dump="false">
+	  <property name="fasta.taxonId" value="432359"/>
+	  <property name="fasta.className" value="org.intermine.model.bio.Chromosome"/>
+	  <property name="fasta.dataSourceName" value="ToxoDB"/>
+	  <property name="fasta.dataSetTitle" value="T. gondii VEG strain Chromosome Sequence"/>
+	  <property name="fasta.includes" value="TGVEG_chr*.fasta"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/fasta/current/"/>
+	</source>
+	<!-- Genome annotation -->
+	<source name="gff-toxoplasma-me49" type="toxodb-gff" dump="false">
+	  <property name="gff3.taxonId" value="508771"/>
+	  <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+	  <property name="gff3.dataSourceName" value="ToxoDB"/>
+	  <property name="gff3.seqClsName" value="Chromosome"/>
+	  <property name="gff3.dataSetTitle" value="T. gondii ME49 strain Genome Annotation"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/ME49"/>
+	</source>
+	<source name="gff-toxoplasma-gt1" type="toxodb-gff" dump="false">
+	  <property name="gff3.taxonId" value="507601"/>
+	  <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+	  <property name="gff3.dataSourceName" value="ToxoDB"/>
+	  <property name="gff3.seqClsName" value="Chromosome"/>
+	  <property name="gff3.dataSetTitle" value="T. gondii GT1 strain Genome Annotation"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/GT1"/>
+	</source>
+	<source name="gff-toxoplasma-veg" type="toxodb-gff" dump="false">
+	  <property name="gff3.taxonId" value="432359"/>
+	  <property name="gff3.seqDataSourceName" value="ToxoDB"/>
+	  <property name="gff3.dataSourceName" value="ToxoDB"/>
+	  <property name="gff3.seqClsName" value="Chromosome"/>
+	  <property name="gff3.dataSetTitle" value="T. gondii VEG strain Genome Annotation"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxodb/gff/current/VEG"/>
+	</source>
+	<!-- Protein -->
+	<source name="uniprot-toxoplasma" type="uniprot" dump="false">
+	  <property name="uniprot.organisms" value="5811"/>
+	  <property name="createinterpro" value="true"/>
+	  <property name="creatego" value="true"/>
+	  <property name="allowduplicates" value="false"/>
+	  <property name="loadtrembl" value="true"/>
+	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current/"/>
+	</source>
+	<source name="uniprot-fasta-toxoplasma" type="fasta" dump="false">
+	  <property name="fasta.taxonId" value="5811"/>
+	  <property name="fasta.className" value="org.intermine.model.bio.Protein"/>
+	  <property name="fasta.classAttribute" value="primaryAccession"/>
+	  <property name="fasta.dataSetTitle" value="UniProt data set"/>
+	  <property name="fasta.dataSourceName" value="UniProt"/>
+	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current"/>
+	  <property name="fasta.includes" value="uniprot_sprot_varsplic.fasta"/>
+	  <property name="fasta.sequenceType" value="protein" />
+	  <property name="fasta.loaderClassName" value="org.intermine.bio.dataconversion.UniProtFastaLoaderTask"/>
+	</source>
+	<source name="uniprot-keywords" type="uniprot-keywords" dump="false">
+	  <property name="src.data.dir" location="/data1/toxomine/uniprot/current"/>
+	  <property name="src.data.dir.includes" value="keywlist.xml"/>
+	</source>
+	<source name="interpro-toxoplasma" type="interpro">
+	  <property name="src.data.dir" location="/data1/toxomine/interpro/current/"/>
+	</source>
+	<source name="psi-intact" type="psi" dump="false">
+	  <property name="src.data.dir" location="/data1/toxomine/psi/intact/current/"/>
+	  <property name="intact.organisms" value="5811"/>
+	</source>
+	<source name="psi-mi-ontology" type="psi-mi-ontology">
+	  <property name="src.data.file" location="/data1/toxomine/psi/ontology/current/psi-mi.obo"/>
+	</source>
+	<!-- Homologue -->
+	<source name="orthomcldb-toxoplasma" type="orthomcldb">
+	  <property name="src.data.dir" location="/data1/toxomine/orthomcldb/current/"/>
+	</source>
+	<!-- toxoCore -->
+	<source name="items-toxocore" type="toxocore-items">
+	  <property name="src.data.file" location="/data1/toxomine/toxocore/items/toxocore-items.xml"/>
+	</source>
+	<source name="gff-toxocore-me49" type="toxocore-gff">
+	  <property name="gff3.taxonId" value="508771"/>
+	  <property name="gff3.seqDataSourceName" value="toxoCore"/>
+	  <property name="gff3.dataSourceName" value="toxoCore"/>
+	  <property name="gff3.seqClsName" value="Chromosome"/>
+	  <property name="gff3.dataSetTitle" value="toxoCORE data set"/>
+	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gff/tgme49/"/>
+	</source>
+	<source name="gene-list-toxocore" type="toxocore-gene-list">
+	  <property name="src.data.dir" location="/data1/toxomine/toxocore/gene-list/"/>
+	</source>
+	<!-- GO -->  	
+	<source name="go" type="go">
+	  <property name="src.data.file" location="/data1/toxomine/go-annotation/current/gene_ontology.obo"/>
+	</source>
+	<!-- Publications -->  
+	<source name="pubmed-gene" type="pubmed-gene">
+	  <property name="src.data.dir" location="/data1/toxomine/pubmed/current/" />
+	  <property name="pubmed.organisms" value="5811"/>
+	  <property name="src.data.dir.includes" value="gene2pubmed"/>
+	  <property name="infoFile" location="/data1/toxomine/pubmed/current/gene_info"/>
+	</source>
+	<source name="update-publications" type="update-publications" dump="true">
+	  <!-- this source finds the publication ids (pubmed ids) in the
+	             objectstore, retrieves the details of the publication from Entrez
+	             into an InterMine format XML file, loads that file into a target
+	             items DB, then into the final objectstore dump="true"-->
+	  <property name="src.data.file" location="build/publications.xml"/>
+	  <property name="cacheDirName" value="build/"/>
+	  <!-- <property name="loadFullRecord" value="true"/> -->
+	</source>
+	<!-- Organism -->
+	<source name="entrez-organism" type="entrez-organism">
+	  <property name="src.data.file" location="build/organisms.xml"/>
+	</source>
   </sources>
 
   <post-processing>
-    <post-process name="create-references" />
-    <post-process name="set-missing-chromosome-locations"/>
-    <post-process name="create-intergenic-region-features"/>
-    <post-process name="create-gene-flanking-features" />
-  	<!-- <post-process name="transfer-sequences" dump="true"/> -->
-    <post-process name="transfer-sequences" />
-    <post-process name="create-intron-features" />
+	<!-- Sequence features -->
+	<!-- <post-process name="create-utr-references" /> -->
+	<post-process name="create-references" />
+	<post-process name="set-missing-chromosome-locations"/>
+	<post-process name="create-chromosome-locations-and-lengths" />
+	<post-process name="transfer-sequences" />
+	<post-process name="make-spanning-locations" />
 
-    <post-process name="do-sources"/>
+	<!-- Overlapping and flanking features -->
+	<post-process name="create-intergenic-region-features"/>
+	<post-process name="create-gene-flanking-features" /> 
 
-    <post-process name="create-bioseg-location-index"/>
-    <post-process name="create-overlap-view"/>
-    
-    <!-- webapp -->
-  	<!-- <post-process name="create-attribute-indexes" dump="true"/> -->
-    <post-process name="create-attribute-indexes" />
-    <post-process name="summarise-objectstore"/>
-    <post-process name="create-autocomplete-index"/>
-    <post-process name="create-search-index"/>
+	<!-- source -->
+	<post-process name="do-sources"/>
+
+	<!-- Sequence features -->
+	<post-process name="create-intron-features" />
+
+	<!-- Overlapping and flanking features -->
+	<post-process name="create-bioseg-location-index"/>
+	<post-process name="create-overlap-view"/>
+
+	<!-- webapp -->
+	<post-process name="create-attribute-indexes" />
+	<post-process name="summarise-objectstore"/>
+	<post-process name="create-autocomplete-index"/>
+	<post-process name="create-search-index"/>
   </post-processing>
-	
+
 </project>
 

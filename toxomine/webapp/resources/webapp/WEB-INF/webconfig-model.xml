@@ -90,16 +90,9 @@
     </inlinelist>
     <fields>
       <fieldconfig fieldExpr="primaryIdentifier"/>
-      <fieldconfig fieldExpr="secondaryIdentifier"/>
       <fieldconfig fieldExpr="symbol"/>
-      <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="description"/>      
       <fieldconfig fieldExpr="organism.shortName" label="Organism" />
-      <fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
-      <fieldconfig fieldExpr="chromosomeLocation" displayer="/model/chromosomeLocDisplayer.jsp" showInResults="false" />
-      <fieldconfig fieldExpr="chromosome.primaryIdentifier" showInInlineCollection="false" showInSummary="false" />
-      <fieldconfig fieldExpr="chromosomeLocation.start" showInInlineCollection="false" showInSummary="false" />
-      <fieldconfig fieldExpr="chromosomeLocation.end" showInInlineCollection="false" showInSummary="false" />
     </fields>
   </class>
 
@@ -668,5 +661,91 @@
                      placement="Methods"
                      types="Submission"/>
   </reportdisplayers>
+
+  <widgets>
+    <graphdisplayer id="chromosome_distribution_for_gene"
+                     title="Chromosome Distribution"
+                     description="Actual: number of items in this list found on each chromosome.  Expected: given the total number of items on the chromosome and the number of items in this list, the number of items expected to be found on each chromosome."
+                     graphType="ColumnChart"
+                     rangeLabel="Count"
+                     domainLabel="Chromosome"
+                     filterLabel="Organism"
+                     filters="organism.name=[list]"
+                     startClass="Gene"
+                     typeClass="Gene"
+                     categoryPath="chromosome.primaryIdentifier"
+                     seriesLabels="Actual,Expected"
+                     seriesPath="ActualExpectedCriteria"
+                     constraints="organism.name=[Organism]"
+                     views="primaryIdentifier, symbol, secondaryIdentifier, organism.name, chromosome.primaryIdentifier,
+                            chromosomeLocation.start, chromosomeLocation.end, chromosomeLocation.strand"/>
+
+    <enrichmentwidgetdisplayer id="protein_features"
+                               title="UniProt Features"
+                               description="UniProt features enriched for proteins in this list."
+                               label="Feature"
+                               startClass="Protein"
+                               startClassDisplay="primaryIdentifier"
+                               enrich="features.type"
+                               enrichIdentifier="features.type"
+                               constraints="organism.name=[list]"
+                               typeClass="Protein"
+                               views="primaryIdentifier, primaryAccession, organism.name,
+                                     features.feature.name, features.type,features.description,
+                                     features.begin, features.end"/>
+
+    <enrichmentwidgetdisplayer id="uniprot_keywords"
+                               title="UniProt Keywords"
+                               description="UniProt keywords enriched for proteins in this list."
+                               label="Keyword"
+                               startClass="Protein"
+                               startClassDisplay="primaryIdentifier"
+                               enrich="keywords.name"
+                               constraints="organism.name=[list]"
+                               typeClass="Protein"
+                               views="primaryIdentifier, primaryAccession, organism.name,
+                                     keywords.name, keywords.description"/>
+
+    <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_gene"
+                               title="Protein Domain Enrichment"
+                               description="Protein Domains enriched for items in this list."
+                               label="Protein Domain"
+                               startClass="Gene"
+                               startClassDisplay="primaryIdentifier"
+                               enrich="proteins.proteinDomains.name"
+                               enrichIdentifier="proteins.proteinDomains.primaryIdentifier"
+                               constraints="organism.name=[list]"
+                               typeClass="Gene"
+                               views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                                     proteins.proteinDomains.primaryIdentifier,proteins.proteinDomains.name"
+                               externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
+
+    <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_protein"
+                               title="Protein Domain Enrichment"
+                               description="Protein Domains enriched for items in this list."
+                               label="Protein Domain"
+                               startClass="Protein"
+                               startClassDisplay="primaryIdentifier"
+                               enrich="proteinDomains.name"
+                               enrichIdentifier="proteinDomains.primaryIdentifier"
+                               constraints="organism.name=[list]"
+                               typeClass="Protein"
+                               views="primaryIdentifier,organism.name,proteinDomains.primaryIdentifier,
+                                     proteinDomains.name"
+                               externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
+
+    <bagtabledisplayer id="orthologues" title="Orthologues" pathStrings="Gene.homologues[type=orthologue].homologue.organism"
+                       description="Counts of orthologues for the genes in this list."
+                       displayFields="name"
+                       exportField="primaryIdentifier"
+                       typeClass="Gene"
+                       columnTitle="Orthologues"
+                       views="secondaryIdentifier, symbol, organism.shortName,
+                              homologues.homologue.primaryIdentifier,
+                              homologues.homologue.symbol,
+                              homologues.homologue.organism.shortName,
+                              homologues.type"/>
+  </widgets>
+ 
 </webconfig>
 

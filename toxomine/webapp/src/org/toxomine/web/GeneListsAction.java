@@ -51,7 +51,6 @@ import org.intermine.web.logic.session.SessionMethods;
 import org.intermine.web.struts.ForwardParameters;
 import org.intermine.web.struts.InterMineAction;
 import org.intermine.web.struts.TableExportForm;
-
 import org.intermine.model.bio.Submission;
 
 /**
@@ -99,57 +98,61 @@ public class GeneListsAction extends InterMineAction
         if ("submission".equals(type)) {
             tcId = request.getParameter("submission");
 
-            q.addView("GeneList.name");
-            q.addView("GeneList.readCount");
-            q.addView("GeneList.gene.primaryIdentifier");
-            q.addConstraint(Constraints.eq("GeneList.submission.TCid", tcId));
-        }
-
-        if ("results".equals(action)) {
-            String qid = SessionMethods.startQueryWithTimeout(request, false, q);
-            Thread.sleep(200);
-
-            return new ForwardParameters(mapping.findForward("waiting")).addParameter("qid", qid).forward();
-        } else if ("export".equals(action)) {
-            String format = request.getParameter("format");
-
-            Profile profile = SessionMethods.getProfile(session);
-            WebResultsExecutor executor = im.getWebResultsExecutor(profile);
-            PagedTable pt = new PagedTable(executor.execute(q));
-
-            if (pt.getWebTable() instanceof WebResults) {
-                ((WebResults) pt.getWebTable()).goFaster();
-            }
-
-            WebConfig webConfig = SessionMethods.getWebConfig(request);
-            TableExporterFactory factory = new TableExporterFactory(webConfig);
-
-            TableHttpExporter exporter = factory.getExporter(format);
-
-            if (exporter == null) {
-                throw new RuntimeException("unknown export format: " + format);
-            }
-
-            TableExportForm exportForm = new TableExportForm();
-            exportForm.setIncludeHeaders(true);
-
-            exporter.export(pt, request, response, exportForm, null, null);
-
-            return null;
-            
-        } else if ("list".equals(action)) {
-            q.addView("GeneList.id");
-            tcId = request.getParameter("submission");
-
-            Profile profile = SessionMethods.getProfile(session);
-
-            String bagName = ("submission_" + tcId) + "_GeneList_genes";
-            bagName = NameUtil.generateNewName(profile.getSavedBags().keySet(), bagName);
-            BagHelper.createBagFromPathQuery(q, bagName, q.getDescription(), "GeneList", profile, im);
-            ForwardParameters forwardParameters = new ForwardParameters(mapping.findForward("bagDetails"));
-            return forwardParameters.addParameter("bagName", bagName).forward();
+	        if ("results".equals(action)) {
+	            q.addView("GeneList.gene.primaryIdentifier");
+	            q.addView("GeneList.readCount");
+	            q.addView("GeneList.name");
+	            q.addConstraint(Constraints.eq("GeneList.submission.TCid", tcId));
+	            
+	            String qid = SessionMethods.startQueryWithTimeout(request, false, q);
+	            Thread.sleep(200);
+	
+	            return new ForwardParameters(mapping.findForward("waiting")).addParameter("qid", qid).forward();
+	        } else if ("export".equals(action)) {
+	            q.addView("GeneList.gene.primaryIdentifier");
+	            q.addView("GeneList.readCount");
+	            q.addView("GeneList.name");
+	            q.addConstraint(Constraints.eq("GeneList.submission.TCid", tcId));
+	            
+	            String format = request.getParameter("format");
+	
+	            Profile profile = SessionMethods.getProfile(session);
+	            WebResultsExecutor executor = im.getWebResultsExecutor(profile);
+	            PagedTable pt = new PagedTable(executor.execute(q));
+	
+	            if (pt.getWebTable() instanceof WebResults) {
+	                ((WebResults) pt.getWebTable()).goFaster();
+	            }
+	
+	            WebConfig webConfig = SessionMethods.getWebConfig(request);
+	            TableExporterFactory factory = new TableExporterFactory(webConfig);
+	
+	            TableHttpExporter exporter = factory.getExporter(format);
+	
+	            if (exporter == null) {
+	                throw new RuntimeException("unknown export format: " + format);
+	            }
+	
+	            TableExportForm exportForm = new TableExportForm();
+	            exportForm.setIncludeHeaders(true);
+	
+	            exporter.export(pt, request, response, exportForm, null, null);
+	
+	            return null;
+	            
+	        } else if ("list".equals(action)) {
+	        	q.addView("Gene.primaryIdentifier");
+	            q.addConstraint(Constraints.eq("Gene.geneLists.submission.TCid", tcId));
+	
+	            Profile profile = SessionMethods.getProfile(session);
+	
+	            String bagName = ("submission_" + tcId) + "_GeneList_genes";
+	            bagName = NameUtil.generateNewName(profile.getSavedBags().keySet(), bagName);
+	            BagHelper.createBagFromPathQuery(q, bagName, q.getDescription(), "Gene", profile, im);
+	            ForwardParameters forwardParameters = new ForwardParameters(mapping.findForward("bagDetails"));
+	            return forwardParameters.addParameter("bagName", bagName).forward();
+	        }
         }
         return null;
     }
 }
-
