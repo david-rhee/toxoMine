@@ -78,9 +78,6 @@
       <fieldconfig fieldExpr="symbol"/>
       <fieldconfig fieldExpr="gene.primaryIdentifier" showInInlineCollection="false"/>
     </fields>
-    <bagdisplayers>
-      <displayer src="heatMap.tile" showOnLeft="true"/>
-    </bagdisplayers>
   </class>
 
   <!-- Modified for toxoMine -->
@@ -94,6 +91,9 @@
       <fieldconfig fieldExpr="description"/>      
       <fieldconfig fieldExpr="organism.shortName" label="Organism" />
     </fields>
+   <bagdisplayers>
+      <displayer src="friendlyMineLinkDisplayer.tile" showOnLeft="false" />
+    </bagdisplayers>
   </class>
 
   <class className="org.intermine.model.bio.GOAnnotation">
@@ -571,8 +571,6 @@
                      replacesFields="transcripts,exons,CDSs,introns,UTRs,fivePrimeUTR,threePrimeUTR"
                      placement="Genomics"
                      types="Gene,Transcript,Exon,Intron,UTR,CDS"/>
-
-
                      
     <reportdisplayer javaClass="org.intermine.bio.web.displayer.OverlappingFeaturesDisplayer"
                      jspName="model/overlappingFeaturesDisplayer.jsp"
