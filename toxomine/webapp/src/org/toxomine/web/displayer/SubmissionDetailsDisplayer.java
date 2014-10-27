@@ -69,6 +69,14 @@ public class SubmissionDetailsDisplayer extends ReportDisplayer
             LOG.info("SUBMISSION id: " + o.getId());
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+
+            String replicateDate;
+            if (o.getReplicateDate() != null) {
+            	replicateDate = formatter.format(o.getReplicateDate());
+            } else {
+            	replicateDate = "not available";
+            }
+            
             String publicReleaseDate;
             if (o.getPublicReleaseDate() != null) {
             	publicReleaseDate = formatter.format(o.getPublicReleaseDate());
@@ -95,6 +103,7 @@ public class SubmissionDetailsDisplayer extends ReportDisplayer
             request.setAttribute("description", o.getDescription());
             request.setAttribute("technique", o.getTechnique());
             request.setAttribute("qualityControl", o.getQualityControl());
+            request.setAttribute("replicateDate", replicateDate);
             request.setAttribute("publicReleaseDate", publicReleaseDate);
             request.setAttribute("labs", labSet);
             request.setAttribute("projects", projectSet);

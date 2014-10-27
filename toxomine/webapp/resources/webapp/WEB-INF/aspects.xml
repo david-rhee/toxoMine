@@ -5,11 +5,35 @@
     <icon-image>model/images/genomics.gif</icon-image>
     <large-image>model/images/genomics.gif</large-image>
     <intro-text>
-      The gene structure and other genome annotation in toxoMine are provided by
-      ToxoDB.org databases.  In most cases toxoMine includes all genome features that have chromosomal locations.
+      The genome sequence and annotation from ToxoDB.
     </intro-text>
     <tile-name>model/genomics.jsp</tile-name>
     <aspect-source name="ToxoDB" url="http://www.toxodb.org"/>
+  </aspect>
+
+  <aspect name="Proteins">
+    <subtitle>Protein and&lt;br/&gt;proteomics data</subtitle>
+    <icon-image>model/images/proteins.png</icon-image>
+    <large-image>model/images/proteins.png</large-image>
+    <intro-text>
+      Protein annotation, including family and domain annotation, from UniProt
+      and InterPro.
+    </intro-text>
+    <tile-name>model/proteins.jsp</tile-name>
+    <aspect-source name="InterPro" url="http://www.ebi.ac.uk/interpro"/>
+    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
+  </aspect>
+
+  <aspect name="Interactions">
+    <subtitle>IntAct</subtitle>
+    <icon-image>model/images/interaction.gif</icon-image>
+    <large-image>model/images/interaction.gif</large-image>
+    <tile-name></tile-name>
+    <intro-text>
+      Protein-protein interactions from IntAct (PSI-MI format).
+    </intro-text>
+    <tile-name>model/interactions.jsp</tile-name>
+    <aspect-source name="IntAct" url="http://www.ebi.ac.uk/intact/"/>
   </aspect>
 
   <aspect name="Homology">
@@ -17,19 +41,19 @@
     <icon-image>model/images/comparativeGenomics.png</icon-image>
     <large-image>model/images/comparativeGenomics.png</large-image>
     <intro-text>
-      Orthologues and Paralogues.
+      Orthologues and Paralogues from OrthoMCL.
     </intro-text>
     <tile-name>model/homology.jsp</tile-name>
     <aspect-source name="OrthoMCLDB" url="http://orthomcl.org"/>
   </aspect>
   
   <aspect name="Functions">
-    <subtitle></subtitle>
-    <icon-image></icon-image>
-    <large-image></large-image>
-    <intro-text>Functions
+    <subtitle>GO</subtitle>
+    <intro-text>
+        GO
     </intro-text>
-    <tile-name></tile-name>
+    <tile-name>model/GO.jsp</tile-name>
+    <aspect-source name="GO" url="http://geneontology.org"/>
   </aspect>
 
   <aspect name="Literature">
@@ -40,17 +64,6 @@
     </intro-text>
     <tile-name>model/literature.jsp</tile-name>
     <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov/"/>
-  </aspect>
-
-  <aspect name="Proteins">
-    <subtitle>Protein and proteomics&lt;br/&gt;data</subtitle>
-    <icon-image>model/images/proteins.png</icon-image>
-    <large-image>model/images/proteins.png</large-image>
-    <intro-text>
-      Protein annotation (including family and domain annotation) from UniProt.
-    </intro-text>
-    <tile-name>model/proteins.jsp</tile-name>
-    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
   </aspect>
 
   <aspect name="Conditions">

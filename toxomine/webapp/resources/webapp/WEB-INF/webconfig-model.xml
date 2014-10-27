@@ -403,9 +403,9 @@
       <fieldconfig fieldExpr="name" label="Name" />
       <fieldconfig fieldExpr="technique" />
       <fieldconfig fieldExpr="qualityControl" />
+      <fieldconfig fieldExpr="replicateDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
       <fieldconfig fieldExpr="publicReleaseDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
       <fieldconfig fieldExpr="embargoDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
-      <fieldconfig fieldExpr="replicateDate" displayer="model/dateDisplayer.jsp" showInResults="false"  showInInlineCollection="false" />
     </fields>
   </class>
 
@@ -625,7 +625,7 @@
 
     <reportdisplayer javaClass="org.toxomine.web.displayer.SubmissionDetailsDisplayer"
                      jspName="model/submissionDetailsDisplayer.jsp"
-                     replacesFields="name,TCid,technique,design,publicReleaseDate,embargoDate,qualityControl,replicate,description,labs,projects,experiments,dataSource"
+                     replacesFields="name,TCid,technique,design,replicateDate,publicReleaseDate,embargoDate,qualityControl,replicate,description,labs,projects,experiments,dataSource"
                      placement="top"
                      types="Submission"/>
 
@@ -678,6 +678,77 @@
                      views="primaryIdentifier, symbol, secondaryIdentifier, organism.name, chromosome.primaryIdentifier,
                             chromosomeLocation.start, chromosomeLocation.end, chromosomeLocation.strand"/>
 
+      <enrichmentwidgetdisplayer id="publication_enrichment"
+                                 title="Publication Enrichment"
+                                 description="Publications enriched for genes in this list."
+                                 label="Publication"
+                                 startClass="Gene"
+                                 startClassDisplay="primaryIdentifier"
+                                 enrich="publications.title"
+                                 enrichIdentifier="publications.pubMedId"
+                                 constraints="organism.name=[list],primaryIdentifier != null"
+                                 typeClass="Gene"
+                                 views="secondaryIdentifier, symbol, organism.name,
+                                       publications.title, publications.firstAuthor,
+                                       publications.journal, publications.year, publications.pubMedId"
+                                 externalLink="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;dopt=Abstract&amp;list_uids="/>
+
+      <enrichmentwidgetdisplayer id="go_enrichment_for_gene"
+                                 title="Gene Ontology Enrichment"
+                                 description="GO terms enriched for items in this list."
+                                 label="GO Term"
+                                 filterLabel="Ontology"
+                                 filters="biological_process,cellular_component,molecular_function"
+                                 startClass="Gene"
+                                 startClassDisplay="primaryIdentifier"
+                                 enrich="goAnnotation.ontologyTerm.parents.name"
+                                 enrichIdentifier="goAnnotation.ontologyTerm.parents.identifier"
+                                 constraints="goAnnotation.ontologyTerm.parents.namespace=[Ontology],organism.name=[list],
+                                              primaryIdentifier != null, goAnnotation.qualifier = null,
+                                              goAnnotation.ontologyTerm.parents.identifier != go:0008150,
+                                              goAnnotation.ontologyTerm.parents.identifier != go:0003674,
+                                              goAnnotation.ontologyTerm.parents.identifier != go:0005575"
+                                 typeClass="Gene"
+                                 views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                                       goAnnotation.ontologyTerm.identifier, goAnnotation.ontologyTerm.name,
+                                       goAnnotation.ontologyTerm.parents.identifier,goAnnotation.ontologyTerm.parents.name"
+                                 externalLink="http://amigo.geneontology.org/cgi-bin/amigo/term_details?term="/>
+
+    <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_gene"
+                               title="Protein Domain Enrichment"
+                               description="Protein Domains enriched for items in this list."
+                               label="Protein Domain"
+                               startClass="Gene"
+                               startClassDisplay="primaryIdentifier"
+                               enrich="proteins.proteinDomains.name"
+                               enrichIdentifier="proteins.proteinDomains.primaryIdentifier"
+                               constraints="organism.name=[list]"
+                               typeClass="Gene"
+                               views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                                     proteins.proteinDomains.primaryIdentifier,proteins.proteinDomains.name"
+                               externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
+
+      <enrichmentwidgetdisplayer id="go_enrichment_for_protein"
+                                 title="Gene Ontology Enrichment"
+                                 description="GO terms enriched for items in this list."
+                                 label="GO Term"
+                                 filterLabel="Ontology"
+                                 filters="biological_process,cellular_component,molecular_function"
+                                 startClass="Protein"
+                                 startClassDisplay="primaryAccession"
+                                 enrich="genes.goAnnotation.ontologyTerm.parents.name"
+                                 enrichIdentifier="genes.goAnnotation.ontologyTerm.parents.identifier"
+                                 constraints="genes.goAnnotation.ontologyTerm.parents.namespace=[Ontology],organism.name=[list],
+                                              genes.primaryIdentifier != null, genes.goAnnotation.qualifier = null,
+                                              genes.goAnnotation.ontologyTerm.parents.identifier != go:0008150,
+                                              genes.goAnnotation.ontologyTerm.parents.identifier != go:0003674,
+                                              genes.goAnnotation.ontologyTerm.parents.identifier != go:0005575"
+                                 typeClass="Protein"
+                                 views="primaryAccession, name,organism.name,
+                                       genes.goAnnotation.ontologyTerm.identifier, genes.goAnnotation.ontologyTerm.name,
+                                       genes.goAnnotation.ontologyTerm.parents.identifier,genes.goAnnotation.ontologyTerm.parents.name"
+                                 externalLink="http://amigo.geneontology.org/cgi-bin/amigo/term_details?term="/>
+                               
     <enrichmentwidgetdisplayer id="protein_features"
                                title="UniProt Features"
                                description="UniProt features enriched for proteins in this list."
@@ -703,20 +774,6 @@
                                typeClass="Protein"
                                views="primaryIdentifier, primaryAccession, organism.name,
                                      keywords.name, keywords.description"/>
-
-    <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_gene"
-                               title="Protein Domain Enrichment"
-                               description="Protein Domains enriched for items in this list."
-                               label="Protein Domain"
-                               startClass="Gene"
-                               startClassDisplay="primaryIdentifier"
-                               enrich="proteins.proteinDomains.name"
-                               enrichIdentifier="proteins.proteinDomains.primaryIdentifier"
-                               constraints="organism.name=[list]"
-                               typeClass="Gene"
-                               views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
-                                     proteins.proteinDomains.primaryIdentifier,proteins.proteinDomains.name"
-                               externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
 
     <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_protein"
                                title="Protein Domain Enrichment"

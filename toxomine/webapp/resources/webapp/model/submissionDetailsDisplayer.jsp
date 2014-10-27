@@ -33,7 +33,7 @@
 	        <c:if test="${not empty replicateDate}">
 		        <tr>
 		        	<td>Replicate Date:</td>
-		            <td><strong>${replicate}<strong></td>
+		            <td><strong>${replicateDate}<strong></td>
 		        </tr>
 	        </c:if>
 	        <c:if test="${not empty publicReleaseDate}">
