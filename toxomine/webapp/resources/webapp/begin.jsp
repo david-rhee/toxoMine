@@ -18,8 +18,8 @@
 			<div class="welcome-content-p">
               	<h2>Welcome to toxoMine</h2>
 			  	<p><strong>toxoMine</strong> is an integrated web resource of data &amp; tools to <strong>browse</strong>, <strong>search</strong> and 
-			  	<strong>download</strong> publicly available <i>T. gondii</i> experimental data and metadata. 
-			  	Data integrated in <strong>toxoMine</strong> are uploaded from the <a href="http://www.toxocore.org/">toxoCore.org</a></strong> 
+			  	<strong>download</strong> publicly available <i>T. gondii</i> experiment data and metadata. 
+			  	Data integrated in <strong>toxoMine</strong> are uploaded from the local staging 
 				database which holds the raw sequence-based data derived from a number of biological assays. It also extracts data
 				from the <a href="http://www.toxoDB.org/">toxoDB.org</a></strong> database for genome annotation and other data sets.</p>
 				<br />
@@ -28,7 +28,7 @@
 				<br />
 			</div>
 			<div class="welcome-content-p">
-				<h3><a href="/${WEB_PROPERTIES['webapp.path']}/projects.do">Browse all toxoCore data</a></h3>
+				<h3><a href="/${WEB_PROPERTIES['webapp.path']}/projects.do">Browse all high-throughput experiment data</a></h3>
 			</div>
 		</div>
 	</div>

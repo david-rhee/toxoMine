@@ -8,17 +8,17 @@
 <!-- antibody chip -->
 <template name="Chip_Target_Submissions" title="ChIP target --&gt; Submissions" comment="">
   <query name="Chip_Target_Submissions" model="genomic" view="Submission.antibodies.targetName Submission.TCid Submission.name" sortOrder="Submission.TCid asc" longDescription="Show all submissions for a specified chIP target.">
-    <constraint path="Submission.antibodies.targetName" editable="true" op="=" value="HA"/>
+    <constraint path="Submission.antibodies.targetName" editable="true" op="=" value="GCN5b"/>
   </query>
 </template>
 <template name="ChIP_Target_BindingSites" title="ChIP target --&gt; Binding sites" comment="">
-  <query name="ChIP_Target_BindingSites" model="genomic" view="Submission.features.primaryIdentifier Submission.antibodies.name Submission.name Submission.TCid Submission.toxoplasmaMutants.name Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end" sortOrder="Submission.antibodies.name asc" constraintLogic="A and B" longDescription="Show chIP binding sites identified for a particular target. By default all binding sites will be returned.  Use the optional constraints if you want to return specific binding sites, eg by strain of the mutants used.">
+  <query name="ChIP_Target_BindingSites" model="genomic" view="Submission.features.primaryIdentifier Submission.antibodies.targetName Submission.name Submission.TCid Submission.toxoplasmaMutants.name Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end" sortOrder="Submission.antibodies.targetName asc" constraintLogic="A and B" longDescription="Show chIP binding sites identified for a particular target. By default all binding sites will be returned.  Use the optional constraints if you want to return specific binding sites, eg by strain of the mutants used.">
     <pathDescription pathString="Submission.antibodies" description="Antibody"/>
     <pathDescription pathString="Submission.features" description="Binding site"/>
     <pathDescription pathString="Submission.features.chromosome" description="Chromosome"/>
     <pathDescription pathString="Submission.features.chromosomeLocation" description="Chromosome location"/>
-    <constraint path="Submission.antibodies.targetName" code="A" editable="true" description="Show binding sites mapped for the following chIP target (if your target is a C. elegans transcription factor gene turn off this constraint and enter gene below):" switchable="on" op="=" value="HA"/>
-    <constraint path="Submission.toxoplasmaMutants.strain" code="B" editable="true" description="or strain:" switchable="off" op="=" value="RH"/>
+    <constraint path="Submission.antibodies.targetName" code="A" editable="true" description="Show binding sites mapped for the following chIP target" switchable="on" op="=" value="GCN5b"/>
+    <constraint path="Submission.toxoplasmaMutants.strain" code="B" editable="true" description="Show binding sites only for this mutant strain:" switchable="off" op="=" value="RH"/>
   </query>
 </template>
 <template name="ChIP_Target_Gene_Flanking_BindingSites" title="ChIP target + Gene --&gt; Binding sites in Gene flanking region" comment="">
@@ -32,7 +32,7 @@
     <constraint path="Gene" code="A" editable="true" description="For the following gene(s):" op="LOOKUP" value="TGME49_201220" extraValue=""/>
     <constraint path="Gene.flankingRegions.distance" code="B" editable="true" description="Show binding sites:" op="=" value="0.5kb"/>
     <constraint path="Gene.flankingRegions.direction" code="C" editable="true" description="direction:" op="=" value="upstream"/>
-    <constraint path="Gene.overlappingFeatures.submissions.antibodies.targetName" code="D" editable="true" description="for chIP target:" switchable="off" op="=" value="HA"/>
+    <constraint path="Gene.overlappingFeatures.submissions.antibodies.targetName" code="D" editable="true" description="for chIP target:" switchable="off" op="=" value="GCN5b"/>
   </query>
 </template>
 <!-- end antibody chip -->
@@ -229,7 +229,7 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
     <join path="Project.submissions.features.chromosome" style="OUTER"/>
     <join path="Project.submissions.features.chromosomeLocation" style="OUTER"/>
     <constraint path="Project.submissions.features" editable="false" type="BindingSite"/>
-    <constraint path="Project.submissions.antibodies.targetName" code="B" editable="true" op="=" value="HA"/>
+    <constraint path="Project.submissions.antibodies.targetName" code="B" editable="true" op="=" value="GCN5b"/>
     <constraint path="Project.name" code="A" editable="true" op="=" value="GCN5b"/>
   </query>
 </template>

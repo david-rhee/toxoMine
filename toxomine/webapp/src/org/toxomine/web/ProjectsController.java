@@ -145,25 +145,25 @@ public class ProjectsController extends TilesAction
             /**
              * Project to Features
              */
-            Map<String, Integer> projectFeatures = new HashMap<String, Integer>();
+//            Map<String, Integer> projectFeatures = new HashMap<String, Integer>();
+//            
+//            PathQuery qqqq = new PathQuery(im.getModel());
+//            qqqq.addViews("Project.name", "Project.submissions.features.primaryIdentifier");
+//            qqqq.addOrderBy("Project.name", OrderDirection.ASC);
+//            
+//            boolean noResultssss = true;
+//            if (qqqq.isValid()) {
+//                Profile profile = SessionMethods.getProfile(request.getSession());
+//                PathQueryExecutor executor = im.getPathQueryExecutor(profile);
+//                ExportResultsIterator it = executor.execute(qqqq);
+//                while (it.hasNext()) {
+//                    List<ResultElement> row = it.next();
+//                    String projectName =  (String) row.get(0).getField();
+//                    addToCountMap(projectFeatures, projectName);
+//                }  
+//                request.setAttribute("projectFeatures", projectFeatures);
+//            }
             
-            PathQuery qqqq = new PathQuery(im.getModel());
-            qqqq.addViews("Project.name", "Project.submissions.features.primaryIdentifier");
-            qqqq.addOrderBy("Project.name", OrderDirection.ASC);
-            
-            boolean noResultssss = true;
-            if (qqqq.isValid()) {
-                Profile profile = SessionMethods.getProfile(request.getSession());
-                PathQueryExecutor executor = im.getPathQueryExecutor(profile);
-                ExportResultsIterator it = executor.execute(qqqq);
-                while (it.hasNext()) {
-                    List<ResultElement> row = it.next();
-                    String projectName =  (String) row.get(0).getField();
-                    addToCountMap(projectFeatures, projectName);
-                }  
-                request.setAttribute("projectFeatures", projectFeatures);
-            } 
-
         } catch (Exception err) {
             err.printStackTrace();
         }

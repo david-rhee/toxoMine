@@ -43,7 +43,7 @@
     <th width="30%" class="sortable">PROJECTS</th>
     <th width="10%" class="sortable">LABS</th>
     <th width="50%" class="sortable" >EXPERIMENTS</th>
-    <th width="10%" class="sortable" >FEATURES</th>
+    <%--<th width="10%" class="sortable" >FEATURES</th>--%>
   </tr>
 
   <c:forEach items="${projectLabs}" var="proj" varStatus="proj_status">
@@ -95,6 +95,7 @@
     		</c:if>
     	</c:forEach>
     	</td>
+    	<%--
 		<td class="sorting">
       		<c:forEach items="${projectFeatures}" var="projectFeatures" varStatus="feature_status">
       			<c:set var="projectFeatureName" value="${projectFeatures.key}"/>
@@ -112,6 +113,7 @@
     			</c:if>
       		</c:forEach>     
 		</td>
+		--%>
   </tr>
 
   </c:forEach>

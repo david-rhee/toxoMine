@@ -488,6 +488,11 @@
   </class>
 
   <class className="org.intermine.model.bio.Antibody">
+    <headerconfig>
+        <titles>
+            <title mainTitles="targetName" numberOfMainTitlesToShow="1" subTitles="" />
+        </titles>
+    </headerconfig>
     <fields>
       <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="targetName"/>
@@ -520,6 +525,7 @@
     <fields>
       <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="url"/>
     </fields>
   </class>
 
@@ -527,6 +533,7 @@
     <fields>
       <fieldconfig fieldExpr="name"/>
       <fieldconfig fieldExpr="type"/>
+      <fieldconfig fieldExpr="url"/>
     </fields>
   </class>
 

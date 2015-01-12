@@ -75,7 +75,7 @@
 							${persistentDataFile.type}
 						</td>
 						<td valign="top" style="width:50%;">
-							${persistentDataFile.url} 
+							<a href="${persistentDataFile.url}">${persistentDataFile.url}</a> 
 						</td>
 					</tr>
 				</c:forEach>
@@ -110,7 +110,7 @@
 							${submissionDataFile.type}
 						</td>
 						<td valign="top" style="width:50%;">
-							${submissionDataFile.url} 
+							<a href="${submissionDataFile.url}">${submissionDataFile.url}</a> 
 						</td>
 					</tr>
 				</c:forEach>
