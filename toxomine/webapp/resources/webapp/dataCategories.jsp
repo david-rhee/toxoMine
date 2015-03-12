@@ -37,14 +37,20 @@
   
 <!-- Genomics -->
   <tr>
-    <td class="leftcol"><html:link action="/aspect?name=Genomics"> <p><img src="model/images/genomics.gif" /></p> <p> Genomics </p></html:link></td>
-    <td> <i>T. gondii</i> </td>
+    <td rowspan="2" class="leftcol"><html:link action="/aspect?name=Genomics"> <p><img src="model/images/genomics.gif" /></p> <p> Genomics </p></html:link></td>
+    <td rowspan="2" > <i>T. gondii</i> </td>
     <td> Genome annotation - Release ${WEB_PROPERTIES['genomeVersion.me49']} </td>
     <td> <a href="http://toxodb.org" target="_new" class="extlink">ToxoDB</a></td>
     <td> Gajria et al - <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=Abstract&list_uids=18003657" target="_new" class="extlink">PubMed: 18003657</a></td>
     <td> &nbsp;</td>
   </tr>
-
+  <tr>
+    <td> Transcription Start Site </td>
+    <td> </td>
+    <td> Yamagishi et al - <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&dopt=Abstract&list_uids=20522451" target="_new" class="extlink">PubMed: 20522451</a></td>
+    <td> &nbsp;</td>
+  </tr>
+  
 <!-- Proteins -->
   <tr>
     <td rowspan="2" class="leftcol"><html:link action="/aspect?name=Proteins"> <p><img src="model/images/proteins.png" /></p> <p> Proteins </p></html:link></td>
@@ -62,6 +68,7 @@
   </tr>
 
 <!-- Interactions -->
+<!-- Taken out due to lack of data
   <tr>
   	<td class="leftcol"><html:link action="/aspect?name=Interactions"> <p> <img src="model/images/interaction.gif" /></p> <p> Interactions</p></html:link></td>
 	<td> <i>T. gondii</i> </td>
@@ -70,6 +77,7 @@
 	<td> Kerrien et al - <a href="http://www.ncbi.nlm.nih.gov/pubmed/17145710" target="_new" class="extlink">PubMed:17145710</a></td>
 	<td> &nbsp;</td>
   </tr>
+-->
 
 <!-- Homologues -->
   <tr>

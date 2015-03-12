@@ -83,16 +83,27 @@
 	<source name="interpro-toxoplasma" type="interpro">
 	  <property name="src.data.dir" location="/data1/toxomine/interpro/current/"/>
 	</source>
+  	<!-- Taking this out due to lack of data
 	<source name="psi-intact" type="psi" dump="false">
 	  <property name="src.data.dir" location="/data1/toxomine/psi/intact/current/"/>
 	  <property name="intact.organisms" value="5811"/>
 	</source>
+	-->
 	<source name="psi-mi-ontology" type="psi-mi-ontology">
 	  <property name="src.data.file" location="/data1/toxomine/psi/ontology/current/psi-mi.obo"/>
 	</source>
 	<!-- Homologue -->
 	<source name="orthomcldb-toxoplasma" type="orthomcldb">
 	  <property name="src.data.dir" location="/data1/toxomine/orthomcldb/current/"/>
+	</source>
+	<!-- TSS -->
+	<source name="tss-toxoplasma" type="tss-gff">
+	  <property name="gff3.taxonId" value="508771"/>
+	  <property name="gff3.seqDataSourceName" value="Yamagishi"/>
+	  <property name="gff3.dataSourceName" value="Yamagishi"/>
+	  <property name="gff3.seqClsName" value="Chromosome"/>
+	  <property name="gff3.dataSetTitle" value="Yamagishi TSS Region data set"/>
+	  <property name="src.data.dir" location="/data1/toxomine/tss/"/>
 	</source>
 	<!-- toxoCore -->
 	<source name="items-toxocore" type="toxocore-items">

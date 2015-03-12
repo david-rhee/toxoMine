@@ -1,0 +1,5 @@
+<project name="tss-gff" default="default" basedir=".">
+  <description>build, test, package tss-gff</description>
+  
+  <import file="../../../../imbuild/source.xml"/>
+</project>

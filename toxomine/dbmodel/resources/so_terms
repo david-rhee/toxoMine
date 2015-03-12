@@ -25,6 +25,8 @@ transcript
 tRNA
 three_prime_UTR
 UTR
+TSS
+TSS_region
 
 # many-to-many part_of relationships (default is many-to-one)
 exon.transcript

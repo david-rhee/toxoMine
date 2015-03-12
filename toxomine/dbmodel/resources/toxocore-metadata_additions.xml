@@ -29,6 +29,11 @@
   <collection name="submissions" referenced-type="Submission"/>
 </class>
 
+<class name="TSSRegion" extends="SequenceFeature" is-interface="true">
+  <attribute name="peak" type="java.lang.Double" />
+  <attribute name="peakCount" type="java.lang.Double" />
+</class>
+
 <class name="Publication" is-interface="true">
   <collection name="projects" referenced-type="Project" reverse-reference="publications" />
   <collection name="experiments" referenced-type="Experiment" reverse-reference="publications" />

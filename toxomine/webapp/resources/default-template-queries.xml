@@ -5,9 +5,43 @@
   <queries>
   </queries>
 <template-queries>
+
+<!-- tss_region -->
+<template name="ChIP_Target_TSSRegions" title="ChIP target --&gt; TSS regions" comment="">
+  <query name="ChIP_Target_TSSRegions" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.feature.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.chromosomeLocation.end" longDescription="Show all TSS regions for a specified chIP target." sortOrder="TSSRegion.primaryIdentifier asc">
+    <pathDescription pathString="TSSRegion.primaryIdentifier" description="TSSRegion"/>
+    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosome" description="Chromosome"/>
+    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosomeLocation" description="Chromosome location"/>
+    <constraint path="TSSRegion.overlappingFeatures.submissions.antibodies.targetName" code="A" editable="true" description="Show TSSRegions only for this ChIP target:" op="=" value="H4ac"/>
+  </query>
+</template>
+<template name="Gene_Flanking_TSSRegions" title="Gene + Flanking region --&gt; TSS regions" comment="">
+<query name="Gene_Flanking_TSSRegions" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.peak Gene.overlappingFeatures.peakCount Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start" longDescription="Show the TSS regions in the upstream or downstream flanking region of a specified gene or genes." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
+  <constraint path="Gene" code="A" editable="true" description="For the following gene(s):" op="LOOKUP" value="TGME49_201170" extraValue=""/>
+  <constraint path="Gene.flankingRegions.direction" code="B" editable="true" description="Direction:" op="=" value="upstream"/>
+  <constraint path="Gene.flankingRegions.distance" code="C" editable="true" description="Distance:" op="=" value="0.5kb"/>
+  <constraint path="Gene.overlappingFeatures" type="TSSRegion"/>
+</query>
+</template>
+<template name="TSSRegions_Flanking_Gene" title="TSS regions + Flanking region --&gt; Gene" comment="">
+<query name="TSSRegions_Flanking_Gene" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.gene.primaryIdentifier TSSRegion.overlappingFeatures.gene.symbol" longDescription="Show all genes in the upstream or downstream flanking region of TSS regions" sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B and C">
+  <constraint path="TSSRegion.overlappingFeatures" type="GeneFlankingRegion"/>
+  <constraint path="TSSRegion.overlappingFeatures.direction" editable="true" description="Direction:" code="A" op="=" value="downstream"/>
+  <constraint path="TSSRegion.overlappingFeatures.distance" editable="true" description="Distance:" code="B" op="=" value="0.5kb"/>
+  <constraint path="TSSRegion" switchable="off" editable="true" description="TSS region:" code="C" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
+</query>
+</template>
+<template name="TSSRegions_Flanking_BindingSites" title="TSS regions + ChIP target --&gt; Binding sites" comment="">
+<query name="TSSRegions_Flanking_BindingSites" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.submissions.antibodies.targetName TSSRegion.overlappingFeatures.primaryIdentifier" longDescription="Show all binding sites overlapping TSS regions" sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B">
+  <constraint path="TSSRegion" switchable="off" editable="true" description="TSS region:" code="A" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
+  <constraint path="TSSRegion.overlappingFeatures" type="BindingSite"/>
+  <constraint path="TSSRegion.overlappingFeatures.submissions.antibodies.targetName" switchable="on" editable="true" description="ChIP target:" code="B" op="=" value="H4ac"/>
+</query>
+</template>
+<!-- end tss_region -->
 <!-- antibody chip -->
-<template name="Chip_Target_Submissions" title="ChIP target --&gt; Submissions" comment="">
-  <query name="Chip_Target_Submissions" model="genomic" view="Submission.antibodies.targetName Submission.TCid Submission.name" sortOrder="Submission.TCid asc" longDescription="Show all submissions for a specified chIP target.">
+<template name="ChIP_Target_Submissions" title="ChIP target --&gt; Submissions" comment="">
+  <query name="ChIP_Target_Submissions" model="genomic" view="Submission.antibodies.targetName Submission.TCid Submission.name" sortOrder="Submission.TCid asc" longDescription="Show all submissions for a specified chIP target.">
     <constraint path="Submission.antibodies.targetName" editable="true" op="=" value="GCN5b"/>
   </query>
 </template>
@@ -221,6 +255,14 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
     <constraint path="Protocol.type" editable="true" op="=" value="peak finding"/>
   </query>
 </template>
+<template name="Submission_Submission_BindingSite" title="Submission + Submission --&gt; Overlapping Binding sites" comment="">
+<query name="" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name" longDescription="Show all binding sites that are overlapping between two submissions" constraintLogic="A and B">
+  <constraint path="Submission.features" type="BindingSite"/>
+  <constraint path="Submission.features.overlappingFeatures" type="BindingSite"/>
+  <constraint path="Submission.name" editable="true" code="A" op="=" value="TC1_GCN5B_MG_CC_Rep1"/>
+  <constraint path="Submission.features.overlappingFeatures.submissions.name" editable="true" code="B" op="=" value="TC2_GCN5B_LMT_CC_Rep2"/>
+</query>
+</template>
 <!-- end toxocore-centric -->
 <!-- others -->
 <template name="Histone_BindingSites" title="Histone -&gt; Binding Sites" comment="">
@@ -260,6 +302,10 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
 </template-queries>
 
 <tags>
+  <tag name="im:public" objectIdentifier="TSSRegions_Flanking_BindingSites" type="template"></tag>
+  <tag name="im:public" objectIdentifier="TSSRegions_Flanking_Gene" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Gene_Flanking_TSSRegions" type="template"></tag>
+  <tag name="im:public" objectIdentifier="ChIP_Target_TSSRegions" type="template"></tag>
   <tag name="im:public" objectIdentifier="Chip_Target_Submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="ChIP_Target_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="ChIP_Target_Gene_Flanking_BindingSites" type="template"></tag>
@@ -285,6 +331,7 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
   <tag name="im:public" objectIdentifier="Experiment_Category_ToxoplasmaMutant" type="template"></tag>
   <tag name="im:public" objectIdentifier="Submission_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="ProtocolType_Submissions" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Submission_Submission_BindingSite" type="template"></tag>
   <tag name="im:public" objectIdentifier="Histone_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="FeatureType_submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="GOtermidentifier_name" type="template"></tag>
