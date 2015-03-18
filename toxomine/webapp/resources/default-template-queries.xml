@@ -171,6 +171,11 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
     <constraint path="Protein" editable="true" op="LOOKUP" value="B6KJA4" extraValue=""/>
   </query>
 </template>
+<template name="Proteins_To_Domains" title="Proteins --&gt; Protein Domain" comment="">
+  <query name="Proteins_To_Domains" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.proteinDomains.primaryIdentifier Protein.proteinDomains.name Protein.proteinDomains.shortName" longDescription="Show all protein domains for the following protein(s)." sortOrder="Protein.primaryIdentifier asc">
+    <constraint path="Protein" editable="true" op="LOOKUP" value="B6KJA4" extraValue=""/>
+  </query>
+</template>
 <!-- end protein-centric -->
 <!-- organism-centric -->
 <template name="Organism_Gene" title="Organism --&gt; All genes" comment="">
@@ -320,6 +325,7 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
   <tag name="im:public" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template"></tag>
   <tag name="im:public" objectIdentifier="InterProDomain_ProteinGene" type="template"></tag>  
   <tag name="im:public" objectIdentifier="Protein_GeneChromosomeLength" type="template"></tag>  
+  <tag name="im:public" objectIdentifier="Proteins_To_Domains" type="template"></tag> 
   <tag name="im:public" objectIdentifier="Organism_Gene" type="template"></tag>
   <tag name="im:public" objectIdentifier="Organism_GeneDomain" type="template"></tag>  
   <tag name="im:public" objectIdentifier="Organism_Protein" type="template"></tag>
