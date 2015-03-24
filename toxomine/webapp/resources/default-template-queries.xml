@@ -7,56 +7,35 @@
 <template-queries>
 
 <!-- tss_region -->
-<template name="ChIP_Target_TSSRegions" title="ChIP target --&gt; TSS regions" comment="">
-  <query name="ChIP_Target_TSSRegions" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.feature.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.chromosomeLocation.end" longDescription="Show all TSS regions for a specified chIP target." sortOrder="TSSRegion.primaryIdentifier asc">
-    <pathDescription pathString="TSSRegion.primaryIdentifier" description="TSSRegion"/>
-    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosome" description="Chromosome"/>
-    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosomeLocation" description="Chromosome location"/>
-    <constraint path="TSSRegion.overlappingFeatures.submissions.antibodies.targetName" code="A" editable="true" description="Show TSSRegions only for this ChIP target:" op="=" value="H4ac"/>
-  </query>
-</template>
-<template name="Gene_Flanking_TSSRegions" title="Gene + Flanking region --&gt; TSS regions" comment="">
-<query name="Gene_Flanking_TSSRegions" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.peak Gene.overlappingFeatures.peakCount Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start" longDescription="Show the TSS regions in the upstream or downstream flanking region of a specified gene or genes." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
-  <constraint path="Gene" code="A" editable="true" description="For the following gene(s):" op="LOOKUP" value="TGME49_201170" extraValue=""/>
-  <constraint path="Gene.flankingRegions.direction" code="B" editable="true" description="Direction:" op="=" value="upstream"/>
-  <constraint path="Gene.flankingRegions.distance" code="C" editable="true" description="Distance:" op="=" value="0.5kb"/>
-  <constraint path="Gene.overlappingFeatures" type="TSSRegion"/>
-</query>
-</template>
-<template name="TSSRegions_Flanking_Gene" title="TSS regions + Flanking region --&gt; Gene" comment="">
-<query name="TSSRegions_Flanking_Gene" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.gene.primaryIdentifier TSSRegion.overlappingFeatures.gene.symbol" longDescription="Show all genes in the upstream or downstream flanking region of TSS regions" sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B and C">
+<template name="TSSRegions_FlankingRegion_Gene" title="TSS region(s) + Flanking region --&gt; Genes" comment="">
+<query name="TSSRegions_FlankingRegion_Gene" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.gene.primaryIdentifier TSSRegion.overlappingFeatures.gene.symbol" longDescription="For a specified TSS region or list of TSS regions, show the genes that have been  mapped in the flanking region of the specified TSS region(s)." sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B and C">
   <constraint path="TSSRegion.overlappingFeatures" type="GeneFlankingRegion"/>
   <constraint path="TSSRegion.overlappingFeatures.direction" editable="true" description="Direction:" code="A" op="=" value="downstream"/>
   <constraint path="TSSRegion.overlappingFeatures.distance" editable="true" description="Distance:" code="B" op="=" value="0.5kb"/>
-  <constraint path="TSSRegion" switchable="off" editable="true" description="TSS region:" code="C" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
+  <constraint path="TSSRegion" switchable="on" editable="true" description="TSS region:" code="C" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
 </query>
 </template>
-<template name="TSSRegions_Flanking_BindingSites" title="TSS regions + ChIP target --&gt; Binding sites" comment="">
-<query name="TSSRegions_Flanking_BindingSites" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.submissions.antibodies.targetName TSSRegion.overlappingFeatures.primaryIdentifier" longDescription="Show all binding sites overlapping TSS regions" sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B">
-  <constraint path="TSSRegion" switchable="off" editable="true" description="TSS region:" code="A" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
+<template name="TSSRegions_FlankingRegion_BindingSites" title="TSS region(s) + ChIP target(s) --&gt; Binding sites" comment="">
+<query name="TSSRegions_FlankingRegion_BindingSites" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.end TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.submissions.antibodies.targetName TSSRegion.overlappingFeatures.primaryIdentifier" longDescription="For a specified TSS region or list of TSS regions, show the binding sites that have been mapped in the specified TSS region(s) and ChIP target(s)." sortOrder="TSSRegion.primaryIdentifier asc" constraintLogic="A and B">
+  <constraint path="TSSRegion" switchable="on" editable="true" description="TSS region:" code="A" op="LOOKUP" value="TSSRegion_TGME49_chrVIIa_3992457_3992481" extraValue=""/>
   <constraint path="TSSRegion.overlappingFeatures" type="BindingSite"/>
   <constraint path="TSSRegion.overlappingFeatures.submissions.antibodies.targetName" switchable="on" editable="true" description="ChIP target:" code="B" op="=" value="H4ac"/>
 </query>
 </template>
 <!-- end tss_region -->
 <!-- antibody chip -->
-<template name="ChIP_Target_Submissions" title="ChIP target --&gt; Submissions" comment="">
-  <query name="ChIP_Target_Submissions" model="genomic" view="Submission.antibodies.targetName Submission.TCid Submission.name" sortOrder="Submission.TCid asc" longDescription="Show all submissions for a specified chIP target.">
+<template name="ChIP_Target_Submissions" title="ChIP target(s) --&gt; Submissions" comment="">
+  <query name="ChIP_Target_Submissions" model="genomic" view="Submission.antibodies.targetName Submission.TCid Submission.name" sortOrder="Submission.TCid asc" longDescription="For a specified ChIP target or list of ChIP targets, show the submissions that have used the specified ChIP target(s).">
     <constraint path="Submission.antibodies.targetName" editable="true" op="=" value="GCN5b"/>
   </query>
 </template>
-<template name="ChIP_Target_BindingSites" title="ChIP target --&gt; Binding sites" comment="">
-  <query name="ChIP_Target_BindingSites" model="genomic" view="Submission.features.primaryIdentifier Submission.antibodies.targetName Submission.name Submission.TCid Submission.toxoplasmaMutants.name Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end" sortOrder="Submission.antibodies.targetName asc" constraintLogic="A and B" longDescription="Show chIP binding sites identified for a particular target. By default all binding sites will be returned.  Use the optional constraints if you want to return specific binding sites, eg by strain of the mutants used.">
-    <pathDescription pathString="Submission.antibodies" description="Antibody"/>
-    <pathDescription pathString="Submission.features" description="Binding site"/>
-    <pathDescription pathString="Submission.features.chromosome" description="Chromosome"/>
-    <pathDescription pathString="Submission.features.chromosomeLocation" description="Chromosome location"/>
-    <constraint path="Submission.antibodies.targetName" code="A" editable="true" description="Show binding sites mapped for the following chIP target" switchable="on" op="=" value="GCN5b"/>
-    <constraint path="Submission.toxoplasmaMutants.strain" code="B" editable="true" description="Show binding sites only for this mutant strain:" switchable="off" op="=" value="RH"/>
+<template name="ChIP_Target_BindingSites" title="ChIP target(s) --&gt; Binding sites" comment="">
+  <query name="ChIP_Target_BindingSites" model="genomic" view="BindingSite.score BindingSite.primaryIdentifier BindingSite.chromosome.primaryIdentifier BindingSite.chromosomeLocation.end BindingSite.chromosomeLocation.start BindingSite.submissions.name BindingSite.submissions.antibodies.targetName" longDescription="For a specified ChIP target or list of ChIP targets, show the binding sites." sortOrder="BindingSite.score asc">
+    <constraint path="BindingSite.submissions.antibodies.targetName"  editable="true" op="=" value="GCN5b"/>
   </query>
 </template>
-<template name="ChIP_Target_Gene_Flanking_BindingSites" title="ChIP target + Gene --&gt; Binding sites in Gene flanking region" comment="">
-  <query name="ChIP_Target_Gene_Flanking_BindingSites" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.submissions.antibodies.targetName Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.submissions.TCid"  sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C and D and E" longDescription="Show the binding sites for a particular chIP target in the upstream or downstream flanking region of a specified gene or genes.">
+<template name="ChIP_Target_Gene_Flanking_BindingSites" title="ChIP target(s) + Gene(s) --&gt; Binding sites in Gene flanking region" comment="">
+  <query name="ChIP_Target_Gene_Flanking_BindingSites" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.submissions.antibodies.targetName Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.submissions.TCid"  sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C and D and E" longDescription="For a specified ChIP target or list of ChIP targets, show the binding sites that have been mapped in the flanking region of the specified gene(s).">
     <pathDescription pathString="Gene.overlappingFeatures.submissions.antibodies" description="Antibody"/>
     <pathDescription pathString="Gene.overlappingFeatures.chromosome" description="Binding site &gt; Chromosome"/>
     <pathDescription pathString="Gene.overlappingFeatures.chromosomeLocation" description="Binding site &gt; Chromosome Location"/>
@@ -66,13 +45,21 @@
     <constraint path="Gene" code="A" editable="true" description="For the following gene(s):" op="LOOKUP" value="TGME49_201220" extraValue=""/>
     <constraint path="Gene.flankingRegions.distance" code="B" editable="true" description="Show binding sites:" op="=" value="0.5kb"/>
     <constraint path="Gene.flankingRegions.direction" code="C" editable="true" description="direction:" op="=" value="upstream"/>
-    <constraint path="Gene.overlappingFeatures.submissions.antibodies.targetName" code="D" editable="true" description="for chIP target:" switchable="off" op="=" value="GCN5b"/>
+    <constraint path="Gene.overlappingFeatures.submissions.antibodies.targetName" code="D" editable="true" description="for chIP target:" switchable="on" op="=" value="GCN5b"/>
+  </query>
+</template>
+<template name="ChIP_Target_TSSRegions" title="ChIP target(s) --&gt; TSS regions" comment="">
+  <query name="ChIP_Target_TSSRegions" model="genomic" view="TSSRegion.primaryIdentifier TSSRegion.peak TSSRegion.peakCount TSSRegion.overlappingFeatures.chromosome.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.feature.primaryIdentifier TSSRegion.overlappingFeatures.chromosomeLocation.start TSSRegion.overlappingFeatures.chromosomeLocation.end" longDescription="For a specified ChIP target or list of ChIP targets, show the TSS regions that have been mapped in the ChIP target's binding sites." sortOrder="TSSRegion.primaryIdentifier asc">
+    <pathDescription pathString="TSSRegion.primaryIdentifier" description="TSSRegion"/>
+    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosome" description="Chromosome"/>
+    <pathDescription pathString="TSSRegion.overlappingFeatures.chromosomeLocation" description="Chromosome location"/>
+    <constraint path="TSSRegion.overlappingFeatures.submissions.antibodies.targetName" code="A" editable="true" description="Show TSSRegions only for this ChIP target:" op="=" value="H4ac"/>
   </query>
 </template>
 <!-- end antibody chip -->
 <!-- gene-centric -->
-<template name="Gene_Adjacent_Genes" title="Gene --&gt; Adjacent genes (upstream and downstream)" comment="">
-  <query name="Gene_Adjacent_Genes" model="genomic" view="Gene.primaryIdentifier Gene.upstreamIntergenicRegion.adjacentGenes.primaryIdentifier Gene.upstreamIntergenicRegion.adjacentGenes.dataSets.name Gene.downstreamIntergenicRegion.adjacentGenes.primaryIdentifier Gene.downstreamIntergenicRegion.adjacentGenes.dataSets.name" longDescription="For a particular gene, find the upstream and the downstream adjacent genes.  " sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
+<template name="Gene_Adjacent_Genes" title="Gene(s) --&gt; Adjacent genes (upstream and downstream)" comment="">
+  <query name="Gene_Adjacent_Genes" model="genomic" view="Gene.primaryIdentifier Gene.upstreamIntergenicRegion.adjacentGenes.primaryIdentifier Gene.upstreamIntergenicRegion.adjacentGenes.dataSets.name Gene.downstreamIntergenicRegion.adjacentGenes.primaryIdentifier Gene.downstreamIntergenicRegion.adjacentGenes.dataSets.name" longDescription="For a specified gene or list of genes, show the adjacent genes (upstream and downstream).  " sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
     <join path="Gene.downstreamIntergenicRegion.adjacentGenes.dataSets" style="OUTER"/>
     <join path="Gene.upstreamIntergenicRegion.adjacentGenes.dataSets" style="OUTER"/>
     <pathDescription pathString="Gene.upstreamIntergenicRegion.adjacentGenes" description="Upstream Genes"/>
@@ -84,41 +71,53 @@
     <constraint path="Gene.upstreamIntergenicRegion.adjacentGenes" code="C" editable="false" op="!=" loopPath="Gene"/>
   </query>
 </template>
-<template name="Gene_BindingSites" title="Gene --&gt; Binding sites" comment="" >
-  <query name="Gene_BindingSites" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.submissions.name 
-Gene.overlappingFeatures.submissions.TCid Gene.overlappingFeatures.chromosome.primaryIdentifier 
-Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end  Gene.overlappingFeatures.submissions.toxoplasmaMutants.name" longDescription="Show binding sites for a gene or list of genes. This template will only show binding sites overlapping the gene. By default all binding sites will be returned.  Use the optional constraints if you want to return specific binding sites, eg by strain of the mutants used." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B">
+<template name="Gene_BindingSites" title="Gene(s) --&gt; Binding sites" comment="" >
+  <query name="Gene_BindingSites" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.submissions.name Gene.overlappingFeatures.submissions.TCid Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end" longDescription="For a specified gene or list of genes, show the overlapping binding sites." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A">
     <pathDescription pathString="Gene.overlappingFeatures" description="Binding site"/>
     <pathDescription pathString="Gene.overlappingFeatures.submissions" description="Submission"/>
     <pathDescription pathString="Gene.overlappingFeatures.chromosome" description="Binding site &gt; Chromsome"/>
     <pathDescription pathString="Gene.overlappingFeatures.chromosomeLocation" description="Binding site &gt; Chromosome location"/>
-    <pathDescription pathString="Gene.overlappingFeatures.submissions.toxoplasmaMutants.strain" description="Mutant Strain"/>
     <constraint path="Gene.overlappingFeatures" editable="false" type="BindingSite"/>
     <constraint path="Gene" code="A" editable="true" description="Show binding sites which overlap the following gene or list of genes:" op="LOOKUP" value="TGME49_202380" extraValue=""/>
-    <constraint path="Gene.overlappingFeatures.submissions.toxoplasmaMutants.strain" code="B" editable="true" description="or strain:" switchable="off" op="=" value="RH"/>
   </query>
 </template>
-<template name="Gene_FlankingRegion_BindingSites" title="Gene Flanking Regions --&gt; Binding Sites and adjacent Genes" comment="">
-  <query name="Gene_FlankingRegion_BindingSites" model="genomic" view="GeneFlankingRegion.overlappingFeatures.primaryIdentifier GeneFlankingRegion.overlappingFeatures.chromosome.primaryIdentifier GeneFlankingRegion.overlappingFeatures.chromosomeLocation.start GeneFlankingRegion.overlappingFeatures.chromosomeLocation.end GeneFlankingRegion.gene.primaryIdentifier GeneFlankingRegion.distance GeneFlankingRegion.direction GeneFlankingRegion.overlappingFeatures.submissions.antibodies.targetName GeneFlankingRegion.overlappingFeatures.submissions.TCid"  sortOrder="GeneFlankingRegion.gene.primaryIdentifier asc" constraintLogic="B and C and D and E and A" longDescription="Show the binding sites identified and any adjacent genes at a specified distance for a particular project, experiment, and/or submission (NOTE:  upstream/downstream refers to position relative to the genes not the binding sites).">
+<template name="Gene_FlankingRegion_BindingSites" title="Gene(s) + Flanking region --&gt; Binding Sites" comment="">
+<query name="Gene_FlankingRegion_BindingSites" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end" longDescription="For a specified gene or list of genes, show the binding sites that have been mapped in the flanking region of the specified gene(s)." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
+  <constraint path="Gene" editable="true" code="A" op="LOOKUP" value="TGME49_201170" extraValue=""/>
+  <constraint path="Gene.flankingRegions.direction" editable="true" code="B" op="=" value="upstream"/>
+  <constraint path="Gene.flankingRegions.distance" editable="true" code="C" op="=" value="0.5kb"/>
+  <constraint path="Gene.overlappingFeatures" type="BindingSite"/>
+</query>
+</template>
+<template name="Gene_FlankingRegion_BindingSites_Genes" title="Gene flanking region --&gt; Binding Sites and adjacent Genes" comment="">
+  <query name="Gene_FlankingRegion_BindingSites_Genes" model="genomic" view="GeneFlankingRegion.overlappingFeatures.primaryIdentifier GeneFlankingRegion.overlappingFeatures.chromosome.primaryIdentifier GeneFlankingRegion.overlappingFeatures.chromosomeLocation.start GeneFlankingRegion.overlappingFeatures.chromosomeLocation.end GeneFlankingRegion.gene.primaryIdentifier GeneFlankingRegion.distance GeneFlankingRegion.direction GeneFlankingRegion.overlappingFeatures.submissions.antibodies.targetName GeneFlankingRegion.overlappingFeatures.submissions.TCid"  sortOrder="GeneFlankingRegion.gene.primaryIdentifier asc" constraintLogic="B and C and D and E and A" longDescription="Show the binding sites identified and any adjacent genes at a specified distance.">
     <join path="GeneFlankingRegion.overlappingFeatures.submissions.antibodies" style="OUTER"/>
     <constraint path="GeneFlankingRegion.overlappingFeatures" editable="false" type="BindingSite"/>
     <constraint path="GeneFlankingRegion.direction" code="B" editable="true" op="=" value="upstream"/>
     <constraint path="GeneFlankingRegion.distance" code="C" editable="true" op="=" value="0.5kb"/>
     <constraint path="GeneFlankingRegion.overlappingFeatures.submissions.projects.name" code="D" editable="true" description="" switchable="off" op="=" value="GCN5b"/>
-    <constraint path="GeneFlankingRegion.overlappingFeatures.submissions.experiments.name" code="E" editable="true" description="" switchable="on" op="=" value="Identifying genome-wide binding sites for GCN5b"/>
+    <constraint path="GeneFlankingRegion.overlappingFeatures.submissions.experiments.name" code="E" editable="true" description="" switchable="off" op="=" value="Identifying genome-wide binding sites for GCN5b"/>
     <constraint path="GeneFlankingRegion.overlappingFeatures.submissions.TCid" code="A" editable="true" description="" switchable="off" op="=" value="TC1"/>
   </query>
 </template>
-<template name="Gene_FlankingRegion_OverlappingFeatures" title="Gene + Flanking region --&gt; Specific overlapping features" comment="">
-  <query name="Gene_FlankingRegion_OverlappingFeatures" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.flankingRegions.overlappingFeatures.primaryIdentifier Gene.flankingRegions.overlappingFeatures.sequenceOntologyTerm.name Gene.flankingRegions.overlappingFeatures.chromosome.primaryIdentifier Gene.flankingRegions.overlappingFeatures.chromosomeLocation.start Gene.flankingRegions.overlappingFeatures.chromosomeLocation.end Gene.flankingRegions.overlappingFeatures.chromosomeLocation.strand Gene.flankingRegions.overlappingFeatures.submissions.TCid" longDescription="For a specific gene, show features of a specified type that have been mapped in the gene(s) flanking regions.  Features can be shown just for the flanking region or the gene itself can also be included." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C and D">
+<template name="Gene_FlankingRegion_OverlappingFeatures" title="Gene(s) + Flanking region --&gt; Specific overlapping features" comment="">
+  <query name="Gene_FlankingRegion_OverlappingFeatures" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.flankingRegions.overlappingFeatures.primaryIdentifier Gene.flankingRegions.overlappingFeatures.sequenceOntologyTerm.name Gene.flankingRegions.overlappingFeatures.chromosome.primaryIdentifier Gene.flankingRegions.overlappingFeatures.chromosomeLocation.start Gene.flankingRegions.overlappingFeatures.chromosomeLocation.end Gene.flankingRegions.overlappingFeatures.chromosomeLocation.strand" longDescription="For a specified gene or list of genes, show the selected sequence features that have been mapped in the flanking region of the specified gene or list of genes." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C and D">
     <constraint path="Gene.flankingRegions.overlappingFeatures.sequenceOntologyTerm.name" code="A" editable="true" description="Show all features of type:" op="=" value="histone_binding_site"/>
     <constraint path="Gene" code="B" editable="true" description="for gene(s):" op="LOOKUP" value="TGME49_202380" extraValue=""/>
     <constraint path="Gene.flankingRegions.direction" code="C" editable="true" description="In flanking region:" op="=" value="upstream"/>
     <constraint path="Gene.flankingRegions.distance" code="D" editable="true" description="For distance:" op="=" value="0.5kb"/>
   </query>
 </template>
-<template name="Gene_GO" title="Gene --&gt; GO terms" comment="">
-  <query name="Gene_GO" model="genomic" view="Gene.primaryIdentifier Gene.secondaryIdentifier Gene.symbol Gene.goAnnotation.ontologyTerm.identifier Gene.goAnnotation.ontologyTerm.name Gene.goAnnotation.evidence.code.code Gene.goAnnotation.ontologyTerm.namespace" sortOrder="Gene.primaryIdentifier asc" longDescription="Search for GO annotations for a particular gene.">
+<template name="Gene_FlankingRegion_TSSRegions" title="Gene(s) + Flanking region --&gt; TSS regions" comment="">
+<query name="Gene_FlankingRegion_TSSRegions" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.peak Gene.overlappingFeatures.peakCount Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosome.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.chromosomeLocation.start" longDescription="For a specified gene or list of genes, show the TSS regions that have been mapped in the flanking region of the specified gene or list of genes." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
+  <constraint path="Gene" code="A" editable="true" description="For the following gene(s):" op="LOOKUP" value="TGME49_201170" extraValue=""/>
+  <constraint path="Gene.flankingRegions.direction" code="B" editable="true" description="Direction:" op="=" value="upstream"/>
+  <constraint path="Gene.flankingRegions.distance" code="C" editable="true" description="Distance:" op="=" value="0.5kb"/>
+  <constraint path="Gene.overlappingFeatures" type="TSSRegion"/>
+</query>
+</template>
+<template name="Gene_GO" title="Gene(s) --&gt; GO terms" comment="">
+  <query name="Gene_GO" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.goAnnotation.ontologyTerm.identifier Gene.goAnnotation.ontologyTerm.name Gene.goAnnotation.evidence.code.code Gene.goAnnotation.ontologyTerm.namespace" sortOrder="Gene.primaryIdentifier asc" longDescription="For a specified gene or list of genes, show the GO annotations.">
     <pathDescription pathString="Gene.goAnnotation" description="GO annotation"/>
     <pathDescription pathString="Gene.goAnnotation.evidence.code" description="GO annotation &gt; evidence"/>
     <constraint path="Gene" editable="true" description="Show GO annotations for gene:" op="LOOKUP" value="TGME49_202380" extraValue=""/>
@@ -132,37 +131,29 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
     <constraint path="Homologue.homologue.organism.name" code="B" editable="true" description="and:" op="=" value="Drosophila melanogaster"/>
   </query>
 </template>
-<template name="Gene_OverlappingFeatures" title="Gene --&gt; Overlapping Gene Features." comment="">
-  <query name="Gene_OverlappingFeatures" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.overlappingFeatures.sequenceOntologyTerm.name Gene.overlappingFeatures.primaryIdentifier Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chromosomeLocation.end Gene.overlappingFeatures.submissions.TCid Gene.overlappingFeatures.submissions.name" longDescription="For a specified gene or list of genes show the locations of a specific gene feature. Feature types include CDS, chromosome, exon, gene, histone_binding_site, mRNA, rRNA, tRNA.   To return all feature types, turn off the feature type (SO Term -&gt; Name) constraint - once you have your results table you can then view the number of each type of feature using the feature type column summary button.  Keywords:  Gene structure; Gene features." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B and C">
-    <constraint path="Gene" code="A" editable="true" description="Show binding sites which overlap the following gene or list of genes:" op="LOOKUP" value="TGME49_202380" extraValue=""/>
-    <constraint path="Gene.overlappingFeatures.sequenceOntologyTerm.name" code="B" editable="true" description="Turn this constraint off to return all features." switchable="on" op="=" value="histone_binding_site"/>
-    <constraint path="Gene.overlappingFeatures.submissions.toxoplasmaMutants.strain" code="C" editable="true" description="or strain:" switchable="off" op="=" value="RH"/>
-  </query>
-</template>
-<template name="Gene_Protein" title="Gene --&gt; Proteins" comment="">
-  <query name="Gene_Protein" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.proteins.primaryIdentifier Gene.proteins.primaryAccession" sortOrder="Gene.primaryIdentifier asc" longDescription="Show the proteins for a particular gene.">
+<template name="Gene_Protein" title="Gene(s) --&gt; Proteins" comment="">
+  <query name="Gene_Protein" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.proteins.primaryIdentifier Gene.proteins.primaryAccession" sortOrder="Gene.primaryIdentifier asc" longDescription="For a specified gene or list of genes, show the proteins.">
     <pathDescription pathString="Gene.proteins" description="Protein"/>
     <constraint path="Gene" editable="true" op="LOOKUP" value="TGME49_270320"/>
   </query>
 </template>
 <!-- end gene-centric -->
 <!-- protein-centric -->
-<template name="All_Proteins_In_Organism_To_Publications" title="Proteins --&gt; Publications" comment="">
-  <query name="All_Proteins_In_Organism_To_Publications" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.publications.firstAuthor Protein.publications.title Protein.publications.year Protein.publications.journal Protein.publications.volume Protein.publications.pages Protein.publications.pubMedId" sortOrder="Protein.primaryIdentifier asc" longDescription="Show the publications for each gene. References are loaded from toxoCore and NCBI.">
+<template name="Proteins_In_Organism_To_Publications" title="Proteins --&gt; Publications" comment="">
+  <query name="Proteins_In_Organism_To_Publications" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.publications.firstAuthor Protein.publications.title Protein.publications.year Protein.publications.journal Protein.publications.volume Protein.publications.pages Protein.publications.pubMedId" sortOrder="Protein.primaryIdentifier asc" longDescription="Show the publications for each protein. References are loaded from toxoMine and NCBI.">
     <constraint path="Protein.organism.name" editable="true" description="Organism.name" op="=" value="Toxoplasma gondii"/>
   </query>
 </template>
-<template name="InterProDomain_ProteinGene" title="Protein Domain --&gt; Proteins + genes coding for these proteins" comment="">
-  <query name="InterProDomain_ProteinGene" model="genomic" view="Protein.proteinDomains.primaryIdentifier Protein.proteinDomains.name Protein.proteinDomains.type Protein.primaryIdentifier Protein.primaryAccession Protein.genes.primaryIdentifier" longDescription="Show all genes from a particular organism that code for a certain InterPro protein." sortOrder="Protein.primaryIdentifier asc" constraintLogic="B and C and D">
+<template name="InterProDomain_ProteinGene" title="Protein Domain(s) --&gt; Proteins + Genes coding for these proteins" comment="">
+  <query name="InterProDomain_ProteinGene" model="genomic" view="Protein.proteinDomains.primaryIdentifier Protein.proteinDomains.name Protein.proteinDomains.type Protein.primaryIdentifier Protein.primaryAccession Protein.genes.primaryIdentifier" longDescription="For a specified InterPro protein domain or list of domains, show the proteins and genes from a particular organism." sortOrder="Protein.primaryIdentifier asc" constraintLogic="C and D">
     <pathDescription pathString="Protein.proteinDomains" description="Protein domain"/>
     <pathDescription pathString="Protein.genes" description="Gene"/>
-    <constraint path="Protein.proteinDomains.primaryIdentifier" code="C" editable="false" op="=" value="*IPR*"/>
-    <constraint path="Protein.organism.shortName" code="B" editable="true" description="Search for genes in the following organism:" op="=" value="T. gondii"/>
-    <constraint path="Protein.proteinDomains.name" code="D" editable="true" op="=" value="Protein kinase-like domain"/>
+    <constraint path="Protein.proteinDomains.primaryIdentifier" code="C" op="=" value="*IPR*"/>
+    <constraint path="Protein.proteinDomains.name" editable="true" code="D" op="CONTAINS" value="kinase-like"/>
   </query>
 </template>
-<template name="Protein_GeneChromosomeLength" title="Protein --&gt; Gene + chromosomal location and length of the gene" comment="mod">
-  <query name="Protein_GeneChromosomeLength" model="genomic" view="Protein.primaryAccession Protein.genes.primaryIdentifier Protein.genes.symbol Protein.genes.chromosome.primaryIdentifier Protein.genes.chromosomeLocation.start Protein.genes.chromosomeLocation.end Protein.genes.chromosomeLocation.strand Protein.genes.length" longDescription="Show the chromosomal location and the length of the gene that codes for the following protein." sortOrder="Protein.primaryAccession asc">
+<template name="Protein_GeneChromosomeLength" title="Protein(s) --&gt; Gene + Chromosomal location and length of the gene" comment="mod">
+  <query name="Protein_GeneChromosomeLength" model="genomic" view="Protein.primaryAccession Protein.genes.primaryIdentifier Protein.genes.symbol Protein.genes.chromosome.primaryIdentifier Protein.genes.chromosomeLocation.start Protein.genes.chromosomeLocation.end Protein.genes.chromosomeLocation.strand Protein.genes.length" longDescription="For a specified protein or list of proteins, show the chromosomal location and the length of the gene(s) that codes for the specified protein(s)." sortOrder="Protein.primaryAccession asc">
     <join path="Protein.genes.chromosome" style="OUTER"/>
     <join path="Protein.genes.chromosomeLocation" style="OUTER"/>
     <pathDescription pathString="Protein.genes.chromosome" description="Chromosome"/>
@@ -171,53 +162,50 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
     <constraint path="Protein" editable="true" op="LOOKUP" value="B6KJA4" extraValue=""/>
   </query>
 </template>
-<template name="Proteins_To_Domains" title="Proteins --&gt; Protein Domain" comment="">
-  <query name="Proteins_To_Domains" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.proteinDomains.primaryIdentifier Protein.proteinDomains.name Protein.proteinDomains.shortName" longDescription="Show all protein domains for the following protein(s)." sortOrder="Protein.primaryIdentifier asc">
+<template name="Proteins_To_Domains" title="Protein(s) --&gt; Protein domain" comment="">
+  <query name="Proteins_To_Domains" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession Protein.organism.name Protein.proteinDomains.primaryIdentifier Protein.proteinDomains.name Protein.proteinDomains.shortName" longDescription="For a specified protein or list of proteins, show the protein domains." sortOrder="Protein.primaryIdentifier asc">
     <constraint path="Protein" editable="true" op="LOOKUP" value="B6KJA4" extraValue=""/>
   </query>
 </template>
 <!-- end protein-centric -->
 <!-- organism-centric -->
-<template name="Organism_Gene" title="Organism --&gt; All genes" comment="">
-  <query name="Organism_Gene" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.organism.shortName" longDescription="Show all the genes for a particular organism." sortOrder="Gene.primaryIdentifier asc">
+<template name="Organism_Gene" title="Organism(s) --&gt; All genes" comment="">
+  <query name="Organism_Gene" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.organism.shortName" longDescription="For a specified organism or list of organisms, show all genes." sortOrder="Gene.primaryIdentifier asc">
     <constraint path="Gene.organism.name" editable="true" description="Show all the genes from organism:" op="=" value="Toxoplasma gondii"/>
   </query>
 </template>
-<template name="Organism_GeneDomain" title="Organism --&gt; All genes with a specific protein domain" comment="mod">
-  <query name="Organism_GeneDomain" model="genomic" view="ProteinDomain.primaryIdentifier ProteinDomain.shortName ProteinDomain.type ProteinDomain.proteins.primaryIdentifier ProteinDomain.proteins.genes.primaryIdentifier ProteinDomain.proteins.genes.symbol" longDescription="Show all genes from a particular organism that code for proteins with a certain protein domain." sortOrder="ProteinDomain.primaryIdentifier asc" constraintLogic="A and B">
+<template name="Organism_GeneDomain" title="Organism(s) --&gt; All genes with a specific protein domain(s)" comment="mod">
+  <query name="Organism_GeneDomain" model="genomic" view="ProteinDomain.primaryIdentifier ProteinDomain.shortName ProteinDomain.type ProteinDomain.proteins.primaryIdentifier ProteinDomain.proteins.genes.primaryIdentifier ProteinDomain.proteins.genes.symbol" longDescription="For a specified organism or list of organisms, show all genes that code for proteins with a specified protein domain(s)." sortOrder="ProteinDomain.primaryIdentifier asc" constraintLogic="A and B">
     <join path="ProteinDomain.proteins" style="OUTER"/>
     <join path="ProteinDomain.proteins.genes" style="OUTER"/>
     <pathDescription pathString="ProteinDomain.proteins" description="Protein"/>
     <pathDescription pathString="ProteinDomain.proteins.genes" description="Gene"/>
     <constraint path="ProteinDomain.proteins.genes.organism.name" code="A" editable="true" description="Search for genes in the following organism:" op="=" value="Toxoplasma gondii"/>
-    <constraint path="ProteinDomain.shortName" code="B" editable="true" op="=" value="Kinase-like_dom"/>
+    <constraint path="ProteinDomain.shortName" code="B" editable="true" op="CONTAINS" value="Kinase-like"/>
   </query>
 </template>
-<template name="Organism_Protein" title="Organism --&gt; Proteins" comment="">
-  <query name="Organism_Protein" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession" longDescription="Show all the proteins from a particular organism." sortOrder="Protein.primaryIdentifier asc">
+<template name="Organism_Protein" title="Organism(s) --&gt; Proteins" comment="">
+  <query name="Organism_Protein" model="genomic" view="Protein.primaryIdentifier Protein.primaryAccession" longDescription="For a specified organism or list of organisms, show all proteins." sortOrder="Protein.primaryIdentifier asc">
     <constraint path="Protein.organism.name" editable="true" description="Show all the proteins from the organism:" op="=" value="Toxoplasma gondii"/>
   </query>
 </template>
 <!-- end organism-centric -->
 <!-- chromosome-centric -->
-<template name="Chromosome_Gene" title="Chromosome --&gt; All genes." comment="">
-  <query name="Chromosome_Gene" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.chromosome.primaryIdentifier Gene.chromosomeLocation.start Gene.chromosomeLocation.end Gene.chromosomeLocation.strand" longDescription="Show genes located on a particular chromosome." sortOrder="Gene.primaryIdentifier asc" constraintLogic="A and B">
+<template name="Chromosome_Gene" title="Chromosome(s) --&gt; All genes" comment="">
+  <query name="Chromosome_Gene" model="genomic" view="Gene.primaryIdentifier Gene.symbol Gene.chromosome.primaryIdentifier Gene.chromosomeLocation.start Gene.chromosomeLocation.end Gene.chromosomeLocation.strand" longDescription="For a specified chromosome or list of chromosomes, show all genes." sortOrder="Gene.primaryIdentifier asc">
     <pathDescription pathString="Gene.chromosome" description="Chromosome"/>
-    <constraint path="Gene.chromosome.primaryIdentifier" code="A" editable="true" description="Show genes located on chromosome" op="=" value="TGME49_chrVIII"/>
-    <constraint path="Gene.organism.name" code="B" editable="true" description="from" op="=" value="Toxoplasma gondii ME49"/>
+    <constraint path="Gene.chromosome.primaryIdentifier" editable="true" op="=" value="TGME49_chrVIII"/>
   </query>
 </template>
-<template name="Chromosome_IntergenicSequence" title="Chromosome --&gt; All intergenic regions + start, end and length of intergenic regions." comment="">
-  <query name="Chromosome_IntergenicSequence" model="genomic" view="IntergenicRegion.chromosomeLocation.start IntergenicRegion.chromosomeLocation.end IntergenicRegion.chromosomeLocation.locatedOn.primaryIdentifier IntergenicRegion.length IntergenicRegion.primaryIdentifier IntergenicRegion.dataSets.name" longDescription="For a particular chromosome show start, end and length of all intergenic regions." sortOrder="IntergenicRegion.chromosomeLocation.start asc" constraintLogic="A and B">
+<template name="Chromosome_IntergenicSequence" title="Chromosome(s) --&gt; All intergenic regions + start, end and length of intergenic regions." comment="">
+  <query name="Chromosome_IntergenicSequence" model="genomic" view="IntergenicRegion.chromosomeLocation.start IntergenicRegion.chromosomeLocation.end IntergenicRegion.chromosomeLocation.locatedOn.primaryIdentifier IntergenicRegion.length IntergenicRegion.primaryIdentifier" longDescription="For a specified chromosome or list of chromosomes, show the integenic regions with start, end, and length of the intergenic regions." sortOrder="IntergenicRegion.chromosomeLocation.start asc">
     <pathDescription pathString="IntergenicRegion.chromosomeLocation.locatedOn" description="Chromosome"/>
-    <pathDescription pathString="IntergenicRegion.dataSets" description="Dataset"/>
-    <constraint path="IntergenicRegion.chromosomeLocation.locatedOn" editable="false" type="Chromosome"/>
-    <constraint path="IntergenicRegion.organism.shortName" code="A" editable="true" description="Select an organism:" op="=" value="T. gondii ME49"/>
-    <constraint path="IntergenicRegion.chromosomeLocation.locatedOn.primaryIdentifier" code="B" editable="true" description="Show intergenic regions for chromosome:" op="=" value="TGME49_chrVIII"/>
+    <constraint path="IntergenicRegion.chromosomeLocation.locatedOn" type="Chromosome"/>
+    <constraint path="IntergenicRegion.chromosomeLocation.locatedOn.primaryIdentifier" editable="true" op="=" value="TGME49_chrVIII"/>
   </query>
 </template>
-<template name="Chromosome_Location_BindingSites" title="Chromosome location --&gt; Binding sites" comment="">
-  <query name="Chromosome_Location_BindingSites" model="genomic" view="Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end Submission.features.length Submission.toxoplasmaMutants.name Submission.TCid Submission.name" longDescription="Show all binding sites within a specified chromosome location." sortOrder="Submission.name asc" constraintLogic="B and C and D">
+<template name="Chromosome_Location_BindingSites" title="Chromosome(s) + Location --&gt; Binding sites" comment="">
+  <query name="Chromosome_Location_BindingSites" model="genomic" view="Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end Submission.features.length Submission.toxoplasmaMutants.name Submission.TCid Submission.name" longDescription="For a specified chromosome or list of chromosomes, show the binding sites within a specified location." sortOrder="Submission.name asc" constraintLogic="B and C and D">
     <pathDescription pathString="Submission.features.chromosome" description="Binding site &gt; Chromosome"/>
     <pathDescription pathString="Submission.features" description="Binding site"/>
     <pathDescription pathString="Submission.features.chromosomeLocation" description="Binding site &gt; Chromosome location"/>
@@ -229,39 +217,48 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
 </template>
 <!-- end chromosome-centric -->
 <!-- toxocore-centric -->
-<template name="Project_features" title="Project --&gt; features" comment="mod">
-  <query name="Project_features" model="genomic" view="Project.name Project.submissions.name Project.submissions.features.primaryIdentifier" longDescription="Show all features and their chromosome location for a particular project." sortOrder="Project.submissions.name asc">
+<template name="Project_features" title="Project(s) --&gt; Sequence features" comment="mod">
+  <query name="Project_features" model="genomic" view="Project.name Project.submissions.name Project.submissions.features.primaryIdentifier" longDescription="For a specified project or list of projects, show all sequence features." sortOrder="Project.submissions.name asc">
     <constraint path="Project.name" editable="true" description="Show all features for project" op="=" value="GCN5b"/>
   </query>
 </template>
-<template name="Experiment_Category_Submissions" title="Experiment category --&gt; submissions" comment="">
-  <query name="Experiment_Category_Submissions" model="genomic" view="Submission.TCid Submission.name Submission.qualityControl Submission.technique Submission.experiments.name" longDescription="Show all submissions for a particular experiment category." sortOrder="Submission.TCid asc">
-    <join path="Submission.experiments" style="OUTER"/>
-    <constraint path="Submission.experiments.category" editable="true" description="Show submissions for experiment category:" op="=" value="chromatin structure _ others"/>
+<template name="Experiment_features" title="Experiment(s) --&gt; Sequence features" comment="">
+  <query name="Experiment_features" model="genomic" view="Experiment.name Experiment.submissions.name Experiment.submissions.features.primaryIdentifier" longDescription="For a specified experiment or list of experiments, show all sequence features." sortOrder="Experiment.submissions.name asc">
+    <constraint path="Experiment.name" editable="true" description="Show all features for experiment" op="=" value="Identifying genome-wide binding sites for GCN5b"/>
   </query>
 </template>
-<template name="Experiment_Category_ToxoplasmaMutant" title="Experiment category --&gt; Toxoplasma Mutant" comment="">
-  <query name="Experiment_Category_ToxoplasmaMutant" model="genomic" view="Submission.TCid Submission.name Submission.technique Submission.toxoplasmaMutants.name Submission.toxoplasmaMutants.background Submission.toxoplasmaMutants.strain" longDescription="Show the mutants used for a particular experiment category." sortOrder="Submission.TCid asc" constraintLogic="A and B">
-    <constraint path="Submission.experiments.category" code="A" editable="true" description="Show cell lines for experiment category:" op="=" value="chromatin structure _ others"/>
-    <constraint path="Submission.organisms.name" code="B" editable="true" description="In organism:" op="=" value="Toxoplasma gondii RH"/>
+<template name="Submission_features" title="Submission(s) --&gt; Sequence features" comment="">
+  <query name="Submission_features" model="genomic" view="Submission.name Submission.features.primaryIdentifier" longDescription="For a specified submission or list of submissions, show all sequence features." sortOrder="Submission.name asc">
+    <constraint path="Submission.name" editable="true" description="Show all features for submission" op="=" value="TC1_GCN5B_MG_CC_Rep1"/>
+  </query>
+</template>
+<template name="Experiment_Category_Submissions" title="Experiment category(s) --&gt; Submissions" comment=""> 
+  <query name="Experiment_Category_Submissions" model="genomic" view="Experiment.name Experiment.category Experiment.submissions.TCid Experiment.submissions.name Experiment.submissions.technique Experiment.submissions.qualityControl" longDescription="For a specified experiment category or list of categories, show the experiments and submissions that have used the specified category(s)." sortOrder="Experiment.name asc">
+    <join path="Experiment.submissions" style="OUTER"/>
+    <constraint path="Experiment.category" editable="true" description="Experiment category:" op="=" value="chromatin structure _ others"/>
+  </query>
+</template>
+<template name="Experiment_Category_ToxoplasmaMutant" title="Experiment category(s) --&gt; Toxoplasma Mutants" comment="">
+  <query name="Experiment_Category_ToxoplasmaMutant" model="genomic" view="Experiment.name Experiment.category Experiment.toxoplasmaMutants.name Experiment.toxoplasmaMutants.targetName Experiment.toxoplasmaMutants.strain Experiment.toxoplasmaMutants.background Experiment.toxoplasmaMutants.mutantSelection Experiment.toxoplasmaMutants.mutantType Experiment.toxoplasmaMutants.targetGene.primaryIdentifier Experiment.toxoplasmaMutants.organism.name" longDescription="For a specified experiment category or list of categories, show the experiments and toxoplasma mutants used." sortOrder="Experiment.name asc">
+    <constraint path="Experiment.category" code="A" editable="true" description="Experiment category:" op="=" value="chromatin structure _ others"/>
   </query>
 </template>
 <template name="Submission_BindingSites" title="Submission(s)  --&gt; Binding Sites" comment="">
-  <query name="Submission_BindingSites" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end Submission.toxoplasmaMutants.name" longDescription="For a particular submission or list of submissions show all the binding sites identified within a certain chromosome location, or toxoplasma mutant strain." sortOrder="Submission.name asc" constraintLogic="B and C and D and A and E">
-    <constraint path="Submission" code="A" editable="true" description="For submission(s):" switchable="on" op="LOOKUP" value="TC1_GCN5B_MG_CC_Rep1" extraValue=""/>
+  <query name="Submission_BindingSites" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.start Submission.features.chromosomeLocation.end Submission.toxoplasmaMutants.name" longDescription="For a specified submission or list of submissions, show the binding sites." sortOrder="Submission.name asc" constraintLogic="B and C and D and A and E">
+    <constraint path="Submission.TCid" code="A" editable="true" description="For submission(s):" switchable="on" op="LOOKUP" value="TC1" extraValue=""/>
     <constraint path="Submission.toxoplasmaMutants.strain" code="E" editable="true" description="" switchable="off" op="=" value="RH"/>
     <constraint path="Submission.features.chromosome.primaryIdentifier" code="B" editable="true" description="Show binding sites identified on chromosome:" switchable="on" op="=" value="TGME49_chrVIII"/>
     <constraint path="Submission.features.chromosomeLocation.start" code="C" editable="true" description="between:" switchable="off" op="&gt;=" value="2265503"/>
     <constraint path="Submission.features.chromosomeLocation.end" code="D" editable="true" description="and:" switchable="off" op="&lt;=" value="2865772"/>
   </query>
 </template>
-<template name="ProtocolType_Submissions" title="Protocol type --&gt; Submissions" comment="">
-  <query name="ProtocolType_Submissions" model="genomic" view="Protocol.type Protocol.submissions.TCid Protocol.submissions.name" sortOrder="Protocol.type asc" longDescription="All submissions with a given protocol type">
+<template name="ProtocolType_Submissions" title="Protocol type(s) --&gt; Submissions" comment="">
+  <query name="ProtocolType_Submissions" model="genomic" view="Protocol.type Protocol.submissions.TCid Protocol.submissions.name" sortOrder="Protocol.type asc" longDescription="For a specified protocol type or list of types, show all submissions that have used the specified protocol type(s).">
     <constraint path="Protocol.type" editable="true" op="=" value="peak finding"/>
   </query>
 </template>
-<template name="Submission_Submission_BindingSite" title="Submission + Submission --&gt; Overlapping Binding sites" comment="">
-<query name="" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name" longDescription="Show all binding sites that are overlapping between two submissions" constraintLogic="A and B">
+<template name="Submission_Submission_BindingSite" title="Submission(s) + Submission(s) --&gt; Overlapping Binding sites" comment="">
+<query name="" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name" longDescription="Show the binding sites that overlap between binding sites of two submissions" constraintLogic="A and B">
   <constraint path="Submission.features" type="BindingSite"/>
   <constraint path="Submission.features.overlappingFeatures" type="BindingSite"/>
   <constraint path="Submission.name" editable="true" code="A" op="=" value="TC1_GCN5B_MG_CC_Rep1"/>
@@ -270,18 +267,8 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
 </template>
 <!-- end toxocore-centric -->
 <!-- others -->
-<template name="Histone_BindingSites" title="Histone -&gt; Binding Sites" comment="">
-  <query name="Histone_BindingSites" model="genomic" view="Project.submissions.antibodies.targetName Project.submissions.toxoplasmaMutants.name Project.submissions.name Project.submissions.TCid Project.submissions.features.length Project.submissions.features.primaryIdentifier Project.submissions.features.chromosome.primaryIdentifier Project.submissions.features.chromosomeLocation.start Project.submissions.features.chromosomeLocation.end" longDescription="For a particular histone modification show all the binding sites identified." sortOrder="Project.submissions.antibodies.targetName asc" constraintLogic="A and B">
-    <join path="Project.submissions.toxoplasmaMutants" style="OUTER"/>
-    <join path="Project.submissions.features.chromosome" style="OUTER"/>
-    <join path="Project.submissions.features.chromosomeLocation" style="OUTER"/>
-    <constraint path="Project.submissions.features" editable="false" type="BindingSite"/>
-    <constraint path="Project.submissions.antibodies.targetName" code="B" editable="true" op="=" value="GCN5b"/>
-    <constraint path="Project.name" code="A" editable="true" op="=" value="GCN5b"/>
-  </query>
-</template>
-<template name="FeatureType_submissions" title="Feature type --&gt; Submissions" comment="">
-  <query name="FeatureType_submissions" model="genomic" view="Submission.TCid Submission.name Submission.features.sequenceOntologyTerm.name" longDescription="Show all submissions which have mapped features of a specified type." sortOrder="Submission.TCid asc">
+<template name="FeatureType_submissions" title="Feature type(s) --&gt; Submissions" comment="">
+  <query name="FeatureType_submissions" model="genomic" view="Submission.TCid Submission.name Submission.features.sequenceOntologyTerm.name" longDescription="For a specified feature type or list of types, show all submissions." sortOrder="Submission.TCid asc">
     <constraint path="Submission.features.sequenceOntologyTerm.name" editable="true" description="Show all submissions which produce features of type:" op="=" value="histone_binding_site"/>
   </query>
 </template>
@@ -307,22 +294,22 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
 </template-queries>
 
 <tags>
-  <tag name="im:public" objectIdentifier="TSSRegions_Flanking_BindingSites" type="template"></tag>
-  <tag name="im:public" objectIdentifier="TSSRegions_Flanking_Gene" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_Flanking_TSSRegions" type="template"></tag>
+  <tag name="im:public" objectIdentifier="TSSRegions_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:public" objectIdentifier="TSSRegions_FlankingRegion_Gene" type="template"></tag>
   <tag name="im:public" objectIdentifier="ChIP_Target_TSSRegions" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Chip_Target_Submissions" type="template"></tag>
+  <tag name="im:public" objectIdentifier="ChIP_Target_Submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="ChIP_Target_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="ChIP_Target_Gene_Flanking_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_Adjacent_Genes" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Gene_FlankingRegion_BindingSites_Genes" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_FlankingRegion_OverlappingFeatures" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Gene_FlankingRegion_TSSRegions" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_GO" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_Organism1_Orthologue_Organism2" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_OverlappingFeatures" type="template"></tag>    
+  <tag name="im:public" objectIdentifier="Gene_Organism1_Orthologue_Organism2" type="template"></tag>  
   <tag name="im:public" objectIdentifier="Gene_Protein" type="template"></tag>
-  <tag name="im:public" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Proteins_In_Organism_To_Publications" type="template"></tag>
   <tag name="im:public" objectIdentifier="InterProDomain_ProteinGene" type="template"></tag>  
   <tag name="im:public" objectIdentifier="Protein_GeneChromosomeLength" type="template"></tag>  
   <tag name="im:public" objectIdentifier="Proteins_To_Domains" type="template"></tag> 
@@ -333,12 +320,13 @@ Gene.overlappingFeatures.chromosomeLocation.start Gene.overlappingFeatures.chrom
   <tag name="im:public" objectIdentifier="Chromosome_IntergenicSequence" type="template"></tag>
   <tag name="im:public" objectIdentifier="Chromosome_Location_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="Project_features" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Experiment_features" type="template"></tag>
+  <tag name="im:public" objectIdentifier="Submission_features" type="template"></tag>
   <tag name="im:public" objectIdentifier="Experiment_Category_Submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="Experiment_Category_ToxoplasmaMutant" type="template"></tag>
   <tag name="im:public" objectIdentifier="Submission_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="ProtocolType_Submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="Submission_Submission_BindingSite" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Histone_BindingSites" type="template"></tag>
   <tag name="im:public" objectIdentifier="FeatureType_submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="GOtermidentifier_name" type="template"></tag>
   <tag name="im:public" objectIdentifier="Gene_Identifiers" type="template"></tag>
