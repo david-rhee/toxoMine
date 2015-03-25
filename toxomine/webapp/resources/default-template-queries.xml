@@ -31,7 +31,7 @@
 </template>
 <template name="ChIP_Target_BindingSites" title="ChIP target(s) --&gt; Binding sites" comment="">
   <query name="ChIP_Target_BindingSites" model="genomic" view="BindingSite.score BindingSite.primaryIdentifier BindingSite.chromosome.primaryIdentifier BindingSite.chromosomeLocation.end BindingSite.chromosomeLocation.start BindingSite.submissions.name BindingSite.submissions.antibodies.targetName" longDescription="For a specified ChIP target or list of ChIP targets, show the binding sites." sortOrder="BindingSite.score asc">
-    <constraint path="BindingSite.submissions.antibodies.targetName"  editable="true" op="=" value="GCN5b"/>
+    <constraint path="BindingSite.submissions.antibodies.targetName" switchable="on" editable="true" op="=" value="GCN5b"/>
   </query>
 </template>
 <template name="ChIP_Target_Gene_Flanking_BindingSites" title="ChIP target(s) + Gene(s) --&gt; Binding sites in Gene flanking region" comment="">
