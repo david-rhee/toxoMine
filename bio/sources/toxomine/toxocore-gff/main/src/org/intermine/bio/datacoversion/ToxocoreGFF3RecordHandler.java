@@ -64,6 +64,20 @@ public class ToxocoreGFF3RecordHandler extends GFF3RecordHandler
 		    	feature.setCollection("submissions", submissionItems);
 		    }
 		}
+
+		// set fdr in attribute
+		if (record.getAttributes().get("fdr") != null) {
+		    List<String> fdrs = record.getAttributes().get("fdr");
+		    if (fdrs != null) {
+		    	Iterator<String> fdrIter = fdrs.iterator();
+
+		    	while (fdrIter.hasNext()) {
+		    		String fdr = fdrIter.next();
+		    		// set sequenceFeatures
+			    	feature.setAttribute("qvalue", fdr);
+		    	}
+		    }
+		}
     }
 
     private Item getSubmission(String TCid) {
