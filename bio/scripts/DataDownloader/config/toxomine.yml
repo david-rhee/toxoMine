@@ -12,9 +12,12 @@ default_sources:
   - "ToxoDBAlias"
   - "ToxoDBFasta"
   - "ToxoDBGFF"
+  - "ToxoDBTxt"
   - "UniProt"
   - "OrthoMCLDB"
 
 UniProt:
     organisms:
+        - 507601
+        - 508771
         - 5811

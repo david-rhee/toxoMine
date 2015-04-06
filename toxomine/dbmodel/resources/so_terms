@@ -1,6 +1,7 @@
 binding_site
 CDS
 chromosome
+contig
 enhancer
 exon
 five_prime_UTR
@@ -20,6 +21,7 @@ rRNA
 sequence_collection
 sequence_feature
 sequence_variant
+supercontig
 TF_binding_site
 transcript
 tRNA

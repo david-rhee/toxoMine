@@ -78,7 +78,7 @@ public class ToxoDBGFF3RecordHandler extends GFF3RecordHandler
                     }
                 }
             }
-        }        
+        }
 		//delete symbol/name
         if ("TRNA".equals(clsName)) {
             if (feature.getAttribute("symbol") != null) {

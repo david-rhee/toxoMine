@@ -50,6 +50,14 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.Contig">
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier"/>
+      <fieldconfig fieldExpr="organism.name"/>
+      <fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
+    </fields>
+  </class>
+
   <class className="org.intermine.model.bio.CrossReference">
     <fields>
       <fieldconfig fieldExpr="identifier"/>
@@ -90,7 +98,7 @@
       <fieldconfig fieldExpr="primaryIdentifier"/>
       <fieldconfig fieldExpr="symbol"/>
       <fieldconfig fieldExpr="description"/>      
-      <fieldconfig fieldExpr="organism.shortName" label="Organism" />
+      <fieldconfig fieldExpr="organism.shortName" />
     </fields>
    <bagdisplayers>
       <displayer src="friendlyMineLinkDisplayer.tile" showOnLeft="false" />
@@ -99,7 +107,7 @@
 
   <class className="org.intermine.model.bio.GOAnnotation">
     <fields>
-      <fieldconfig fieldExpr="subject.secondaryIdentifier"/>
+      <fieldconfig fieldExpr="subject.primaryIdentifier"/>
       <fieldconfig fieldExpr="subject.name"/>
       <fieldconfig fieldExpr="subject.symbol"/>
       <fieldconfig fieldExpr="ontologyTerm.identifier" />
@@ -137,7 +145,7 @@
       <fieldconfig fieldExpr="type"/>
       <fieldconfig fieldExpr="gene.primaryIdentifier" showInResults="false" showInInlineCollection="false" />
       <fieldconfig fieldExpr="homologue.primaryIdentifier"/>
-      <fieldconfig fieldExpr="homologue.organism.shortName"/>
+      <fieldconfig fieldExpr="homologue.organism.name"/>
     </fields>
   </class>
   
@@ -316,6 +324,14 @@
       <fieldconfig fieldExpr="length"/>
     </fields>
     <tabledisplayer src="/model/sequenceShortDisplayer.jsp"/>
+  </class>
+
+  <class className="org.intermine.model.bio.Supercontig">
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier"/>
+      <fieldconfig fieldExpr="organism.name"/>
+      <fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
+    </fields>
   </class>
   
   <class className="org.intermine.model.bio.Synonym">
@@ -708,7 +724,7 @@
                                  enrichIdentifier="publications.pubMedId"
                                  constraints="organism.name=[list],primaryIdentifier != null"
                                  typeClass="Gene"
-                                 views="secondaryIdentifier, symbol, organism.name,
+                                 views="primaryIdentifier, symbol, organism.name,
                                        publications.title, publications.firstAuthor,
                                        publications.journal, publications.year, publications.pubMedId"
                                  externalLink="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=PubMed&amp;dopt=Abstract&amp;list_uids="/>
@@ -723,16 +739,17 @@
                                  startClassDisplay="primaryIdentifier"
                                  enrich="goAnnotation.ontologyTerm.parents.name"
                                  enrichIdentifier="goAnnotation.ontologyTerm.parents.identifier"
-                                 constraints="goAnnotation.ontologyTerm.parents.namespace=[Ontology],organism.name=[list],
-                                              primaryIdentifier != null, goAnnotation.qualifier = null,
+                                 constraints="goAnnotation.ontologyTerm.parents.namespace=[Ontology], organism.name=[list],
+                                              primaryIdentifier != null,
                                               goAnnotation.ontologyTerm.parents.identifier != go:0008150,
                                               goAnnotation.ontologyTerm.parents.identifier != go:0003674,
                                               goAnnotation.ontologyTerm.parents.identifier != go:0005575"
                                  typeClass="Gene"
-                                 views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                                 views="primaryIdentifier,symbol,organism.name,
                                        goAnnotation.ontologyTerm.identifier, goAnnotation.ontologyTerm.name,
                                        goAnnotation.ontologyTerm.parents.identifier,goAnnotation.ontologyTerm.parents.name"
-                                 externalLink="http://amigo.geneontology.org/cgi-bin/amigo/term_details?term="/>
+                                 externalLink="http://amigo.geneontology.org/cgi-bin/amigo/term_details?term="
+                                 correctionCoefficient="org.intermine.bio.web.widget.GeneLenghtCorrectionCoefficient"/>
 
     <enrichmentwidgetdisplayer id="prot_dom_enrichment_for_gene"
                                title="Protein Domain Enrichment"
@@ -744,7 +761,7 @@
                                enrichIdentifier="proteins.proteinDomains.primaryIdentifier"
                                constraints="organism.name=[list]"
                                typeClass="Gene"
-                               views="secondaryIdentifier,symbol,primaryIdentifier,organism.name,
+                               views="primaryIdentifier,symbol,primaryIdentifier,organism.name,
                                      proteins.proteinDomains.primaryIdentifier,proteins.proteinDomains.name"
                                externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
 
@@ -809,17 +826,18 @@
                                      proteinDomains.name"
                                externalLink="http://www.ebi.ac.uk/interpro/IEntry?ac="/>
 
-    <bagtabledisplayer id="orthologues" title="Orthologues" pathStrings="Gene.homologues[type=orthologue].homologue.organism"
-                       description="Counts of orthologues for the genes in this list."
-                       displayFields="name"
-                       exportField="primaryIdentifier"
-                       typeClass="Gene"
-                       columnTitle="Orthologues"
-                       views="secondaryIdentifier, symbol, organism.shortName,
-                              homologues.homologue.primaryIdentifier,
-                              homologues.homologue.symbol,
-                              homologues.homologue.organism.shortName,
-                              homologues.type"/>
+      <bagtabledisplayer id="orthologues" title="Orthologues" pathStrings="Gene.homologues[type!=paralogue].homologue.organism"
+                         description="Counts of genes in list with orthologues."
+                         displayFields="name"
+                         exportField="primaryIdentifier"
+                         typeClass="Gene"
+                         columnTitle="Genes"
+                         views="primaryIdentifier, symbol, organism.shortName,
+                                homologues.homologue.primaryIdentifier,
+                                homologues.homologue.symbol,
+                                homologues.homologue.organism.shortName,
+                                homologues.type"/>
+
   </widgets>
  
 </webconfig>
