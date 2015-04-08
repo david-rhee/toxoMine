@@ -14,6 +14,29 @@
   <collection name="geneLists" referenced-type="GeneList" reverse-reference="gene"/>
 </class>
 
+<class name="CDS" extends="SequenceFeature" is-interface="true">
+	<reference name="CDSMRNA" referenced-type="MRNA" reverse-reference="MRNACDSs"/>
+</class>
+
+<class name="Exon" extends="SequenceFeature" is-interface="true">
+	<reference name="exonMRNA" referenced-type="MRNA" reverse-reference="MRNAExons"/>
+	<reference name="exonTRNA" referenced-type="TRNA" reverse-reference="TRNAExons"/>
+	<reference name="exonRRNA" referenced-type="RRNA" reverse-reference="RRNAExons"/>
+</class>
+
+<class name="MRNA" extends="MatureTranscript" is-interface="true">
+	<collection name="MRNACDSs" referenced-type="CDS" reverse-reference="CDSMRNA"/>
+	<collection name="MRNAExons" referenced-type="Exon" reverse-reference="exonMRNA"/>
+</class>
+
+<class name="TRNA" extends="NcRNA" is-interface="true">
+	<collection name="TRNAExons" referenced-type="Exon" reverse-reference="exonTRNA"/>
+</class>
+
+<class name="RRNA" extends="NcRNA" is-interface="true">
+	<collection name="RRNAExons" referenced-type="Exon" reverse-reference="exonRRNA"/>
+</class>
+
 <class name="Organism" is-interface="true">
   <collection name="toxoplasmaMutants" referenced-type="ToxoplasmaMutant" reverse-reference="organism"/>
 </class>

@@ -33,11 +33,10 @@ public class ToxoDBGFF3RecordHandler extends GFF3RecordHandler
      */
     public ToxoDBGFF3RecordHandler (Model tgtModel) {
         super(tgtModel);
-        refsAndCollections.put("Exon", "transcripts");
-        refsAndCollections.put("Exon", "gene");
-        refsAndCollections.put("CDS", "gene");
-        refsAndCollections.put("CDS", "transcripts");
-        refsAndCollections.put("CDS", "protein");
+        refsAndCollections.put("Exon", "exonMRNA");
+        refsAndCollections.put("Exon", "exonRRNA");
+        refsAndCollections.put("Exon", "exonTRNA");
+        refsAndCollections.put("CDS", "CDSMRNA");
         refsAndCollections.put("TRNA", "gene");
         refsAndCollections.put("RRNA", "gene");
        	refsAndCollections.put("MRNA", "gene");

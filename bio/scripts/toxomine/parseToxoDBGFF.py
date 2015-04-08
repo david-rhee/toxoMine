@@ -4,7 +4,7 @@ from BCBio.GFF import GFFExaminer
 from BCBio import GFF
 
 ####################################################################################################################################
-# Parses out chromosome, contigs and supercontigs separately
+# Parses out chromosome, contigs, supercontigs, and fasta separately
 # Requirement
 # parseToxoDBGFF.py 
 def me49 (raw):
@@ -22,17 +22,17 @@ def me49 (raw):
                 outfile.write(raw[row])
     outfile.close()
 
-    outputFile = os.path.join(baseDirectory + '/' + inputType, 'contig/' + inputFile)
-    outfile = open(outputFile,'w')
-    outfile.write('##gff-version	3\n')
-    outfile.write('##feature-ontology      so.obo\n')
-    outfile.write('##attribute-ontology    gff3_attributes.obo\n') 
-    for row in range(0,len(raw)):
-        # For ME49 contig
-        m = re.match(r"ABPA", string.strip(raw[row]))
-        if m :
-            outfile.write(raw[row])
-    outfile.close()
+    # outputFile = os.path.join(baseDirectory + '/' + inputType, 'contig/' + inputFile)
+    # outfile = open(outputFile,'w')
+    # outfile.write('##gff-version	3\n')
+    # outfile.write('##feature-ontology      so.obo\n')
+    # outfile.write('##attribute-ontology    gff3_attributes.obo\n') 
+    # for row in range(0,len(raw)):
+    #     # For ME49 contig
+    #     m = re.match(r"ABPA", string.strip(raw[row]))
+    #     if m :
+    #         outfile.write(raw[row])
+    # outfile.close()
 
     outputFile = os.path.join(baseDirectory + '/' + inputType, 'supercontig/' + inputFile)
     outfile = open(outputFile,'w')
@@ -49,6 +49,26 @@ def me49 (raw):
                 if not b :
                     outfile.write(raw[row])
     outfile.close()
+
+    # for row in range(0,len(raw)):
+    #     # For ME49 gene fasta
+    #     m = re.match(r">(\S*)", string.strip(raw[row]))
+    #     tmpString = ''
+    #     if m :
+    #         tmpString += m.group(0) + '\n'
+    #         for row_in in range((row+1),len(raw)):
+    #             n = re.match(r">(\S*)", raw[row_in])
+    #             if n :
+    #                 o = re.match(r"TGME49_chr", m.group(1))
+    #                 if not o :
+    #                     outputFile = os.path.join(baseDirectory + '/' + inputType, 'fasta/' + m.group(1) + '.fasta')
+    #                     outfile = open(outputFile,'w')
+    #                     outfile.write(tmpString)
+    #                     outfile.close()
+    #                 row = row_in
+    #                 break;
+    #             else :
+    #                 tmpString += raw[row_in]
 
 def gt1 (raw):
     outputFile = os.path.join(baseDirectory + '/' + inputType, 'chromosome/' + inputFile)
@@ -81,6 +101,26 @@ def gt1 (raw):
                     outfile.write(raw[row])
     outfile.close()
 
+    # for row in range(0,len(raw)):
+    #     # For GT1 gene fasta
+    #     m = re.match(r">(\S*)", string.strip(raw[row]))
+    #     tmpString = ''
+    #     if m :
+    #         tmpString += m.group(0) + '\n'
+    #         for row_in in range((row+1),len(raw)):
+    #             n = re.match(r">(\S*)", raw[row_in])
+    #             if n :
+    #                 o = re.match(r"TGGT1_chr", m.group(1))
+    #                 if not o :
+    #                     outputFile = os.path.join(baseDirectory + '/' + inputType, 'fasta/' + m.group(1) + '.fasta')
+    #                     outfile = open(outputFile,'w')
+    #                     outfile.write(tmpString)
+    #                     outfile.close()
+    #                 row = row_in
+    #                 break;
+    #             else :
+    #                 tmpString += raw[row_in]
+
 def veg (raw):
     outputFile = os.path.join(baseDirectory + '/' + inputType, 'chromosome/' + inputFile)
     outfile = open(outputFile,'w')
@@ -112,6 +152,26 @@ def veg (raw):
                     outfile.write(raw[row])
     outfile.close()
 
+    # for row in range(0,len(raw)):
+    #     # For VEG gene fasta
+    #     m = re.match(r">(\S*)", string.strip(raw[row]))
+    #     tmpString = ''
+    #     if m :
+    #         tmpString += m.group(0) + '\n'
+    #         for row_in in range((row+1),len(raw)):
+    #             n = re.match(r">(\S*)", raw[row_in])
+    #             if n :
+    #                 o = re.match(r"TGVEG_chr", m.group(1))
+    #                 if not o :
+    #                     outputFile = os.path.join(baseDirectory + '/' + inputType, 'fasta/' + m.group(1) + '.fasta')
+    #                     outfile = open(outputFile,'w')
+    #                     outfile.write(tmpString)
+    #                     outfile.close()
+    #                 row = row_in
+    #                 break;
+    #             else :
+    #                 tmpString += raw[row_in]
+
 ######################################
 baseDirectory = '%s'%sys.argv[1]
 inputType = '%s'%sys.argv[2]
@@ -123,6 +183,8 @@ programCall = 'mkdir -p ' + baseDirectory + '/' + inputType + '/supercontig'
 commands.getstatusoutput(programCall)
 programCall = 'mkdir -p ' + baseDirectory + '/' + inputType + '/contig'
 commands.getstatusoutput(programCall)
+# programCall = 'mkdir -p ' + baseDirectory + '/' + inputType + '/fasta'
+# commands.getstatusoutput(programCall)
 
 infile = open(baseDirectory + '/' + inputFile)
 raw = infile.readlines()
