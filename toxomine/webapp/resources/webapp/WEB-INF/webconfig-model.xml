@@ -6,6 +6,9 @@
             <title mainTitles="name" numberOfMainTitlesToShow="1" />
         </titles>
     </headerconfig>
+    <fields>
+    	<fieldconfig fieldExpr="name" label="Author" />
+    </fields>
   </class>
 
   <class className="org.intermine.model.bio.BindingSite">
@@ -15,10 +18,9 @@
         </titles>
     </headerconfig>
     <fields>
-    	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="score"/>
-      	<fieldconfig fieldExpr="scoreType"/>
-      	<fieldconfig fieldExpr="qvalue"/>
+    	<fieldconfig fieldExpr="primaryIdentifier" label="Binding Site" />
+      	<fieldconfig fieldExpr="score" label="Score" />
+      	<fieldconfig fieldExpr="qvalue" label="q-value" />
     </fields>    
   </class>
 
@@ -40,9 +42,9 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="mrna.primaryIdentifier" showInInlineCollection="false"/>
-      	<fieldconfig fieldExpr="organism.name" label="Organism Name" />
+      	<fieldconfig fieldExpr="primaryIdentifier" label="CDS" />
+      	<fieldconfig fieldExpr="CDSMRNA.primaryIdentifier" label="mRNA" showInInlineCollection="false"/>
+      	<fieldconfig fieldExpr="organism.name" label="Organism" />
     </fields>
   </class>
 
@@ -53,8 +55,8 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="organism.name" label="Organism Name" />
+      	<fieldconfig fieldExpr="primaryIdentifier" label="Chromosome" />
+      	<fieldconfig fieldExpr="organism.name" label="Organism" />
      	<fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
     </fields>
   </class>
@@ -78,8 +80,8 @@
     	</titles>
     </headerconfig>
     <fields>
-    	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="organism.name" label="Organism Name" />
+    	<fieldconfig fieldExpr="primaryIdentifier" label="Contig" />
+      	<fieldconfig fieldExpr="organism.name" label="Organism" />
       	<fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
     </fields>
   </class>
@@ -91,7 +93,7 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="identifier" label="Identifier" />
+      	<fieldconfig fieldExpr="identifier" label="xReference" />
       	<fieldconfig fieldExpr="source.name" label="Source" />
       	<fieldconfig fieldExpr="subject.primaryIdentifier" label="Subject" />
     </fields>
@@ -104,7 +106,7 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="name"/>
+      	<fieldconfig fieldExpr="name" label="Data Set" />
       	<fieldconfig fieldExpr="description"/>
       	<fieldconfig fieldExpr="url" doNotTruncate="true"/>
     </fields>
@@ -117,7 +119,7 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="name"/>
+      	<fieldconfig fieldExpr="name" label="Data Source" />
     </fields>
     <tabledisplayer src="/model/dataSourceShort.jsp"/>
   </class>
@@ -129,7 +131,8 @@
     	</titles>
     </headerconfig>
     <fields>
-      <fieldconfig fieldExpr="primaryIdentifier"/>
+      <fieldconfig fieldExpr="primaryIdentifier" label="Exon" />
+      <fieldconfig fieldExpr="exonMRNA.primaryIdentifier" label="mRNA" showInInlineCollection="false"/>
       <fieldconfig fieldExpr="organism.name" label="Organism"/>
     </fields>
   </class>
@@ -141,7 +144,7 @@
     	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
+      	<fieldconfig fieldExpr="primaryIdentifier" label="Gene" />
       	<fieldconfig fieldExpr="description"/>      
       	<fieldconfig fieldExpr="organism.name" label="Organism"/>
     </fields>
@@ -185,7 +188,7 @@
       	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="identifier"/>
+      	<fieldconfig fieldExpr="identifier" label="GO Term" />
       	<fieldconfig fieldExpr="name"/>
       	<fieldconfig fieldExpr="description" showInResults="false" showInInlineCollection="false" doNotTruncate="true" />
     </fields>
@@ -198,10 +201,9 @@
         </titles>
     </headerconfig>
     <fields>
-    	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="score"/>
-      	<fieldconfig fieldExpr="scoreType"/>
-      	<fieldconfig fieldExpr="qvalue"/>
+    	<fieldconfig fieldExpr="primaryIdentifier" label="Histone Binding Site" />
+      	<fieldconfig fieldExpr="score" label="Score" />
+      	<fieldconfig fieldExpr="qvalue" label="q-value" />
     </fields>
   </class>
 
@@ -213,8 +215,8 @@
     </headerconfig>
     <fields>
       	<fieldconfig fieldExpr="type"/>
-      	<fieldconfig fieldExpr="gene.primaryIdentifier" showInResults="false" showInInlineCollection="false" />
-      	<fieldconfig fieldExpr="homologue.primaryIdentifier"/>
+      	<fieldconfig fieldExpr="gene.primaryIdentifier" label="Gene" showInResults="false" showInInlineCollection="false" />
+      	<fieldconfig fieldExpr="homologue.primaryIdentifier" label="Homologue" />
       	<fieldconfig fieldExpr="homologue.organism.name" label="Homologue Organism"/>
     </fields>
   </class>
@@ -244,6 +246,18 @@
       	<fieldconfig fieldExpr="start"/>
       	<fieldconfig fieldExpr="end"/>
       	<fieldconfig fieldExpr="strand"/>
+    </fields>
+  </class>
+
+  <class className="org.intermine.model.bio.MRNA">
+    <headerconfig>
+    	<titles>
+    		<title mainTitles="primaryIdentifier" numberOfMainTitlesToShow="1" subTitles="*organism.shortName*" />
+    	</titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier" label="mRNA" />
+      <fieldconfig fieldExpr="organism.name" label="Organism"/>
     </fields>
   </class>
 
@@ -293,7 +307,7 @@
   <class className="org.intermine.model.bio.OntologyTerm">
     <headerconfig>
     	<titles>
-      		<title mainTitles="name" numberOfMainTitlesToShow="1" />
+      		<title mainTitles="name" numberOfMainTitlesToShow="1" subTitles="ontology.name" />
  		</titles>
     </headerconfig>
     <fields>
@@ -321,7 +335,7 @@
     </headerconfig>
     <fields>
       	<fieldconfig fieldExpr="name"/>
-      	<fieldconfig fieldExpr="taxonId"/>
+      	<fieldconfig fieldExpr="taxonId" label="Taxon ID" />
     </fields>
   </class>
 
@@ -368,16 +382,16 @@
       	<table path="synonyms.value" showLinksToObjects="true" />
     </inlinelist>
     <fields>
-    	<fieldconfig fieldExpr="primaryIdentifier"/>
+    	<fieldconfig fieldExpr="primaryIdentifier" label="Protein" />
       	<fieldconfig fieldExpr="primaryAccession"/>
-      	<fieldconfig fieldExpr="organism.name"/>
+      	<fieldconfig fieldExpr="organism.name" label="Organism" />
       	<fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
     </fields>
   </class>
 
   <class className="org.intermine.model.bio.ProteinDomain">
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
+      	<fieldconfig fieldExpr="primaryIdentifier" label="Protein Domain" />
       	<fieldconfig fieldExpr="name"/>
       	<fieldconfig fieldExpr="shortName"/>
     </fields>
@@ -413,6 +427,18 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.RRNA">
+    <headerconfig>
+    	<titles>
+    		<title mainTitles="primaryIdentifier" numberOfMainTitlesToShow="1" subTitles="*organism.shortName*" />
+    	</titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier" label="rRNA" />
+      <fieldconfig fieldExpr="organism.name" label="Organism"/>
+    </fields>
+  </class>
+
   <class className="org.intermine.model.bio.Sequence">
     <fields>
       	<fieldconfig fieldExpr="residues" fieldExporter="org.intermine.bio.web.export.ResidueFieldExporter"
@@ -441,8 +467,8 @@
     	</titles>
     </headerconfig>
     <fields>
-    	<fieldconfig fieldExpr="primaryIdentifier"/>
-      	<fieldconfig fieldExpr="organism.name" label="Organism Name" />
+    	<fieldconfig fieldExpr="primaryIdentifier" label="Super Contig" />
+      	<fieldconfig fieldExpr="organism.name" label="Organism" />
       	<fieldconfig fieldExpr="length" displayer="/model/sequenceShortDisplayerWithField.jsp" />
     </fields>
   </class>
@@ -455,16 +481,16 @@
 
   <class className="org.intermine.model.bio.TFBindingSite">
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
+      	<fieldconfig fieldExpr="primaryIdentifier" label="TF Binding Site" />
       	<fieldconfig fieldExpr="length"/>
       	<fieldconfig fieldExpr="score"/>
-      	<fieldconfig fieldExpr="gene.symbol" label="Gene"/>
+      	<fieldconfig fieldExpr="gene.primaryIdentifier" label="Gene"/>
     </fields>
   </class>
 
   <class className="org.intermine.model.bio.Transcript">
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
+      	<fieldconfig fieldExpr="primaryIdentifier" label="Transcript" />
       	<fieldconfig fieldExpr="gene.primaryIdentifier" label="Gene" showInSummary="false" />
       	<fieldconfig fieldExpr="chromosomeLocation" displayer="/model/chromosomeLocDisplayer.jsp" showInResults="false"/>
       	<fieldconfig fieldExpr="chromosome.primaryIdentifier" showInInlineCollection="false" showInSummary="false" />
@@ -473,9 +499,21 @@
     </fields>
   </class>
 
+  <class className="org.intermine.model.bio.TRNA">
+    <headerconfig>
+    	<titles>
+    		<title mainTitles="primaryIdentifier" numberOfMainTitlesToShow="1" subTitles="*organism.shortName*" />
+    	</titles>
+    </headerconfig>
+    <fields>
+      <fieldconfig fieldExpr="primaryIdentifier" label="tRNA" />
+      <fieldconfig fieldExpr="organism.name" label="Organism"/>
+    </fields>
+  </class>
+
   <class className="org.intermine.model.bio.TSSRegion">
     <fields>
-      	<fieldconfig fieldExpr="primaryIdentifier"/>
+      	<fieldconfig fieldExpr="primaryIdentifier" label="TSS Region" />
       	<fieldconfig fieldExpr="peak"/>
       	<fieldconfig fieldExpr="peakCount"/>
       	<fieldconfig fieldExpr="chromosomeLocation" displayer="/model/chromosomeLocDisplayer.jsp" showInResults="false"/>
@@ -554,7 +592,7 @@
       	</titles>
     </headerconfig>
     <fields>
-      	<fieldconfig fieldExpr="TCid" />
+      	<fieldconfig fieldExpr="TCid" label="TC ID" />
       	<fieldconfig fieldExpr="name" label="Name" />
       	<fieldconfig fieldExpr="technique" />
       	<fieldconfig fieldExpr="qualityControl" />

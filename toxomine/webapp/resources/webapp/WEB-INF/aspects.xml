@@ -1,5 +1,14 @@
 <aspects>
 
+  <aspect name="Conditions">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Conditions
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
   <aspect name="Genomics">
     <subtitle>Genome annotation</subtitle>
     <icon-image>model/images/genomics.gif</icon-image>
@@ -11,17 +20,13 @@
     <aspect-source name="ToxoDB" url="http://www.toxodb.org"/>
   </aspect>
 
-  <aspect name="Proteins">
-    <subtitle>Protein and&lt;br/&gt;proteomics data</subtitle>
-    <icon-image>model/images/proteins.png</icon-image>
-    <large-image>model/images/proteins.png</large-image>
+  <aspect name="Functions">
+    <subtitle>GO</subtitle>
     <intro-text>
-      Protein annotation, including family and domain annotation, from UniProt
-      and InterPro.
+        GO
     </intro-text>
-    <tile-name>model/proteins.jsp</tile-name>
-    <aspect-source name="InterPro" url="http://www.ebi.ac.uk/interpro"/>
-    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
+    <tile-name>model/GO.jsp</tile-name>
+    <aspect-source name="GO" url="http://geneontology.org"/>
   </aspect>
 
   <aspect name="Interactions">
@@ -46,15 +51,6 @@
     <tile-name>model/homology.jsp</tile-name>
     <aspect-source name="OrthoMCLDB" url="http://orthomcl.org"/>
   </aspect>
-  
-  <aspect name="Functions">
-    <subtitle>GO</subtitle>
-    <intro-text>
-        GO
-    </intro-text>
-    <tile-name>model/GO.jsp</tile-name>
-    <aspect-source name="GO" url="http://geneontology.org"/>
-  </aspect>
 
   <aspect name="Literature">
     <subtitle>PUBMED</subtitle>
@@ -66,15 +62,6 @@
     <aspect-source name="NCBI" url="http://www.ncbi.nlm.nih.gov/"/>
   </aspect>
 
-  <aspect name="Conditions">
-    <subtitle></subtitle>
-    <icon-image></icon-image>
-    <large-image></large-image>
-    <intro-text>Conditions
-    </intro-text>
-    <tile-name></tile-name>
-  </aspect>
-
   <aspect name="Methods">
     <subtitle></subtitle>
     <icon-image></icon-image>
@@ -82,6 +69,28 @@
     <intro-text>Methods
     </intro-text>
     <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Omics">
+    <subtitle></subtitle>
+    <icon-image></icon-image>
+    <large-image></large-image>
+    <intro-text>Omics
+    </intro-text>
+    <tile-name></tile-name>
+  </aspect>
+
+  <aspect name="Proteins">
+    <subtitle>Protein and&lt;br/&gt;proteomics data</subtitle>
+    <icon-image>model/images/proteins.png</icon-image>
+    <large-image>model/images/proteins.png</large-image>
+    <intro-text>
+      Protein annotation, including family and domain annotation, from UniProt
+      and InterPro.
+    </intro-text>
+    <tile-name>model/proteins.jsp</tile-name>
+    <aspect-source name="InterPro" url="http://www.ebi.ac.uk/interpro"/>
+    <aspect-source name="UniProt" url="http://www.uniprot.org"/>
   </aspect>
 
   <aspect name="Results">

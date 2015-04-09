@@ -258,7 +258,7 @@
   </query>
 </template>
 <template name="Submission_Submission_BindingSite" title="Submission(s) + Submission(s) --&gt; Overlapping Binding sites" comment="">
-<query name="" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name" longDescription="Show the binding sites that overlap between binding sites of two submissions" constraintLogic="A and B">
+<query name="Submission_Submission_BindingSite" model="genomic" view="Submission.name Submission.features.primaryIdentifier Submission.features.chromosome.primaryIdentifier Submission.features.chromosomeLocation.end Submission.features.chromosomeLocation.start Submission.features.overlappingFeatures.primaryIdentifier Submission.features.overlappingFeatures.chromosome.primaryIdentifier Submission.features.overlappingFeatures.chromosomeLocation.end Submission.features.overlappingFeatures.chromosomeLocation.start Submission.features.overlappingFeatures.submissions.name" longDescription="Show the binding sites that overlap between binding sites of two submissions" constraintLogic="A and B">
   <constraint path="Submission.features" type="BindingSite"/>
   <constraint path="Submission.features.overlappingFeatures" type="BindingSite"/>
   <constraint path="Submission.name" editable="true" code="A" op="=" value="TC1_GCN5B_MG_CC_Rep1"/>
@@ -328,29 +328,121 @@
   <tag name="im:public" objectIdentifier="ProtocolType_Submissions" type="template"></tag>
   <tag name="im:public" objectIdentifier="Submission_Submission_BindingSite" type="template"></tag>
   <tag name="im:public" objectIdentifier="FeatureType_submissions" type="template"></tag>
-  <tag name="im:public" objectIdentifier="GOtermidentifier_name" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_Identifiers" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_allGOTerms" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Gene_particularGoannotation" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Organism_GoTerm_Gene" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Organism_GoTerm_GeneWithannotation" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Protein_GOterms" type="template"></tag>
-  <tag name="im:public" objectIdentifier="Protein_GOtermsSpecificOntology" type="template"></tag>
 
-  <tag name="im:frontpage" objectIdentifier="Gene_GO" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="Gene_Protein" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="Protein_GOterms" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="Gene_allGOTerms" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="Organism_Protein" type="template"></tag>
-  <tag name="im:frontpage" objectIdentifier="Organism_GoTerm_GeneWithannotation" type="template"></tag>
-
-  <tag name="im:aspect:Genomics" objectIdentifier="Gene_Protein" type="template"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="GO_name_Gene" type="template"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="Organism_GoTerm_Gene" type="template"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="Gene_particularGoannotation" type="template"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="Gene_allGOTerms" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="TSSRegions_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="TSSRegions_FlankingRegion_Gene" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="ChIP_Target_TSSRegions" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="ChIP_Target_Submissions" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="ChIP_Target_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="ChIP_Target_Gene_Flanking_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_Adjacent_Genes" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_FlankingRegion_BindingSites_Genes" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_FlankingRegion_OverlappingFeatures" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_FlankingRegion_TSSRegions" type="template"></tag>
   <tag name="im:aspect:Genomics" objectIdentifier="Gene_GO" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_Organism1_Orthologue_Organism2" type="template"></tag>  
+  <tag name="im:aspect:Genomics" objectIdentifier="Gene_Protein" type="template"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Proteins_In_Organism_To_Publications" type="template"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="InterProDomain_ProteinGene" type="template"></tag>  
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein_GeneChromosomeLength" type="template"></tag>  
+  <tag name="im:aspect:Proteins" objectIdentifier="Proteins_To_Domains" type="template"></tag> 
+  <tag name="im:aspect:Genomics" objectIdentifier="Organism_Gene" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Organism_GeneDomain" type="template"></tag>  
+  <tag name="im:aspect:Proteins" objectIdentifier="Organism_Protein" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome_Gene" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome_IntergenicSequence" type="template"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Chromosome_Location_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Project_features" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Experiment_features" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Submission_features" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Experiment_Category_Submissions" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Experiment_Category_ToxoplasmaMutant" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Submission_BindingSites" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="ProtocolType_Submissions" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="Submission_Submission_BindingSite" type="template"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="FeatureType_submissions" type="template"></tag>
+
+  <tag name="im:report" objectIdentifier="TSSRegions_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="TSSRegions_FlankingRegion_Gene" type="template"></tag>
+  <tag name="im:report" objectIdentifier="ChIP_Target_TSSRegions" type="template"></tag>
+  <tag name="im:report" objectIdentifier="ChIP_Target_Submissions" type="template"></tag>
+  <tag name="im:report" objectIdentifier="ChIP_Target_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="ChIP_Target_Gene_Flanking_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_Adjacent_Genes" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_FlankingRegion_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_FlankingRegion_BindingSites_Genes" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_FlankingRegion_OverlappingFeatures" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_FlankingRegion_TSSRegions" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_GO" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Gene_Organism1_Orthologue_Organism2" type="template"></tag>  
+  <tag name="im:report" objectIdentifier="Gene_Protein" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Proteins_In_Organism_To_Publications" type="template"></tag>
+  <tag name="im:report" objectIdentifier="InterProDomain_ProteinGene" type="template"></tag>  
+  <tag name="im:report" objectIdentifier="Protein_GeneChromosomeLength" type="template"></tag>  
+  <tag name="im:report" objectIdentifier="Proteins_To_Domains" type="template"></tag> 
+  <tag name="im:report" objectIdentifier="Organism_Gene" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Organism_GeneDomain" type="template"></tag>  
+  <tag name="im:report" objectIdentifier="Organism_Protein" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Chromosome_Gene" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Chromosome_IntergenicSequence" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Chromosome_Location_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Project_features" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Experiment_features" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Submission_features" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Experiment_Category_Submissions" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Experiment_Category_ToxoplasmaMutant" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Submission_BindingSites" type="template"></tag>
+  <tag name="im:report" objectIdentifier="ProtocolType_Submissions" type="template"></tag>
+  <tag name="im:report" objectIdentifier="Submission_Submission_BindingSite" type="template"></tag>
+  <tag name="im:report" objectIdentifier="FeatureType_submissions" type="template"></tag>
+
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.TSSRegion" type="class"></tag>  
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.GOTerm" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Gene" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Exon" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.NcRNA" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.UTR" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.ChromosomeBand" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Chromosome" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Contig" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Supercontig" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.SnoRNA" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.MRNA" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.TRNA" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.RRNA" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.BindingSite" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.TFBindingSite" type="class"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.HistoneBindingSite" type="class"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinDomain" type="class"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinInteraction" type="class"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.Protein" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Lab" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Project" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Experiment" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Submission" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Protocol" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.AppliedProtocol" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.SubmissionData" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.DataAnalysis" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.ExperimentalFactor" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.MicroArray" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Sequencing" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.Antibody" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.ToxoplasmaMutant" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.PersistentDataFile" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.SubmissionDataFile" type="class"></tag>
+  <tag name="im:aspect:Omics" objectIdentifier="org.intermine.model.bio.GeneList" type="class"></tag>
+      
+  <tag name="im:aspect:Genomics" objectIdentifier="CDS.MRNA" type="reference"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.chromosomeLocation" type="reference"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.sequence" type="reference"></tag>
+  <tag name="im:aspect:Genomics" objectIdentifier="Transcript.gene" type="reference"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="Protein.sequence" type="reference"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="CDS.protein" type="reference"></tag>
+  <tag name="im:aspect:Proteins" objectIdentifier="ProteinInteraction.protein" type="reference"></tag>
 
   <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.overlappingFeatures" type="collection"></tag>
   <tag name="im:aspect:Genomics" objectIdentifier="Chromosome.genes" type="collection"></tag>
@@ -363,38 +455,11 @@
   <tag name="im:aspect:Genomics" objectIdentifier="MRNA.UTRs" type="collection"></tag>
   <tag name="im:aspect:Genomics" objectIdentifier="Transcript.introns" type="collection"></tag>
   <tag name="im:aspect:Genomics" objectIdentifier="Chromosome.features" type="collection"></tag>
-      
-  <tag name="im:aspect:Genomics" objectIdentifier="CDS.MRNA" type="reference"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.chromosomeLocation" type="reference"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="LocatedSequenceFeature.sequence" type="reference"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="Transcript.gene" type="reference"></tag>
-  
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.GOTerm" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Gene" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.NcRNA" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.UTR" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.ChromosomeBand" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.Chromosome" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.SnoRNA" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.MRNA" type="class"></tag>
-  <tag name="im:aspect:Genomics" objectIdentifier="org.intermine.model.bio.TFBindingSite" type="class"></tag>
-
-  <tag name="im:aspect:Proteins" objectIdentifier="Gene_Protein" type="template"></tag>
-  <tag name="im:aspect:Proteins" objectIdentifier="Protein_GOtermsSpecificOntology" type="template"></tag>
-  
-  <tag name="im:aspect:Proteins" objectIdentifier="Protein.sequence" type="reference"></tag>
-  <tag name="im:aspect:Proteins" objectIdentifier="CDS.protein" type="reference"></tag>
-  <tag name="im:aspect:Proteins" objectIdentifier="ProteinInteraction.protein" type="reference"></tag>
-  
   <tag name="im:aspect:Proteins" objectIdentifier="Gene.proteins" type="collection"></tag>
   <tag name="im:aspect:Proteins" objectIdentifier="CDS.polypeptides" type="collection"></tag>
   <tag name="im:aspect:Proteins" objectIdentifier="Protein.proteinDomains" type="collection"></tag>
   <tag name="im:aspect:Proteins" objectIdentifier="Protein.features" type="collection"></tag>
   <tag name="im:aspect:Proteins" objectIdentifier="Protein.keywords" type="collection"></tag>    
-
-  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinDomain" type="class"></tag>
-  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.ProteinInteraction" type="class"></tag>
-  <tag name="im:aspect:Proteins" objectIdentifier="org.intermine.model.bio.Protein" type="class"></tag>
     
   <tag name="im:converter" objectIdentifier="Protein_To_Gene_Type_Converter" type="template"></tag>
   <tag name="im:converter" objectIdentifier="Gene_To_Protein_Type_Converter" type="template"></tag>
@@ -418,6 +483,14 @@
   <tag name="im:summary" objectIdentifier="Gene.proteins" type="collection"></tag>
   <tag name="im:summary" objectIdentifier="Protein.genes" type="collection"></tag>
   <tag name="im:summary" objectIdentifier="Gene.publications" type="collection"></tag>
-  <tag name="im:summary" objectIdentifier="Protein.publications" type="collection"></tag>  
+  <tag name="im:summary" objectIdentifier="Protein.publications" type="collection"></tag>
+
+  <tag name="im:frontpage" objectIdentifier="Gene_GO" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="Gene_Protein" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="All_Proteins_In_Organism_To_Publications" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="Protein_GOterms" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="Gene_allGOTerms" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="Organism_Protein" type="template"></tag>
+  <tag name="im:frontpage" objectIdentifier="Organism_GoTerm_GeneWithannotation" type="template"></tag>
 </tags>
 </userprofile>
