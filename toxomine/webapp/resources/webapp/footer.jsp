@@ -43,7 +43,7 @@
 <!-- mines -->
 <div class="body" align="center" style="clear:both">
     <p class="footer-copy">
-        &copy; 2013 - 2015 Department of Pathology, Albert Einstein College of Medicine, Bronx NY USA
+        &copy; 2013 - 2015 toxoMine
     </p>
     <div style="clear:both"></div>
 </div>
