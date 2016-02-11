@@ -2,7 +2,7 @@
 
 [http://toxomine.org](http://toxomine.org)
 
-[David B. Rhee et al. (2015) toxoMine: an integrated omics data warehouse for Toxoplasma gondii systems biology research. Database (2015) 2015 : bav066 doi: 10.1093/database/bav066](http://database.oxfordjournals.org/content/2015/bav066.full)
+[David B. Rhee et al. (2015) toxoMine: an integrated omics data warehouse for Toxoplasma gondii systems biology research.](http://database.oxfordjournals.org/content/2015/bav066.full)
 
 =
 
